@@ -1,0 +1,56 @@
+.sub-nav{
+    height: 1.253333rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;  
+    border-top: 1px solid rgba(0,0,0,0.08);  
+    .nav-item{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.22rem;
+        color: #595d60;
+        i{
+            width: 0.42rem;
+            height: 0.42rem;
+            margin: 0 auto;
+            background-size: 100% 100%;
+        }
+        //icon
+        .home{
+            background-image: url(../images/subNav/icon-home.png);
+        }
+        .welfare{
+            background-image: url(../images/subNav/icon-welfare.png);
+        }
+        .sort{
+            background-image: url(../images/subNav/icon-sort.png);
+        }
+        .cart{
+            background-image: url(../images/subNav/icon-cart.png);
+        }
+        .mine{
+            background-image: url(../images/subNav/icon-mine.png);
+        }
+
+    }
+    .nav-current{
+        color: #e74c3c;
+        .home{
+            background-image: url(../images/subNav/icon-home-in.png);
+        }
+        .welfare{
+            background-image: url(../images/subNav/icon-welfare-in.png);
+        }
+        .sort{
+            background-image: url(../images/subNav/icon-sort-in.png);
+        }
+        .cart{
+            background-image: url(../images/subNav/icon-cart-in.png);
+        }
+        .mine{
+            background-image: url(../images/subNav/icon-mine-in.png);
+        }
+    }
+}
