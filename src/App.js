@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 
 import './assets/css/common/reset.css';
+import Home from "./pages/Home"
 
 class App extends Component{
   constructor(){
@@ -19,7 +20,7 @@ class App extends Component{
   render(){
     return (
       <div className="App">
-        
+        <Home/>
       </div>
     );
   }

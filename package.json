@@ -133,12 +133,12 @@
   },
   "postcss": {
     "plugins": {
-        "autoprefixer": {},
-        "postcss-px-to-viewport": {
-            "viewportWidth": 750,
-            "minPixelValue": 1,
-            "unitPrecision":3
-        }
+      "autoprefixer": {},
+      "postcss-px-to-viewport": {
+        "viewportWidth": 750,
+        "minPixelValue": 1,
+        "unitPrecision": 3
+      }
     }
   }
 }
