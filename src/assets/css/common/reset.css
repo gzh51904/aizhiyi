@@ -141,6 +141,7 @@ em {
 
 /************** common *****************/
 
+<<<<<<< HEAD
 html,body{
     height: 100%;
 
@@ -156,10 +157,30 @@ html,body{
 #root{
     height: 100%;
 }
+=======
+html,
+body {
+    height: 100%;
+
+}
+
+main {
+    overflow-y: auto;
+}
+
+#root {
+    height: 100%;
+}
+
+>>>>>>> 21c9cd268d0690b46c556cc515d10a932c7ca951
 .App{
     height: 100%;
     display: flex;
     flex-direction:column;
     font-size: 0.3rem;
+<<<<<<< HEAD
 }
 /************** common *****************/
+=======
+}
+>>>>>>> 21c9cd268d0690b46c556cc515d10a932c7ca951

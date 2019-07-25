@@ -1,8 +1,7 @@
-import React,{Component} from 'react';
-
+import React, { Component } from 'react';
 import './assets/css/common/reset.css';
 
-import {Route, Redirect, Switch, withRouter,HashRouter} from 'react-router-dom';
+import { Route, Redirect, Switch, withRouter, HashRouter } from 'react-router-dom';
 
 import SubNav from './components/SubNav';
 
@@ -12,8 +11,8 @@ import Sort from './pages/Sort';
 import Cart from './pages/Cart';
 import Mine from './pages/Mine';
 
-class App extends Component{
-  render(){
+class App extends Component {
+  render() {
     return (
       <div className="App">
         <HashRouter>
@@ -22,6 +21,7 @@ class App extends Component{
             <Route path="/home" component={Home} />
             <Route path="/welfare" component={Welfare} />
             <Route path="/sort" component={Sort} />
+            {/* <Route path="/sort/:id" component={Sort} /> */}
             <Route path="/cart" component={Cart} />
             <Route path="/mine" component={Mine} />
             <Route path="/404" render={() => <div>oh no 404</div>} />
@@ -30,6 +30,7 @@ class App extends Component{
           <SubNav /> 
         </HashRouter>
       </div>
+
     );
   }
 }
