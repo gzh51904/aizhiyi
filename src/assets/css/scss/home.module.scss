@@ -262,6 +262,9 @@
                                     font-size: 0.24rem;
                                     color: #999999;
                                     background-color: white;
+                                    overflow: hidden;
+                                    white-space: nowrap;
+                                    text-overflow: ellipsis;
                                 }
                                 .name{
                                     margin: 0.2rem 0 0.1rem 0.15rem;
@@ -342,8 +345,10 @@
             }
         }
         .love_groupList {
+            height: 3.9rem;
             ul{
                 margin-bottom: 0;
+                height: 3.9rem;
          li.one {
                     padding: 0.24rem 0.3rem;
                     position: relative;
@@ -544,8 +549,5 @@
             }
         }
         }
-        .footer{
-            height: 1.253333rem;
-            background: red;
-        }
+        
     }

@@ -1,25 +1,25 @@
-import React,{Component}from 'react';
+import React, { Component } from 'react';
 import styles from '../../assets/scss/sort.module.scss'
 // import '../../assets/'
 import '../../assets/css/common/reset.css';
-import {Menu,Icon,} from 'antd';
-class Sort extends Component{
-    constructor(){
+import { Menu, Icon, } from 'antd';
+class Sort extends Component {
+    constructor() {
         super();
-        this.state={
-            data:[]
+        this.state = {
+            data: []
         }
     }
     handleClick = e => {
         console.log('click ', e);
 
         console.log(e);
-        
+
         this.setState({
-          current: e.key,
+            current: e.key,
         });
-      };
-    render(){
+    };
+    render() {
         // let  imgurl = require('../../assets/img/sort/nav1.jpg')
         return <div className={styles.cont}>
             <div className={styles.header}>
@@ -74,14 +74,14 @@ class Sort extends Component{
                 <div className={styles.nav_main}>
                     <div className={styles.nav_main_top}>
                         <a href="">
-                        <img src={[require('../../assets/img/sort/nav1.jpg')]} alt=""/>
+                            {/* <img src={[require('../../assets/img/sort/nav1.jpg')]} alt=""/> */}
                         </a>
                     </div>
 
                     <dl className={styles.nav_main_bottom}>
                         <dt>
                             <a href="">
-                                <img src={[require('../../assets/img/sort/bgwhile.png')]} alt=""/>
+                                {/* <img src={[require('../../assets/img/sort/bgwhile.png')]} alt=""/> */}
                                 <span>热门专馆</span>
                             </a>
                         </dt>

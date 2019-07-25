@@ -293,6 +293,9 @@
   font-size: 0.24rem;
   color: #999999;
   background-color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .cont .main .active_con .wrap .frame ul li a .name {
@@ -378,8 +381,13 @@
   display: block;
 }
 
+.cont .main .love_groupList {
+  height: 3.9rem;
+}
+
 .cont .main .love_groupList ul {
   margin-bottom: 0;
+  height: 3.9rem;
 }
 
 .cont .main .love_groupList ul li.one {
@@ -598,9 +606,4 @@
   top: 50%;
   margin-top: -0.09rem;
   padding: 0;
-}
-
-.cont .footer {
-  height: 1.253333rem;
-  background: red;
 }
