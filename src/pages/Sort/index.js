@@ -5,6 +5,9 @@ import {Route,Switch} from 'react-router-dom';
 import {api} from '../../utils/index.js';
 import '../../assets/css/common/reset.css';
 import {Menu,Icon,} from 'antd';
+import SortMain from '../../components/SortMain';
+import {NavLink} from 'react-router-dom'
+import {HashRouter} from 'react-router-dom';
 class Sort extends Component{
     constructor(){
         super();
@@ -44,11 +47,18 @@ class Sort extends Component{
     //   };
     goto(gc_id){
         let {history} = this.props
-
+        console.log(history);
+        
+        history.push("sort/"+ gc_id)
+        //console.log(history);
+        
     }
     render(){
         // console.log(api)
         // let  imgurl = require('../../assets/img/sort/nav1.jpg')
+        let {location:{pathname}} = this.props
+        console.log("res="+pathname);
+        
         return <div className={styles.cont}>
             <div className={styles.header}>
                 <span>分类</span>
@@ -61,63 +71,26 @@ class Sort extends Component{
             <div className={styles.main}>
                 <div className={styles.nav}>
                     <ul>
-                        <a href="javascript:void(0);">
+                        <NavLink href="javascript:void(0);" to={'/sort/1905'} data={this.state.datas}>
                             <li>专馆基地</li>
-                        </a>
-                        <a href="javascript:void(0);">
+                        </NavLink>
+                        <NavLink href="javascript:void(0);" to={'/sort/1905'}>
                             <li>活动专区</li>
-                        </a>
+                        </NavLink>
                         {
                             this.state.class_list.map(item=>{
-                                return<a href="javascript:void(0);" key={item.gc_id} onClick={this.goto.bind(this,item.gc_id)}>
-                                        <li>{item.gc_name}</li>
-                                      </a>
+                                return(
+                                        <NavLink href="javascript:void(0);" key={item.gc_id} to={'/sort/'+item.gc_id} data={this.state.class_list}>
+                                            <li>{item.gc_name}</li>
+                                        </NavLink>)
                             })
                         }
                         
                     </ul>
                 </div>
                 <Switch>
-
-                    {/* <Route path="/sort/SMain/:id" component={Sort} /> */}
-                </Switch>
-                <div className={styles.nav_main}>
-                    <div className={styles.nav_main_top}>
-                        <a href="">
-                        <img src={[require('../../assets/images/sort/nav1.jpg')]} alt=""/>
-                        </a>
-                    </div>
-
-                    <dl className={styles.nav_main_bottom}>
-                        <dt>
-                            <a href="">
-                                <img src={[require('../../assets/images/sort/bgwhile.png')]} alt=""/>
-                                <span>热门专馆</span>
-                            </a>
-                        </dt>
-                        <dd>
-                            <a href="">
-                                {/* <img src="" alt=""/> */}
-                                <div></div>
-                                <p>文创生活馆</p>
-                            </a>
-                        </dd>
-                        <dd>
-                            <a href="">
-                                {/* <img src="" alt=""/> */}
-                                <div></div>
-                                <p>文创生活馆</p>
-                            </a>
-                        </dd>
-                        <dd>
-                            <a href="">
-                                {/* <img src="" alt=""/> */}
-                                <div></div>
-                                <p>文创生活馆</p>
-                            </a>
-                        </dd>
-                    </dl>
-                </div>
+                    <Route path="/sort/:id" component={SortMain} />
+                </Switch>          
             </div>
             {/* <div className={styles.footer}></div> */}
         </div>
