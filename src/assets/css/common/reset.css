@@ -141,12 +141,20 @@ em {
 
 /* common */
 
-html,body{
+html,
+body {
+    height: 100%;
+
+}
+
+main {
+    overflow-y: auto;
+}
+
+#root {
     height: 100%;
 }
-#root{
-    height: 100%;
-}
-.App{
+
+.App {
     height: 100%;
 }
