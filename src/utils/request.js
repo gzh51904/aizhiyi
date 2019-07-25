@@ -2,10 +2,11 @@ import axios from 'axios';
 
 // 基本配置：
 //全局默认路径
-axios.defaults.baseURL = 'https://http://localhost:1906/';
+axios.defaults.baseURL = 'http://localhost:1906/';
 
 let instance = axios.create({
-    baseURL: 'https://www.aizhiyi.com/mobile/index.php',
+    //baseURL: 'https://www.aizhiyi.com/mobile/index.php',
+    baseURL:'http://localhost:1906/',
 });
 
 //请求敌人服务器
@@ -23,8 +24,8 @@ export function getData(url='',params={}){
     return axios.get(url,params);
 }
 
-export function getData(url='',data={},params={}){
-    return axios.post(url,,data,params);
+export function postData(url='',data={},params={}){
+    return axios.post(url,data,params);
 }
 
 

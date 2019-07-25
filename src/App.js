@@ -27,7 +27,7 @@ class App extends Component{
             <Route path="/404" render={() => <div>oh no 404</div>} />
             <Redirect from="/*" to="/404" />
           </Switch>
-          <SubNav />
+          <SubNav /> 
         </HashRouter>
       </div>
     );
