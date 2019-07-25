@@ -21,6 +21,7 @@ class App extends Component{
             <Route path="/home" component={Home} />
             <Route path="/welfare" component={Welfare} />
             <Route path="/sort" component={Sort} />
+            {/* <Route path="/sort/:id" component={Sort} /> */}
             <Route path="/cart" component={Cart} />
             <Route path="/mine" component={Mine} />
             <Route path="/404" render={() => <div>oh no 404</div>} />

@@ -33,7 +33,7 @@
                             .more {
                                 display: block;
                                 background-repeat: no-repeat;
-                                background-image: url(../img/sort/xiaoxi2.png);
+                                background-image: url(../images/sort/xiaoxi2.png);
                                 background-size: 0.4rem 0.4rem;
                                 width: 0.4rem;
                                 height: 0.4rem;
@@ -66,6 +66,13 @@
                                 display: block;
                                 // width: 100%;
                                 text-align: center;
+                                -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+
+                                -webkit-user-select: none;
+            
+                                -moz-user-focus: none;
+            
+                                -moz-user-select: none;
 
                                 li {
                                     width: 1.9rem;
@@ -155,8 +162,8 @@
                     }
                 }
 
-                .footer {
-                    height: 1.253333rem;
-                    background: #cccccc;
-                }
+                // .footer {
+                //     height: 1.253333rem;
+                //     background: #cccccc;
+                // }
             }

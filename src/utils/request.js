@@ -23,8 +23,8 @@ export function getData(url='',params={}){
     return axios.get(url,params);
 }
 
-export function getData(url='',data={},params={}){
-    return axios.post(url,,data,params);
+export function postData(url='',data={},params={}){
+    return axios.post(url,data,params);
 }
 
 

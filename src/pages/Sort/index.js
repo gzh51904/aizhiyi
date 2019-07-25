@@ -1,25 +1,53 @@
 import React,{Component}from 'react';
 import styles from '../../assets/scss/sort.module.scss'
+import {Route,Switch} from 'react-router-dom';
 // import '../../assets/'
+import {api} from '../../utils/index.js';
 import '../../assets/css/common/reset.css';
 import {Menu,Icon,} from 'antd';
 class Sort extends Component{
     constructor(){
         super();
         this.state={
-            data:[]
-        }
-    }
-    handleClick = e => {
-        console.log('click ', e);
+            datas:[],
+            class_list:[]
 
-        console.log(e);
+        }
+        this.goto=this.goto.bind(this);
+    }
+    async componentWillMount(){
+      let {data:{datas},data:{goods_class:{class_list}}}=  await api.get('',{
+            params:{
+                act:'brand',
+                op:"store_recommend_list",
+                key:"fa362fbed72e7e24297fa87ff74d84dc"
+            }
+      })
+    //   let class_list1 = class_list.splice(0,9)
+    //    class_list.splice(-1)
+      this.setState({
+          datas,
+          class_list
+      })
+      console.log(datas,class_list);
+    }
+
+    
+    // handleClick = e => {
+    //     console.log('click ', e);
+
+    //     console.log(e);
         
-        this.setState({
-          current: e.key,
-        });
-      };
+    //     this.setState({
+    //       current: e.key,
+    //     });
+    //   };
+    goto(gc_id){
+        let {history} = this.props
+
+    }
     render(){
+        // console.log(api)
         // let  imgurl = require('../../assets/img/sort/nav1.jpg')
         return <div className={styles.cont}>
             <div className={styles.header}>
@@ -39,49 +67,31 @@ class Sort extends Component{
                         <a href="javascript:void(0);">
                             <li>活动专区</li>
                         </a>
-                        <a href="javascript:void(0);">
-                            <li>民族工艺</li>
-                        </a>
-                        <a href="javascript:void(0);">
-                            <li>民俗文化</li>
-                        </a>
-                        <a href="javascript:void(0);">
-                            <li>茶艺茶道</li>
-                        </a>
-                        <a href="javascript:void(0);">
-                            <li>特产美食</li>
-                        </a>
-                        <a href="javascript:void(0);">
-                            <li>珠宝首饰</li>
-                        </a>
-                        <a href="javascript:void(0);">
-                            <li>文化创意</li>
-                        </a>
-                        <a href="javascript:void(0);">
-                            <li>个性定制</li>
-                        </a>
-                        <a href="javascript:void(0);">
-                            <li>鲜花速递</li>
-                        </a>
-                        <a href="javascript:void(0);">
-                            <li>富硒之家</li>
-                        </a>
-                        <a href="javascript:void(0);">
-                            <li>活动专区</li>
-                        </a>
+                        {
+                            this.state.class_list.map(item=>{
+                                return<a href="javascript:void(0);" key={item.gc_id} onClick={this.goto.bind(this,item.gc_id)}>
+                                        <li>{item.gc_name}</li>
+                                      </a>
+                            })
+                        }
+                        
                     </ul>
                 </div>
+                <Switch>
+
+                    {/* <Route path="/sort/SMain/:id" component={Sort} /> */}
+                </Switch>
                 <div className={styles.nav_main}>
                     <div className={styles.nav_main_top}>
                         <a href="">
-                        <img src={[require('../../assets/img/sort/nav1.jpg')]} alt=""/>
+                        <img src={[require('../../assets/images/sort/nav1.jpg')]} alt=""/>
                         </a>
                     </div>
 
                     <dl className={styles.nav_main_bottom}>
                         <dt>
                             <a href="">
-                                <img src={[require('../../assets/img/sort/bgwhile.png')]} alt=""/>
+                                <img src={[require('../../assets/images/sort/bgwhile.png')]} alt=""/>
                                 <span>热门专馆</span>
                             </a>
                         </dt>
@@ -109,7 +119,7 @@ class Sort extends Component{
                     </dl>
                 </div>
             </div>
-            <div className={styles.footer}></div>
+            {/* <div className={styles.footer}></div> */}
         </div>
     }
 }
