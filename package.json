@@ -50,6 +50,7 @@
     "react-dev-utils": "^9.0.1",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
     "resolve": "1.10.0",
     "semver": "6.0.0",
     "style-loader": "0.23.1",
@@ -133,12 +134,12 @@
   },
   "postcss": {
     "plugins": {
-        "autoprefixer": {},
-        "postcss-px-to-viewport": {
-            "viewportWidth": 750,
-            "minPixelValue": 1,
-            "unitPrecision":3
-        }
+      "autoprefixer": {},
+      "postcss-px-to-viewport": {
+        "viewportWidth": 750,
+        "minPixelValue": 1,
+        "unitPrecision": 3
+      }
     }
   }
 }

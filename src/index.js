@@ -6,8 +6,12 @@ import App from './App.js';
 
 import * as serviceWorker from './serviceWorker';
 
+import{ HashRouter } from 'react-router-dom';
+
 ReactDOM.render( 
-        <App /> , 
+        <HashRouter>
+            <App/> 
+        </HashRouter>,
         document.getElementById('root')
     );
 
