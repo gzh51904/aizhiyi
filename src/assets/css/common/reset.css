@@ -155,8 +155,9 @@ main {
     height: 100%;
 }
 
-.App {
+.App{
     height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction:column;
+    font-size: 0.3rem;
 }

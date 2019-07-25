@@ -1,7 +1,7 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import './assets/css/common/reset.css';
 
-import {Route, Redirect, Switch, withRouter,HashRouter} from 'react-router-dom';
+import { Route, Redirect, Switch, withRouter, HashRouter } from 'react-router-dom';
 
 import SubNav from './components/SubNav';
 
@@ -11,8 +11,8 @@ import Sort from './pages/Sort';
 import Cart from './pages/Cart';
 import Mine from './pages/Mine';
 
-class App extends Component{
-  render(){
+class App extends Component {
+  render() {
     return (
       <div className="App">
         <HashRouter>
@@ -30,7 +30,7 @@ class App extends Component{
           <SubNav />
         </HashRouter>
       </div>
-      
+
     );
   }
 }
