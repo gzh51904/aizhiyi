@@ -1,0 +1,27 @@
+.demo-ruleForm {
+    /* height: 8rem;     */
+    margin-left: 1.2rem;
+}
+
+.demo-ruleForm input {
+    border-radius: 0;
+    border: 0 none;
+    border-bottom: 1px solid #d8d8d8;
+    background: #f5f5f5;
+    padding: 0rem;
+    display: block;
+    /* margin-left: 1.2rem; */
+    height: 0.4rem;
+}
+
+.input1 {
+
+}
+
+.regsure {
+    /* display: block; */
+}
+
+.el-form--inline .el-form-item {
+    display: block !important;
+}
