@@ -87,10 +87,9 @@ class Home extends Component {
             hug_list,
             goods_list
         })
-        console.log(this.refs.main);
     }
     componentDidMount() {
-
+        console.log(this.refs.main);    
 
     }
 
@@ -116,8 +115,11 @@ class Home extends Component {
                     <span className={styles.comehere}>  <a href="javascript:0;"><i></i> </a></span>
                 </div>
                 <div className={styles.main} ref="main">
-                    <BackTop target={() => this.refs.main ? this.refs.main : () => { }}>
-                        <div className="ant-back-top-inner">UPasdasdasdad</div>
+                    <BackTop>
+                        Scroll down to see the bottom-right
+                        <strong style={{ color: 'rgba(64, 64, 64, 0.6)' }}> gray </strong>
+                        button.
+                        {/* <div className="ant-back-top-inner">UPasdasdasdad</div> */}
                     </BackTop>
                     <div style={{ position: "relative", marginTop: ".86667rem" }}>
                         <Carousel autoplay>
