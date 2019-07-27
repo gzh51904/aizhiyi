@@ -11,6 +11,7 @@ import Sort from './pages/Sort';
 import Cart from './pages/Cart';
 import Mine from './pages/Mine';
 import Register from './pages/Register';
+import Login from './pages/Login';
 class App extends Component {
   render() {
     return (
@@ -24,6 +25,7 @@ class App extends Component {
             {/* <Route path="/sort/:id" component={Sort} /> */}
             <Route path="/cart" component={Cart} />
             <Route path="/register" component={Register} />
+            <Route path="/login" component={Login} />
             <Route path="/mine" component={Mine} />
             <Route path="/404" render={() => <div>oh no 404</div>} />
             <Redirect from="/*" to="/404" />
