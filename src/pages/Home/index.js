@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Carousel, BackTop } from 'antd';
-import styles from "../../assets/css/scss/home.module.scss";
-import "../../assets/css/scss/ant.css";
+import styles from "../../assets/scss/home.module.scss";
+import "../../assets/scss/ant.css";
+import '../../assets/css/common/reset.css';
 import { api } from "../../utils";
+import { withRouter } from 'react-router-dom';
 class Home extends Component {
     constructor() {
         super();
@@ -11,50 +13,53 @@ class Home extends Component {
             list: [
                 {
                     id: 1,
-                    url: require("../../assets/img/home/z182.png"),
+                    url: require("../../assets/images/home/z182.png"),
                     name: "传统工艺"
                 },
                 {
                     id: 2,
-                    url: require("../../assets/img/home/z183.png"),
+                    url: require("../../assets/images/home/z183.png"),
                     name: "民俗文化"
                 },
                 {
                     id: 3,
-                    url: require("../../assets/img/home/z184.png"),
+                    url: require("../../assets/images/home/z184.png"),
                     name: "茶艺茶道"
                 },
                 {
                     id: 4,
-                    url: require("../../assets/img/home/z185.png"),
+                    url: require("../../assets/images/home/z185.png"),
                     name: "特产美食"
                 },
                 {
                     id: 5,
-                    url: require("../../assets/img/home/z186.png"),
+                    url: require("../../assets/images/home/z186.png"),
                     name: "文化创意"
                 },
                 {
                     id: 6,
-                    url: require("../../assets/img/home/z187.png"),
+                    url: require("../../assets/images/home/z187.png"),
                     name: "个性定制"
                 },
                 {
                     id: 7,
-                    url: require("../../assets/img/home/z188.png"),
+                    url: require("../../assets/images/home/z188.png"),
                     name: "专馆基地"
                 },
                 {
                     id: 8,
-                    url: require("../../assets/img/home/z189.png"),
+                    url: require("../../assets/images/home/z189.png"),
                     name: "珠宝首饰"
                 },
             ],
             free_list: [],
             hug_list: [],
             goods_list: [],
+            test: () => { }
 
         }
+        this.goto = this.goto.bind(this);
+
     }
     async componentWillMount() {
         // 头部请求
@@ -79,7 +84,7 @@ class Home extends Component {
                 page: 28
             }
         })
-        console.log(res.data.datas.goods_list)
+        // console.log(res.data.datas.goods_list)
         let goods_list = res.data.datas.goods_list;
         this.setState({
             adv_list,
@@ -87,22 +92,29 @@ class Home extends Component {
             hug_list,
             goods_list
         })
-        console.log(this.refs.main);
     }
-    componentDidMount() {
-
-
+    goto(id) {
+        let { history } = this.props;
+        history.push({
+            pathname: 'goods/' + id,
+            search: "?id=" + id
+        })
     }
+    top() {
+        let main = document.getElementById("main");
+        return main
+    }
+
 
 
 
     render() {
-        let { adv_list, list, free_list, hug_list, goods_list, } = this.state;
+        let { adv_list, list, free_list, hug_list, goods_list } = this.state;
         let one = hug_list.splice(0, 1);
         let two = hug_list.splice(-2)
-        let com1 = require("../../assets/img/home/common1.png");
-        let com2 = require("../../assets/img/home/common2.jpg");
-        let com3 = require("../../assets/img/home/common3.jpg");
+        let com1 = require("../../assets/images/home/common1.png");
+        let com2 = require("../../assets/images/home/common2.jpg");
+        let com3 = require("../../assets/images/home/common3.jpg");
         return (
             <div className={styles.cont}>
                 <div className={styles.header}>
@@ -115,9 +127,13 @@ class Home extends Component {
                     </a>
                     <span className={styles.comehere}>  <a href="javascript:0;"><i></i> </a></span>
                 </div>
-                <div className={styles.main} ref="main">
-                    <BackTop target={() => this.refs.main ? this.refs.main : () => { }}>
-                        <div className="ant-back-top-inner">UPasdasdasdad</div>
+                <div className={styles.main} id="main">
+                    <BackTop target={this.top} visibilityHeight='1200'>
+                        <div className="ant-back-top-inner">
+                            <div className={styles.top}>
+                                <a href="javascript:;" className={styles.scroll_top}> <i></i></a>
+                            </div>
+                        </div>
                     </BackTop>
                     <div style={{ position: "relative", marginTop: ".86667rem" }}>
                         <Carousel autoplay>
@@ -167,7 +183,7 @@ class Home extends Component {
                                     {
                                         free_list.map(item => {
                                             return (
-                                                <li key={item.goodsId}>
+                                                <li key={item.goodsId} onClick={this.goto.bind(this, item.goodsId)}>
                                                     <a href="javascript:;">
                                                         <i><label>{item.freeInviteNum}</label></i>
                                                         <img src={item.image} alt="" />
@@ -234,7 +250,7 @@ class Home extends Component {
                         {
                             goods_list.map(item => {
                                 return (
-                                    <li key={item.goods_id}>
+                                    <li key={item.goods_id} onClick={this.goto.bind(this, item.goods_id)}>
                                         <a href="javascript:0;">
                                             <img src={item.goods_image} alt="" />
                                         </a>
@@ -249,10 +265,10 @@ class Home extends Component {
                                 )
                             })
                         }
-                    </ul >
-                </div >
-            </div >)
+                    </ul>
+                </div>
+            </div>)
     }
 }
-
+Home = withRouter(Home)
 export default Home;

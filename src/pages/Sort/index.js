@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import styles from '../../assets/scss/sort.module.scss'
-import {Route,Switch} from 'react-router-dom';
-// import '../../assets/'
+import {Route,Switch,Redirect} from 'react-router-dom';
+
 import {api} from '../../utils/index.js';
 import '../../assets/css/common/reset.css';
 import {Menu,Icon,} from 'antd';
 import SortMain from '../../components/SortMain';
 import {NavLink} from 'react-router-dom'
-import {HashRouter} from 'react-router-dom';
+
+//引入sort的context
+import {SortContext} from '../../context';
+
+
 class Sort extends Component{
     constructor(){
         super();
@@ -19,7 +23,8 @@ class Sort extends Component{
         this.goto=this.goto.bind(this);
     }
     async componentWillMount(){
-      let {data:{datas},data:{goods_class:{class_list}}}=  await api.get('',{
+        
+      let {data:{datas},data:{goods_class:{class_list}}} = await api.get('',{
             params:{
                 act:'brand',
                 op:"store_recommend_list",
@@ -32,7 +37,6 @@ class Sort extends Component{
           datas,
           class_list
       })
-      console.log(datas,class_list);
     }
 
     
@@ -47,17 +51,14 @@ class Sort extends Component{
     //   };
     goto(gc_id){
         let {history} = this.props
-        console.log(history);
         
-        history.push("sort/"+ gc_id)
+        //history.push("/sort/"+ gc_id)
         //console.log(history);
         
     }
     render(){
-        // console.log(api)
-        // let  imgurl = require('../../assets/img/sort/nav1.jpg')
-        let {location:{pathname}} = this.props
-        console.log("res="+pathname);
+        console.log(this.state.datas,this.state.class_list);
+        
         
         return <div className={styles.cont}>
             <div className={styles.header}>
@@ -71,16 +72,16 @@ class Sort extends Component{
             <div className={styles.main}>
                 <div className={styles.nav}>
                     <ul>
-                        <NavLink href="javascript:void(0);" to={'/sort/1905'} data={this.state.datas}>
+                        <NavLink href="javascript:void(0);" to={'/sort/feature'} activeClassName={styles.sort_nav_current}>
                             <li>专馆基地</li>
                         </NavLink>
-                        <NavLink href="javascript:void(0);" to={'/sort/1905'}>
+                        <NavLink href="javascript:void(0);" to={'/sort/activity'} activeClassName={styles.sort_nav_current}>
                             <li>活动专区</li>
                         </NavLink>
                         {
                             this.state.class_list.map(item=>{
                                 return(
-                                        <NavLink href="javascript:void(0);" key={item.gc_id} to={'/sort/'+item.gc_id} data={this.state.class_list}>
+                                        <NavLink href="javascript:void(0);" key={'/sort/'+item.gc_id} to={'/sort/'+item.gc_id} activeClassName={styles.sort_nav_current}>
                                             <li>{item.gc_name}</li>
                                         </NavLink>)
                             })
@@ -88,48 +89,18 @@ class Sort extends Component{
                         
                     </ul>
                 </div>
-                <Switch>
-                    <Route path="/sort/:id" component={SortMain} />
-                </Switch>          
-                <div className={styles.nav_main}>
-                    <div className={styles.nav_main_top}>
-                        <a href="">
-                            {/* <img src={[require('../../assets/img/sort/nav1.jpg')]} alt=""/> */}
-                        </a>
-                    </div>
-
-                    <dl className={styles.nav_main_bottom}>
-                        <dt>
-                            <a href="">
-                                {/* <img src={[require('../../assets/img/sort/bgwhile.png')]} alt=""/> */}
-                                <span>热门专馆</span>
-                            </a>
-                        </dt>
-                        <dd>
-                            <a href="">
-                                {/* <img src="" alt=""/> */}
-                                <div></div>
-                                <p>文创生活馆</p>
-                            </a>
-                        </dd>
-                        <dd>
-                            <a href="">
-                                {/* <img src="" alt=""/> */}
-                                <div></div>
-                                <p>文创生活馆</p>
-                            </a>
-                        </dd>
-                        <dd>
-                            <a href="">
-                                {/* <img src="" alt=""/> */}
-                                <div></div>
-                                <p>文创生活馆</p>
-                            </a>
-                        </dd>
-                    </dl>
-                </div>
+                  
+                <SortContext.Provider value={{datas:this.state.datas,class_list:this.state.class_list}}> 
+                <div className={styles.nav_main}>                 
+                    <Switch>
+                        <Redirect from="/sort" to="/sort/feature" exact />   
+                        <Route path="/sort/:id" component={SortMain} />
+                    </Switch>
+                    </div>  
+                </SortContext.Provider>          
+                
             </div>
-            {/* <div className={styles.footer}></div> */}
+            
         </div>
     }
 }
