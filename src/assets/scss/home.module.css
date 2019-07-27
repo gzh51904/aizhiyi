@@ -16,7 +16,7 @@
 }
 
 .cont .header .nav_logo {
-  background: url(../../img/home/top_logo.png) no-repeat 0 center;
+  background: url(../images/home/top_logo.png) no-repeat 0 center;
   background-size: 100%;
   vertical-align: middle;
   position: absolute;
@@ -53,7 +53,7 @@
   width: 0.3rem;
   height: 0.3rem;
   margin: 0.2rem 0.1rem;
-  background-image: url(../../img/home/search-big-2.png);
+  background-image: url(../images/home/search-big-2.png);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100% 100%;
@@ -90,7 +90,7 @@
   width: 0.44rem;
   height: 0.44rem;
   display: inline-block;
-  background: url(../../img/home/xiaoxi2.png) no-repeat 0 center;
+  background: url(../images/home/xiaoxi2.png) no-repeat 0 center;
   background-size: 100%;
   vertical-align: middle;
 }
@@ -101,7 +101,7 @@
 }
 
 .cont .main .slideBox_bj {
-  background: url(../../img/home/bg_img_fff.png) no-repeat center center;
+  background: url(../images/home/bg_img_fff.png) no-repeat center center;
   background-size: 100% 100%;
   height: 0.2rem;
   width: 100%;
@@ -181,7 +181,7 @@
   display: block;
   width: 0.34rem;
   height: 0.32rem;
-  background: url(../../img/home/z21.png) no-repeat center center;
+  background: url(../images/home/z21.png) no-repeat center center;
   background-size: 100% 100%;
   position: absolute;
   left: 0.3rem;
@@ -205,7 +205,7 @@
   display: block;
   width: .24rem;
   height: .24rem;
-  background: url(../../img/home/z22.png) no-repeat center center;
+  background: url(../images/home/z22.png) no-repeat center center;
   background-size: 100% 100%;
   position: absolute;
   right: .3rem;
@@ -264,7 +264,7 @@
 .cont .main .active_con .wrap .frame ul li a i {
   width: 1.22rem;
   height: 0.8rem;
-  background: url(../../img/home/z155.png) no-repeat center center;
+  background: url(../images/home/z155.png) no-repeat center center;
   background-size: 1.22rem 0.8rem;
   position: absolute;
   right: 0;
@@ -340,7 +340,7 @@
 .cont .main .love_group i.one {
   width: 0.4rem;
   height: 0.46rem;
-  background: url(../../img/home/z23.png) no-repeat center center;
+  background: url(../images/home/z23.png) no-repeat center center;
   background-size: 100% 100%;
   top: 0.24rem;
   left: 0.3rem;
@@ -349,7 +349,7 @@
 .cont .main .love_group i.two {
   width: .57rem;
   height: .63rem;
-  background: url(../../img/home/z24.png) no-repeat center center;
+  background: url(../images/home/z24.png) no-repeat center center;
   background-size: 100% 100%;
   bottom: 0rem;
   left: 0.9rem;
@@ -359,7 +359,7 @@
   display: block;
   width: 0.24rem;
   height: 0.24rem;
-  background: url(../../img/home/z22.png) no-repeat center center;
+  background: url(../images/home/z22.png) no-repeat center center;
   background-size: 100% 100%;
   position: absolute;
   right: 0.3rem;
@@ -404,7 +404,7 @@
 
 .cont .main .love_groupList ul li.one a span {
   position: absolute;
-  background: url(../../img/home/CombinedShape.png) no-repeat left center;
+  background: url(../images/home/CombinedShape.png) no-repeat left center;
   background-size: 100% 100%;
   position: absolute;
   right: 0.3rem;
@@ -491,12 +491,12 @@
   height: 0.5rem;
   left: 1.6rem;
   top: 0;
-  background: url(../../img/home/z40.png) no-repeat center;
+  background: url(../images/home/z40.png) no-repeat center;
   background-size: 100%;
 }
 
 .cont .main .goods_type span:after {
-  background-image: url(../../img/home/z41.png);
+  background-image: url(../images/home/z41.png);
   left: auto;
   right: 1.7rem;
   top: auto;
@@ -589,7 +589,7 @@
   bottom: 1.1rem;
   margin: 0;
   color: #fff;
-  background: url(../../img/home/CombinedShape.png) no-repeat center center;
+  background: url(../images/home/CombinedShape.png) no-repeat center center;
   background-size: 100% 100%;
   width: 1.6rem;
   height: 0.5rem;
@@ -599,11 +599,30 @@
   display: block;
   width: 0.1rem;
   height: 0.18rem;
-  background: url(../../img/home/z20.png) no-repeat center center;
+  background: url(../images/home/z20.png) no-repeat center center;
   background-size: 100% 100%;
   position: absolute;
   right: 0.18rem;
   top: 50%;
   margin-top: -0.09rem;
   padding: 0;
+}
+
+.cont .main .top .scroll_top {
+  display: block;
+  right: 0.13rem;
+  bottom: 1.3rem;
+  z-index: 9;
+  position: fixed;
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.cont .main .top .scroll_top i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  background: url(../images/home/icon_top.png) no-repeat center;
+  background-size: 100%;
 }

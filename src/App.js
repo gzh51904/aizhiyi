@@ -10,6 +10,7 @@ import Welfare from './pages/Welfare';
 import Sort from './pages/Sort';
 import Cart from './pages/Cart';
 import Mine from './pages/Mine';
+import Goods from './components/Goods';
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
             <Route path="/sort" component={Sort} />
             <Route path="/cart" component={Cart} />
             <Route path="/mine" component={Mine} />
+            <Route path="/goods/:id" component={Goods} />
             <Route path="/404" render={() => <div>oh no 404</div>} />
             <Redirect from="/*" to="/404" />
           </Switch>
