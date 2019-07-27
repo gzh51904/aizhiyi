@@ -10,7 +10,7 @@ import Welfare from './pages/Welfare';
 import Sort from './pages/Sort';
 import Cart from './pages/Cart';
 import Mine from './pages/Mine';
-
+import Register from './pages/Register';
 class App extends Component {
   render() {
     return (
@@ -23,6 +23,7 @@ class App extends Component {
             <Route path="/sort" component={Sort} /> 
             {/* <Route path="/sort/:id" component={Sort} /> */}
             <Route path="/cart" component={Cart} />
+            <Route path="/register" component={Register} />
             <Route path="/mine" component={Mine} />
             <Route path="/404" render={() => <div>oh no 404</div>} />
             <Redirect from="/*" to="/404" />
