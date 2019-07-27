@@ -5,32 +5,28 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:1906/';
 
 let instance = axios.create({
-    //baseURL: 'https://www.aizhiyi.com/mobile/index.php',
-    baseURL:'http://localhost:1906/',
+    baseURL: 'https://www.aizhiyi.com/mobile/index.php',
+    //baseURL:'http://localhost:1906/',
 });
 
 //请求敌人服务器
-export function get(url = '', params = {}) {
-    return instance.get(url, params)
+export function get(url='',params={}){
+    return instance.get(url,params)
 }
 
-export function post(url = '', data = {}, params = {}) {
-    return instance.post(url, data, params)
+export function post(url='',data={},params={}){
+    return instance.post(url,data,params)
 }
 
 
 //请求自己的node服务器
-export function getData(url = '', params = {}) {
-    return axios.get(url, params);
+export function getData(url='',params={}){
+    return axios.get(url,params);
 }
 
-<<<<<<< HEAD
-export function postData(url='',data={},params={}){
-    return axios.post(url,data,params);
-=======
+
 export function postData(url = '', data = {}, params = {}) {
     return axios.post(url, data, params);
->>>>>>> 21c9cd268d0690b46c556cc515d10a932c7ca951
 }
 
 

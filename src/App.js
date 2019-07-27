@@ -17,16 +17,17 @@ class App extends Component {
       <div className="App">
         <HashRouter>
           <Switch>
-            <Redirect from="/" to="/home" component={Home} exact />
+            <Redirect from="/" to="/home" exact />             
             <Route path="/home" component={Home} />
             <Route path="/welfare" component={Welfare} />
-            <Route path="/sort" component={Sort} />
+            <Route path="/sort" component={Sort} /> 
             {/* <Route path="/sort/:id" component={Sort} /> */}
             <Route path="/cart" component={Cart} />
             <Route path="/mine" component={Mine} />
             <Route path="/404" render={() => <div>oh no 404</div>} />
             <Redirect from="/*" to="/404" />
           </Switch>
+          
           <SubNav /> 
         </HashRouter>
       </div>
