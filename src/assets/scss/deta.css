@@ -1,0 +1,9 @@
+.default{
+    width: 7.5rem !important;
+}
+.default tbody{
+    display: none !important;
+}
+.default img{
+    width: 7.5rem !important;
+}

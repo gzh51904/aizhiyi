@@ -1,0 +1,146 @@
+.goods_detail_recom {
+  background: #FFF;
+  background-color: #FFF;
+  border-width: 0.024rem;
+  overflow: hidden;
+}
+
+.goods_detail_recom .goods_detail_head {
+  display: inline-block;
+  height: 0.63rem;
+  text-align: center;
+  font-size: 0.26rem;
+  color: #d33d3c;
+  font-weight: normal;
+  font-family: 'Microsoft YaHei';
+  line-height: 0.05rem !important;
+  padding: 0.15rem 0.26rem 0.30rem 0.26rem;
+  margin-bottom: 0.2rem;
+}
+
+.goods_detail_recom .goods_detail_head span {
+  width: 0.51rem;
+  height: 0.07rem;
+  left: 3rem;
+  top: 50%;
+  margin-top: -0.03rem;
+  background-size: 100%;
+  position: relative;
+  font-size: .2rem;
+  text-align: center;
+}
+
+.goods_detail_recom .goods_detail_head span:before, .goods_detail_recom .goods_detail_head span:after {
+  content: '';
+  position: absolute;
+  width: 1.3rem;
+  height: 0.3rem;
+  left: -1.6rem;
+  top: 50%;
+  margin-top: -0.07rem;
+  background: url(../images/home/line_r.png) no-repeat center;
+}
+
+.goods_detail_recom .goods_detail_head span:after {
+  background-image: url(../images/home/line_l.png);
+  left: auto;
+  right: -1.6rem;
+}
+
+.goods_detail_recom ul {
+  font-size: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 0;
+  padding: 0;
+  margin-left: 0.1rem;
+}
+
+.goods_detail_recom ul li:nth-child(odd) {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.goods_detail_recom ul li {
+  width: 3.35rem;
+  float: left;
+  border-radius: 0.08rem;
+  background: #fff;
+  border: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  padding-bottom: 0.12rem;
+  margin: 0;
+  margin: 0 0 0.2rem 0.2rem;
+  position: relative;
+}
+
+.goods_detail_recom ul li .pic {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.goods_detail_recom ul li .pic img {
+  display: block;
+  width: 100% !important;
+  height: 3.3rem;
+  outline: 0 none;
+}
+
+.goods_detail_recom ul li .dl {
+  margin-top: 0.097rem;
+}
+
+.goods_detail_recom ul li .dl dt {
+  font-size: 0.3rem;
+  line-height: 0.4rem;
+  padding-top: 0.18rem;
+  padding-right: 0.32rem;
+  color: #333;
+  padding-left: 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.goods_detail_recom ul li .dl .goods_intro {
+  color: #8b8b8b;
+  font-size: 0.24rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-indent: 0.2rem;
+  width: 3.3rem;
+  height: 0.6rem;
+}
+
+.goods_detail_recom ul li .dl .goods_pri {
+  font-size: 0.3rem;
+  color: #f9493c;
+  padding-left: 0.2rem;
+  float: left;
+  line-height: 0.6rem;
+}
+
+.goods_detail_recom ul li .join_cart {
+  background: url(../images/home/z82.png) no-repeat center center;
+  width: 1.26rem;
+  height: 1.02rem;
+  background-size: 0.42rem 0.34rem;
+  right: -0.2rem;
+  bottom: -0.1rem;
+  position: absolute;
+  z-index: 20;
+}
+
+.goods_detail_recom .guessLike_btn {
+  display: block;
+  width: 3.8rem;
+  height: 0.8rem;
+  margin: 0.2rem auto 0.4rem;
+  border: solid 1px #D33D3C;
+  border-radius: 0.1rem;
+  font-size: 0.35rem;
+  color: #d33d3c;
+  text-align: center;
+  line-height: 0.8rem;
+}
