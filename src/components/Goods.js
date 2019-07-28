@@ -25,9 +25,10 @@ class Goods extends Component {
             { title: <Badge >详情</Badge> },
             { title: <Badge >评价</Badge> },
         ];
-
+        console.log("goods", this.props)
         return (
-            <div className={styles.cont}>
+
+            < div className={styles.cont} id="content">
                 <div className={styles.header}>
                     <div className={styles.header_wrap}>
                         <div className={styles.header_l}>
@@ -55,7 +56,7 @@ class Goods extends Component {
                         <div style={{ height: '100%', backgroundColor: '#fff', marginTop: ".86667rem" }}>
                             <Details />
                         </div>
-                        <div style={{ height: '100%', backgroundColor: '#fff', marginTop: ".86667rem" }}>
+                        <div className="top" style={{ height: '100%', backgroundColor: '#fff', marginTop: ".86667rem" }}>
                             <Comment />
                         </div>
                     </Tabs>

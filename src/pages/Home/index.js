@@ -4,7 +4,7 @@ import styles from "../../assets/scss/home.module.scss";
 import "../../assets/scss/ant.css";
 import '../../assets/css/common/reset.css';
 import { api } from "../../utils";
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 class Home extends Component {
     constructor() {
         super();
@@ -53,51 +53,59 @@ class Home extends Component {
                 },
             ],
             free_list: [],
-            hug_list: [],
             goods_list: [],
-            test: () => { }
+            num: 1,     //请求数据的页数
+            height: 1,  //请求回来的数据增加的滚动高度
+            send: true, //请求数据的状态
+            top: 0      //乘以滚动高度的数
 
         }
         this.goto = this.goto.bind(this);
+        this.orderScroll = this.orderScroll.bind(this);
+
 
     }
     async componentWillMount() {
         // 头部请求
-        // https://www.aizhiyi.com/mobile/index.php?act=index&url=https://www.aizhiyi.com/wap/index.html
+        // https://www.aizhiyi.com/mobile/index.php?act=index&url=https://www.aizhiyi.com/wap/index.html?goback=1
         let { data: { datas } } = await api.get("", {
             params: {
                 act: "index",
-                url: "https://www.aizhiyi.com/wap/index.html"
+                url: "https://www.aizhiyi.com/wap/index.html",
+                goback: 1
             }
         })
         let adv_list = datas[0]["adv_list"]["item"];
         let free_list = datas[2]["free_list"]["item"];
-        let hug_list = datas[4]["groupbuy_hug_list"]["item"];
+        console.log(datas)
         // 商品请求
-        // https://www.aizhiyi.com/mobile/index.php?act=index&op=guess_favorite&key=&curpage=1&page=28
+        // https://www.aizhiyi.com/mobile/index.php?act=index&op=guess_favorite&key=&curpage=1&page=14
         let res = await api.get("", {
             params: {
                 act: "index",
                 op: "guess_favorite",
                 key: "",
                 curpage: 1,
-                page: 28
+                page: 14
             }
         })
-        // console.log(res.data.datas.goods_list)
         let goods_list = res.data.datas.goods_list;
         this.setState({
             adv_list,
             free_list,
-            hug_list,
-            goods_list
+            goods_list,
+            num: 2
         })
+        // 无限加载
+        let main = document.getElementById("main");
+        if (main) {
+            main.addEventListener("scroll", this.orderScroll, true)
+        }
     }
     goto(id) {
         let { history } = this.props;
         history.push({
             pathname: 'goods/' + id,
-            search: "?id=" + id
         })
     }
     top() {
@@ -105,13 +113,46 @@ class Home extends Component {
         return main
     }
 
+    // 滚动事件
+    async orderScroll() {
+        let main = document.getElementById("main");
+
+        let { num, height, send, top } = this.state;
+
+        // console.log(main.scrollTop, 2370 + (top * height), top)
+        // 判断：当滚动条到达某个地方的时候发起请求数据，height*top是请求一条数据的时候会增加的滚动条长度
+        if (main.scrollTop >= 2370 + (height * top) && send) {
+            // 讲send设为false，让他下次不能进来继续发请求
+            this.setState({ send: false })
+            // 请求数据
+            let res = await api.get("", {
+                params: {
+                    act: "index",
+                    op: "guess_favorite",
+                    key: "",
+                    curpage: num,
+                    page: 14
+                }
+            })
+            // 获取原数组的数据，利用a.concat（b)的方法数组合并，然后跟新新的数据
+            let { goods_list } = this.state;
+            let more = res.data.datas.goods_list;
+            let newGoods = goods_list.concat(more);
+            this.setState({
+                goods_list: newGoods,
+                height: 1500,
+                num: num + 1,
+                top: top + 1,
+                send: true          //最后把状态改回为true，当滚动条到达一定距离继续发请求
+            })
+        }
+    }
+
 
 
 
     render() {
-        let { adv_list, list, free_list, hug_list, goods_list } = this.state;
-        let one = hug_list.splice(0, 1);
-        let two = hug_list.splice(-2)
+        let { adv_list, list, free_list, goods_list } = this.state;
         let com1 = require("../../assets/images/home/common1.png");
         let com2 = require("../../assets/images/home/common2.jpg");
         let com3 = require("../../assets/images/home/common3.jpg");
@@ -183,6 +224,7 @@ class Home extends Component {
                                     {
                                         free_list.map(item => {
                                             return (
+
                                                 <li key={item.goodsId} onClick={this.goto.bind(this, item.goodsId)}>
                                                     <a href="javascript:;">
                                                         <i><label>{item.freeInviteNum}</label></i>
@@ -191,6 +233,7 @@ class Home extends Component {
                                                         <p className={styles.p2}><label>￥0</label><del>原价&nbsp;¥&nbsp;{item.goodsPrice}</del></p>
                                                     </a>
                                                 </li>
+
                                             )
                                         })
                                     }
@@ -213,31 +256,26 @@ class Home extends Component {
                     </div>
                     <div className={styles.love_groupList}>
                         <ul className={styles.clearfix}>
-                            {
-                                one.map(item => {
-                                    return (
-                                        <li className={styles.one} key={item.goods_id2}>
-                                            <a href="javascript:;">
-                                                <img src={item.goods_image} alt="" />
-                                                <span>{item.groupbuy_rebate5}</span>
-                                            </a>
-                                        </li>
-                                    )
-                                })
-                            }
-                            {
-                                two.map(item => {
-                                    return (
-                                        <li className={styles.two} key={item.goods_id2}>
-                                            <span>{item.groupbuy_rebate5}折</span>
-                                            <img src={item.goods_image} alt="" />
-                                            <p>{item.goods_name}</p>
-                                            <em><i>¥</i>{item.groupbuy_price5}</em>
 
-                                        </li>
-                                    )
-                                })
-                            }
+                            <li className={styles.one}>
+                                <a href="javascript:;">
+                                    <img src="https://www.aizhiyi.com/data/upload/shop/store/goods/169/2018/12/27/169_05992215531941748_240.jpg?v=15" alt="" />
+                                    <span>7.4折</span>
+                                </a>
+                            </li>
+                            <li className={styles.two}>
+                                <span>8.3折</span>
+                                <img src="https://www.aizhiyi.com/data/upload/shop/store/goods/215/2018/12/20/215_05986175987711570_240.jpg?v=15?v=15" alt="" />
+                                <p>树枝珍珠长款耳线</p>
+                                <em><i>¥</i>165.00</em>
+                            </li>
+                            <li className={styles.two}>
+                                <span>6.7折</span>
+                                <img src="https://www.aizhiyi.com/data/upload/shop/store/goods/223/2018/12/15/223_05981851196430978_240.jpg?v=15?v=15" alt="" />
+                                <p>大果紫檀吉祥梳</p>
+                                <em><i>¥</i>66.00</em>
+                            </li>
+
                         </ul>
                     </div>
                     <div className={styles.mid_recommend}>

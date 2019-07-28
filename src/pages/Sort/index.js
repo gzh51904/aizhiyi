@@ -57,8 +57,6 @@ class Sort extends Component{
         
     }
     render(){
-        console.log(this.state.datas,this.state.class_list);
-        
         
         return <div className={styles.cont}>
             <div className={styles.header}>
