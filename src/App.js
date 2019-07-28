@@ -5,6 +5,8 @@ import { Route, Redirect, Switch, withRouter, HashRouter } from 'react-router-do
 
 import SubNav from './components/SubNav';
 
+import { connect } from 'react-redux';
+
 import Home from './pages/Home';
 import Welfare from './pages/Welfare';
 import Sort from './pages/Sort';
@@ -32,14 +34,27 @@ class App extends Component {
             <Route path="/goods/:id" component={Goods} />
             <Route path="/404" render={() => <div>oh no 404</div>} />
             <Redirect from="/*" to="/404" />
+<<<<<<< HEAD
+          </Switch>          
+          <SubNav /> 
+=======
           </Switch>
 
           <SubNav />
+>>>>>>> 5aad627567c19acbf0e9ec484ed4fb3f5358ffff
         </HashRouter>
       </div>
 
     );
   }
 }
+
+/* let mapStateToProps = (state)=>{
+  return {
+    goodslen:state.cart.goodslist.length
+  }
+}
+App = connect(mapStateToProps)(App) */
+
 
 export default App;

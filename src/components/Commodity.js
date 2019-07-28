@@ -33,6 +33,7 @@ class Commodity extends Component {
         })
         // console.log(datas)
         let arr = [];
+
         let spec = datas.goods_info.goods_spec;
         for (let i in spec) {
             arr.push(spec[i])
@@ -49,14 +50,14 @@ class Commodity extends Component {
             store
         })
     }
-  
+
     render() {
         let { banner, goods_info, arr, eval_list, store } = this.state;
         return (
             <div>
                 <div className={styles.open_app}>打开APP</div>
                 <WingBlank>
-                    <Carousel autoplay={true} infinite swipeSpeed='2000' style={{ width: '7.5rem',  height: '7.5rem' }}>
+                    <Carousel autoplay={true} infinite swipeSpeed='2000' style={{ width: '7.5rem', height: '7.5rem' }}>
                         {banner.map(val => (
                             <img
                                 key={val}

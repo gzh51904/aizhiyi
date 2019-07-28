@@ -12,10 +12,8 @@ class SortMain extends Component{
         }
     }
     async componentDidMount(){
-        console.log("挂载");
         
-        let {params:{id}} = this.props.match
-        console.log('id',id);
+        let {params:{id}} = this.props.match;
         if(id !== 'activity'){
             if(id === 'feature'){
                 let {data:{datas}} = await api.get('',{
@@ -26,7 +24,6 @@ class SortMain extends Component{
                     }
                 });
                 let {new_store,store_list} = datas;
-                console.log("dawdcawdfawdfawf",datas);
                 
                 this.setState({
                     new_store,
@@ -34,7 +31,6 @@ class SortMain extends Component{
                 });
             } else{
                 //?act=goods_class&op=get_child_all&gc_id=1378&key=
-                console.log(id);
                 
                 let {data:{datas}} = await api.get('',{ 
                  //let data = await api.get('',{ 
@@ -50,7 +46,6 @@ class SortMain extends Component{
                     class_list,
                     image_path
                 });   
-                console.log("----------------",image_path,class_list);
                 
             } 
         }
@@ -59,7 +54,6 @@ class SortMain extends Component{
 
     render(){
         let {params:{id}} = this.props.match;
-        console.log(this.state.new_store);
         //let {image_path} = this.state.wap_img;   
         // let temp = this.state['wap_img'];
         // console.log("+++++++++++++++",temp);
@@ -68,7 +62,6 @@ class SortMain extends Component{
             <SortContext.Consumer>
                 {
                     ({status})=>{
-                        console.log(status);
                         return (
                             <>
                             {    
@@ -190,7 +183,6 @@ class SortMain extends Component{
                                                 {
                                                     item.child.map(item=>{
                                                         //let temp = item.wap_goodsclass_image_info.wap_advs1.image_path;
-                                                        console.log(item.wap_goodsclass_image_info.wap_advs1);
                                                         
                                                         return (
                                                             <dd key={item.gc_id}>
