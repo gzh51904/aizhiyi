@@ -4,8 +4,8 @@ import '../../assets/css/common/reset.css';
 import '../../assets/scss/register.css'
 import {api} from '../../utils/index.js';
 import ReactDOM from 'react-dom';
-import { Form,Input,Button } from 'element-react';
-import 'element-theme-default';
+// import { Form,Input,Button } from 'element-react';
+// import 'element-theme-default';
 
 
 class Register extends Component{
