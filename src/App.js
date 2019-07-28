@@ -13,6 +13,7 @@ import Mine from './pages/Mine';
 import Goods from './components/Goods';
 
 import Register from './pages/Register';
+import Login from './pages/Login';
 class App extends Component {
   render() {
     return (
@@ -26,6 +27,7 @@ class App extends Component {
             {/* <Route path="/sort/:id" component={Sort} /> */}
             <Route path="/cart" component={Cart} />
             <Route path="/register" component={Register} />
+            <Route path="/login" component={Login} />
             <Route path="/mine" component={Mine} />
             <Route path="/goods/:id" component={Goods} />
             <Route path="/404" render={() => <div>oh no 404</div>} />
