@@ -144,8 +144,8 @@
                         background-image: url(../images/login/login7.png);
                     }
 
-                    .eyeIcon {
-
+                    .eyeOpen {
+                        
                         position: relative;
                         top: .166667rem;
                         float: right;
@@ -153,8 +153,19 @@
                         height: 0.4rem;
                         background-repeat: no-repeat;
                         background-size: contain;
-                        display: inline-block;
+                        display: block;
                         background-image: url(../images/login/login3.png);
+                    }
+                    .eyeClose {
+                        display: none;
+                        position: relative;
+                        top: .166667rem;
+                        float: right;
+                        width: 0.4rem;
+                        height: 0.4rem;
+                        background-repeat: no-repeat;
+                        background-size: contain;
+                        background-image: url(../images/login/login4.png);
                     }
                 }
             }

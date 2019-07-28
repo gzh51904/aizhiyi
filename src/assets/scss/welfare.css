@@ -1,0 +1,22 @@
+#m-tabs-0-0{
+    
+}
+.am-tabs-tab-bar-wrap {
+    width: 7.53333rem !important;
+    position: fixed;
+    left: 0 !important;
+    z-index: 999;
+    height: 0.9rem !important;
+
+}
+.am-badge{
+    font-size: 0.3rem;
+    color: #999;
+}
+.am-tabs-default-bar-underline{
+    width: 1.6rem !important;
+    /* left: 6.9333% !important; */
+    margin-left: .436667rem;
+    border:1px solid #D33D3C !important;
+    animation: none !important;
+}
