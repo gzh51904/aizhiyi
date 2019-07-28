@@ -171,8 +171,14 @@ class Register extends Component{
         render() {
             console.log(this.state.keyWordSwitch);
             return (<div className={styles.Register}>
-            <div className={styles.header}>
-            </div>
+            <div className={[`${styles.header}`,`clearfix`].join(' ')}>
+                        <div className={styles.header_l}>
+                            <a href="">
+                                <i></i>
+                            </a>
+                            <span>注册</span>
+                        </div>
+                    </div>
             <div className={styles.main}>
                 <form action="">
                     <ul className={styles.formBox}>
