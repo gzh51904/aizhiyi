@@ -12,7 +12,6 @@ class Recommend extends Component {
         }
         this.goto = this.goto.bind(this);
         this.huan = this.huan.bind(this);
-
     }
     async componentWillMount() {
         let goodsid = this.props.match.params.id
@@ -45,7 +44,7 @@ class Recommend extends Component {
         let len = window.location.href.split("/").length
         let id2 = window.location.href.split("/")[len - 1]
         let id = nextProps.match.params.id;
-        // console.log(nextState.id, "id", id, "id2", id2)
+        console.log(nextState.id, "id", id, "id2", id2)
         if (id2 != id) {
             let { data: { datas } } = await api.get("", {
                 params: {
@@ -68,7 +67,11 @@ class Recommend extends Component {
             // console.log("id", id, "id2", id2)
         }
     }
-
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (nextState.num == this.state.id) {
+    //         return false
+    //     }
+    // }
     // 详情页
     goto(id) {
         console.log(id, this);
