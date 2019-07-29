@@ -1,14 +1,23 @@
 import React,{Component} from 'react';
 import styles from '../../assets/scss/mine.module.scss'
-function Mine(){
+function Mine(props){
+    let Authorization = localStorage.getItem("Authorization") ? localStorage.getItem("Authorization") : ""; 
     return <div className={styles.Mine}>
         <div className={styles.header}>
             <a href="" className={styles.header_a1}>
                 {/* <img src={[require('../../assets/images/mine/tx.png')]} alt=""/> */}
             </a>
-            <a href="" className={styles.header_a2}>
-                点击登录
-            </a>
+            {
+                !Authorization ? <a href="javascript::void(0)" className={styles.header_a2} onClick={()=>{
+                    let {history} = props;
+                    history.push('/Login');
+                }}>
+                    点击登录
+                </a> : 
+                <a href="" className={styles.header_a2}>
+                    {Authorization.slice(0,6)}
+                </a>
+            }
         </div>
         <div className={styles.main}>
             <div className={styles.main_t}>

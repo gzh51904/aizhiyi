@@ -37,7 +37,6 @@ class Goods extends Component {
         let { history } = this.props;
         history.push("/home")
     }
-<<<<<<< HEAD
     //加入购物车
     addToCart(){
         console.log("点击加入购物车");
@@ -62,9 +61,6 @@ class Goods extends Component {
             changeQty({id:currentGoods.goods_id,qty:currentGoods.goods_num*1+1})
         }
     }
-=======
-    
->>>>>>> 33b3c4ac7e1158f15a851fb32baa0d3f4a8e3b0c
     render() {
 
         const tabs = [

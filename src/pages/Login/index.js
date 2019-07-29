@@ -91,19 +91,42 @@ class Login extends Component{
     async confirm(){
         let username = this.state.tel;
         let password = this.state.pass;
-        await api.get('',{
+        console.log(username,password);
+        
+        let {data} = await api.getData('/login',{
             params:{
             username,
             password
             }        
          })
+         console.log(data);
+         
+         if (data.code == 250) {
+            alert("用户名或密码错误！");
+          } else if (data.code === 1000) {
+            // 保存登录信息
+            let temp = data.datas.data;
+            localStorage.setItem("Authorization", temp);
+
+            let virtualName = temp.slice(0,8);
+            
+
+            let {history} = this.props;
+
+            history.replace('/mine');
+            
+          }
+         
 
     }
     render() {
         return (<div className={styles.Login}>
                     <div className={[`${styles.header}`,`clearfix`].join(' ')}>
                         <div className={styles.header_l}>
-                            <a href="">
+                            <a href="javascript::void(0)" onClick={()=>{
+                                let {history} = this.props;
+                                history.goBack();
+                            }}>
                                 <i></i>
                             </a>
                             <span>账号登录</span>
