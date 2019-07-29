@@ -10,7 +10,7 @@ class Recommend extends Component {
             news: [],
             id: 109243
         }
-        this.goto = this.goto.bind(this);
+
         this.huan = this.huan.bind(this);
     }
     async componentWillMount() {
@@ -31,9 +31,9 @@ class Recommend extends Component {
 
             }
         })
-        // console.log(datas)
         let goods = datas.guessFavoriteGoods;
         let news = datas.goodsCommendNew;
+        // console.log("goods:", goods)
         this.setState({
             goods,
             news
@@ -44,7 +44,7 @@ class Recommend extends Component {
         let len = window.location.href.split("/").length
         let id2 = window.location.href.split("/")[len - 1]
         let id = nextProps.match.params.id;
-        console.log(nextState.id, "id", id, "id2", id2)
+        // console.log(nextState.id, "id", id, "id2", id2)
         if (id2 != id) {
             let { data: { datas } } = await api.get("", {
                 params: {
@@ -59,6 +59,7 @@ class Recommend extends Component {
             // console.log(datas)
             let goods = datas.guessFavoriteGoods;
             let news = datas.goodsCommendNew;
+            console.log("goods2:", goods)
             this.setState({
                 goods,
                 news,
@@ -68,15 +69,13 @@ class Recommend extends Component {
         }
     }
     // shouldComponentUpdate(nextProps, nextState) {
-    //     if (nextState.num == this.state.id) {
+    // console.log(nextProps, nextState, this.state.id)
+    //     if (this.state.id) {
     //         return false
     //     }
     // }
     // 详情页
-    goto(id) {
-        console.log(id, this);
 
-    }
     // 换一批
     async huan(id) {
         // https://www.aizhiyi.com/mobile/index.php?act=goods&op=guessFavorite&key=&storeId=200&goodsId=109243
@@ -102,6 +101,7 @@ class Recommend extends Component {
     render() {
         let { goods, news } = this.state;
         let id = this.props.match.params.id;
+        // console.log("goods", goods)
 
         return (
             <div>
@@ -111,10 +111,10 @@ class Recommend extends Component {
                     </div>
                     <ul className={`${styles.perfect_recom} clearfix`}>
                         {
-                            goods.map(item => {
+                            goods ? goods.map(item => {
                                 return (
                                     <NavLink key={'/goods/' + item.goods_id} to={'/goods/' + item.goods_id}>
-                                        <li key={item.goods_id} onClick={this.goto.bind(this, item.goods_id)}>
+                                        <li key={item.goods_id}>
                                             <div>
                                                 <div className={styles.pic}><img src={item.goods_image} alt="" /></div>
                                                 <dl className={styles.dl}>
@@ -128,6 +128,7 @@ class Recommend extends Component {
                                     </NavLink>
                                 )
                             })
+                                : ""
                         }
 
                     </ul>
@@ -141,7 +142,7 @@ class Recommend extends Component {
                             news.map(item => {
                                 return (
                                     <NavLink href="javascript:void(0);" key={'/goods/' + item.goods_id} to={'/goods/' + item.goods_id}>
-                                        <li key={item.goods_id} onClick={this.goto.bind(this, item.goods_id)}>
+                                        <li key={item.goods_id}>
                                             <div>
                                                 <div className={styles.pic}><img src={item.goods_image} alt="" /></div>
                                                 <dl className={styles.dl}>

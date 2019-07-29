@@ -181,7 +181,7 @@ class Home extends Component {
                             {
                                 adv_list.map(item => {
                                     return <div key={item.data}>
-                                        <h3><img src={item.image} alt="" /></h3>
+                                        <h3><img src={item.image} alt="" style={{width:"7.5rem", height: '3.01rem' }} /></h3>
                                     </div>
                                 })
                             }

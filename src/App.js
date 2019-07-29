@@ -19,7 +19,7 @@ import Login from './pages/Login';
 class App extends Component {
   render() {
     console.log(this.props.cart_len);
-    
+
     return (
       <div className="App">
         <HashRouter>
@@ -36,8 +36,8 @@ class App extends Component {
             <Route path="/goods/:id" component={Goods} />
             <Route path="/404" render={() => <div>oh no 404</div>} />
             <Redirect from="/*" to="/404" />
-          </Switch>          
-          <SubNav /> 
+          </Switch>
+          <SubNav />
         </HashRouter>
       </div>
 
@@ -45,9 +45,9 @@ class App extends Component {
   }
 }
 
-let mapStateToProps = (state)=>{
+let mapStateToProps = (state) => {
   return {
-    cart_len:state.cart.cart_list.length
+    cart_len: state.cart.cart_list.length
   }
 }
 App = connect(mapStateToProps)(App);
