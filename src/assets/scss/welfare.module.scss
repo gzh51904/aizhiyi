@@ -1,0 +1,147 @@
+.Welfare {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .header {
+
+        width: 100%;
+        height: 0.88rem;
+        background: #d33d3c;
+        position: relative;
+        // position: relative;
+
+        span {
+            display: block;
+            height: 0.88rem;
+            line-height: 0.88rem;
+            text-align: center;
+            font-size: 0.34rem;
+            color: #ffffff;
+        }
+
+        .header_right {
+            position: absolute;
+            right: .3rem;
+            top: 50%;
+            transform: translateY(-50%);
+
+            // width: 0.4rem;
+            // height: 0.4rem;
+            a {
+                /* display: inline-block; */
+
+                .more {
+                    display: block;
+                    background-repeat: no-repeat;
+                    background-image: url(../images/sort/xiaoxi2.png);
+                    background-size: 0.4rem 0.4rem;
+                    width: 0.4rem;
+                    height: 0.4rem;
+                }
+            }
+
+        }
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+
+        .content1 {
+            flex-direction: column;
+        }
+
+        .topPic {
+            margin-top: .923333rem;
+
+            img {
+                width: 7.5rem !important;
+                height: 3.5rem !important;
+            }
+        }
+
+        .goodsList {
+            background: #f7f7f7;
+
+            .goods {
+
+                margin-top: 0.2rem;
+                background: #fff;
+                // border-bottom: solid 1px rgba(0, 0, 0, 0.10);
+                padding: 4% 4%;
+
+                a {
+
+                    display: block;
+                    display: flex;
+
+                    .imgBorder {
+                        width: 2.6rem;
+                        position: relative;
+                        border: solid 1px #e5e5e5;
+                        display: block;
+                        border-radius: 6px;
+                        overflow: hidden;
+
+                        img {
+                            width: 2.6rem;
+                            height: 2.6rem;
+                        }
+                    }
+
+                    .goodsRight {
+                        padding-left: 0.25rem;
+                        
+
+                        h2 {
+                            color: #666;
+                            font-size: 0.32rem;
+                            padding: 0.25rem 0 0rem 0;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            width: 4rem;
+                        }
+
+                        .p_1 {
+                            margin-bottom: .166667rem;
+                            font-size: 0.285rem;
+                            color: #D33D3C;
+                        }
+
+                        .i_1 {
+                            font-size: 0.30rem;
+                            color: #999;
+                            float: right;
+                            display: block;
+                        }
+                        .div_1{
+                            margin-top: .766667rem;
+                            i{
+                                font-size: 0.36rem;
+                                color: #D62327;
+                            }
+                            del{
+                                font-size: 0.24rem;
+                                color: #999;
+                                margin-left: .066667rem;
+                            }
+                            span{
+                                float: right;
+                                background: #ebebeb;
+                                color: #999;
+                                display: inline-block;
+                                width: 1.633333rem;
+                                height: .566667rem;
+                                line-height:.566667rem;
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
