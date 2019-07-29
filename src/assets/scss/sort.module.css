@@ -86,7 +86,8 @@
 .cont .main .nav_main {
   height: 100%;
   /* margin-left: 1.93rem; */
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding-top: 0.3rem;
   flex: 1;
 }
