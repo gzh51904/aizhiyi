@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
@@ -13,6 +14,10 @@
   align-items: center;
   font-size: 0.22rem;
   color: #595d60;
+}
+
+.sub-nav .nav-item .ant-badge {
+  font-size: 12px;
 }
 
 .sub-nav .nav-item i {
@@ -35,6 +40,7 @@
 }
 
 .sub-nav .nav-item .cart {
+  display: block;
   background-image: url(../images/subNav/icon-cart.png);
 }
 

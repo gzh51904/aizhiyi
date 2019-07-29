@@ -7,17 +7,59 @@ import Commodity from "./Commodity";
 import Details from "./Details";
 import Comment from "./Comment";
 
+//
+import {connect} from 'react-redux';
+import {addAction,changeQtyAction} from '../actions/cartActions';
+
+
 class Goods extends Component {
     constructor() {
         super();
         this.state = {
-
-        }
-        this.goto = this.goto.bind(this)
+            info : [{
+                    "store_id" : "175",
+                    "store_name" : "特产美食馆",
+                    "goods_id" : "107782",
+                    "goods_name" : "北部湾烤海鸭蛋_ 尝尝得享 70*30枚",
+                    "goods_price" : "76.00",
+                    "goods_num" : "4",
+                    "goods_image" : "2018/08/11/183_05873227531317585.jpg",
+                    "goods_spec" : "品牌：尝尝得享, 规格：70*30枚",
+                    "goods_image_url" : "https://www.aizhiyi.com/data/upload/shop/store/goods/183/2018/08/11/183_05873227531317585_360.jpg",
+                    "newPrice" : 76,
+                    }]
+            }
+        
+        this.goto = this.goto.bind(this);
+        this.addToCart = this.addToCart.bind(this);
     }
     goto() {
         let { history } = this.props;
         history.push("/home")
+    }
+    //加入购物车
+    addToCart(){
+        console.log("点击加入购物车");
+        console.log(this.props);
+        let {info} = this.state;
+        let {cart_list,add2cart,changeQty} = this.props;
+        let currentGoods = cart_list.filter(item=>item.goods_id === info.goods_id)[0];
+        if(!currentGoods){
+            add2cart({
+                "store_id" : "175",
+                "store_name" : "特产美食馆",
+                "goods_id" : "107782",
+                "goods_name" : "北部湾烤海鸭蛋_ 尝尝得享 70*30枚",
+                "goods_price" : "76.00",
+                "goods_num" : 1,
+                "goods_image" : "2018/08/11/183_05873227531317585.jpg",
+                "goods_spec" : "品牌：尝尝得享, 规格：70*30枚",
+                "goods_image_url" : "https://www.aizhiyi.com/data/upload/shop/store/goods/183/2018/08/11/183_05873227531317585_360.jpg",
+                "newPrice" : 76,
+                })
+        }else{
+            changeQty({id:currentGoods.goods_id,qty:currentGoods.goods_num*1+1})
+        }
     }
     render() {
         const tabs = [
@@ -70,11 +112,33 @@ class Goods extends Component {
                     </div>
                     <div className={styles.buy_handle}>
                         <a href="javascript:void(0);" className={styles.buy_now}>立即购买</a>
-                        <a href="javascript:void(0);" className={styles.add_cart}>加入购物车</a>
+                        <a href="javascript:void(0);" className={styles.add_cart} onClick={this.addToCart}>加入购物车</a>
                     </div>
                 </div>
             </div >)
 
     }
 }
+
+
+
+let mapStateToProps = (state,ownprops)=>{
+    return {
+        cart_list:state.cart.cart_list
+    }
+}
+
+let mapDispatchToProps = (dispatch,ownprops)=>{
+    return {
+        add2cart(goods){
+            dispatch(addAction(goods))
+        },
+        changeQty({id,qty}){
+            dispatch(changeQtyAction({id,qty}))
+        }
+    }
+}
+
+Goods = connect(mapStateToProps,mapDispatchToProps)(Goods);
+
 export default Goods;

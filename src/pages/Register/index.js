@@ -4,10 +4,9 @@ import '../../assets/css/common/reset.css';
 import '../../assets/scss/register.css'
 import {api} from '../../utils/index.js';
 import ReactDOM from 'react-dom';
-<<<<<<< HEAD
-=======
+
 // import { register } from '../../serviceWorker';
->>>>>>> 5aad627567c19acbf0e9ec484ed4fb3f5358ffff
+
 // import { Form,Input,Button } from 'element-react';
 // import 'element-theme-default';
 
