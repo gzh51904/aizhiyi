@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import styles from "../assets/scss/goods.module.scss";
 import "../assets/scss/ant.css";
+import "../assets/scss/goodsCar.scss";
 import '../assets/css/common/reset.css';
-import { Tabs, Badge } from 'antd-mobile';
+import { api } from "../utils";
+import { Modal, List, Button, WhiteSpace, WingBlank, Stepper, Badge, Tabs } from 'antd-mobile';
 import Commodity from "./Commodity";
 import Details from "./Details";
 import Comment from "./Comment";
@@ -11,23 +13,116 @@ class Goods extends Component {
     constructor() {
         super();
         this.state = {
+            modal1: false,
+            modal2: false,
+            del: 2,
+            goods_num: 3,
+            goods_price :"",
+            goods_name:"",
+            goods_image:"",
+            store_id:"",
+            store_name:"",
+            goods_id:"",
+            newPrice:"",
+            data:{}
 
         }
         this.goto = this.goto.bind(this)
+        this.cart = this.cart.bind(this)
+        this.add = this.add.bind(this)
     }
     goto() {
         let { history } = this.props;
         history.push("/home")
     }
-    
-    render() {
+    showModal = key => (e) => {
+        e.preventDefault(); // 修复 Android 上点击穿透
+        this.setState({
+            [key]: true,
+        });
+    }
+    onClose = key => () => {
+        this.setState({
+            [key]: false,
+        });
+    }
+    onChange = (goods_num) => {
+        this.setState({ goods_num });
+      
+    }
+    onChange1 = (del) => {
+        this.setState({ del });
+    }
+    cart(id){
+        let { 
+            goods_num,
+            goods_name,
+            goods_price,
+            goods_image,
+            store_id,
+            store_name,
+            goods_id,
+            newPrice
+        }= this.state;
+        let data ={
+            goods_name:goods_name,
+            goods_price:goods_price,
+            goods_image:goods_image,
+            store_id:store_id,
+            store_name:store_name,
+            goods_id:goods_id,
+            newPrice:newPrice,
+            goods_num:goods_num
+        }
+       this.setState({
+           data
+       })
+        console.log(data)
+          
+ }
+    async add(goods_id){
+        // https://www.aizhiyi.com/mobile/index.php?act=goods&op=goods_detail&key=null&goods_id=109203&num=3
+        let { data :{datas}} = await api.get("", {
+            params: {
+                act: "goods",
+                op: "goods_detail",
+                key:null,
+                goods_id: goods_id,
+                num:3
+            }
+        });
+        let img = [];
+        let spec = datas.spec_image;
+        for (let i in spec) {
+            img.push(spec[i])
+        }
+        let {goods_name,goods_price} = datas.goods_info;
+        let {store_id,store_name} = datas.store_info;
+        let goods_image = img[0];
+        // console.log(store_id,store_name,777)
+        this.setState({
+            goods_name,
+            goods_price,
+            goods_image,
+            store_id,
+            store_name,
+            goods_id,
+            newPrice:goods_price
+        })
 
+    }
+    render() {
+       
+        // console.log(this.state.add)
+        let len = window.location.href.split("/").length;
+        let id = window.location.href.split("/")[len - 1];
+        let {goods_image,goods_price,goods_name} = this.state;
+        // console.log(datas)
         const tabs = [
             { title: <Badge >商品</Badge> },
             { title: <Badge >详情</Badge> },
             { title: <Badge >评价</Badge> },
         ];
-        console.log("goods", this.props)
         return (
 
             < div className={styles.cont} id="content">
@@ -45,24 +140,26 @@ class Goods extends Component {
                     </div>
                 </div>
                 <div className={styles.main}>
-                    <Tabs tabs={tabs}
-                        initialPage={0}
-                        tabBarBackgroundColor="#d33d3c"
-                        tabBarActiveTextColor="#fff"
-                        tabBarInactiveTextColor="#e2e2e2"
-                        tabBarUnderlineStyle={{ borderColor: "#fff", width: "1rem", fontSize: "20px" }}
-                    >
-                        <div style={{ height: "100%", backgroundColor: '#fff', marginTop: ".86667rem" }}>
-                            <Commodity />
-                        </div>
-                        <div style={{ height: '100%', backgroundColor: '#fff', marginTop: ".86667rem" }}>
-                            <Details />
-                        </div>
-                        <div className="top" style={{ height: '100%', backgroundColor: '#fff', marginTop: ".86667rem" }}>
-                            <Comment />
-                        </div>
-                    </Tabs>
 
+                    <div className="goods_main">
+                        <Tabs tabs={tabs}
+                            initialPage={0}
+                            tabBarBackgroundColor="#d33d3c"
+                            tabBarActiveTextColor="#fff"
+                            tabBarInactiveTextColor="#e2e2e2"
+                            tabBarUnderlineStyle={{ borderColor: "#fff", width: "1rem", fontSize: "20px" }}
+                        >
+                            <div style={{ height: "100%", backgroundColor: '#fff', paddingTop: ".86667rem" }}>
+                                <Commodity />
+                            </div>
+                            <div style={{ height: '100%', backgroundColor: '#fff', paddingTop: ".86667rem" }}>
+                                <Details />
+                            </div>
+                            <div className="top" style={{ height: '100%', backgroundColor: '#fff', paddingTop: ".86667rem" }}>
+                                <Comment />
+                            </div>
+                        </Tabs>
+                    </div>
                 </div>
                 <div className={styles.footer}>
                     <div className={styles.otreh_handle}>
@@ -72,7 +169,93 @@ class Goods extends Component {
                     </div>
                     <div className={styles.buy_handle}>
                         <a href="javascript:void(0);" className={styles.buy_now}>立即购买</a>
-                        <a href="javascript:void(0);" className={styles.add_cart}>加入购物车</a>
+                        <a href="javascript:void(0);" className={styles.add_cart}>
+                            <WingBlank>
+                                <Button onClick={this.showModal('modal2')} style={{ backgroundColor: '#FE9402' }}>
+                                <div 
+                                            onClick={this.add.bind(this,id)} 
+                                            style={
+                                                {width:"2.2rem",
+                                                height:'1rem',
+                                                color:"#fff"}
+                                                }>加入购物车</div>
+                                </Button>
+                                <WhiteSpace />
+                                <Modal
+                                    popup
+                                    visible={this.state.modal2}
+                                    onClose={this.onClose('modal2')}
+                                    animationType="slide-up"
+                                    // afterClose={() => { alert('加入成功'); }}
+
+                                >
+                                    <List renderHeader={() => <div className="nctouch-bottom-mask-top goods-options-info">
+                                        <div className="goods-pic">
+                                            <img src={goods_image} alt="" /></div><dl>
+                                            <dt style={{
+                                                 overflow: "hidden",
+                                                 whiteSpace: "nowrap", 
+                                                 textOverflow: "ellipsis",
+                                            }}>{goods_name}</dt>
+                                            <dd className="goods-price">
+                                                <em>￥{goods_price}</em>
+                                            </dd></dl><div className="store-choose"><span className="one">已选择 默认</span>
+                                            <span className="two"></span>
+                                        </div>
+                                    </div>} className="popup-list">
+
+                                        <List.Item>
+                                            <div id="aa">
+                                                <dl className="spec">
+                                                    <dt >规格：</dt>
+                                                    <dd >
+                                                        <a href="javascript:void(0);" className="current fl" >默认</a>
+                                                    </dd>
+                                                </dl>
+                                                <dl className="spec">
+                                                    <dt> 工艺：</dt>
+                                                    <dd >
+                                                        <a href="javascript:void(0);" className="current fl" >纯手工制作</a>
+                                                    </dd>
+                                                </dl>
+                                                <dl>
+                                                    <List>
+                                                        <List.Item
+                                                            wrap
+                                                            extra={
+                                                                <Stepper
+                                                                    style={{ width: '100%', minWidth: '100px' }}
+                                                                    showNumber
+                                                                    max={10}
+                                                                    min={1}
+                                                                    value={this.state.goods_num}
+                                                                    onChange={this.onChange}
+                                                                />}
+                                                        >
+                                                           购买数量
+                                                           
+                                                    </List.Item>
+                                                    </List>
+                                                </dl>
+                                            </div>
+                                        </List.Item>
+                                        <List.Item>
+                                            <Button type="warning" onClick={this.onClose('modal2')}>
+                                            <div 
+                                            onClick={this.cart.bind(this,id)} 
+                                            style={
+                                                {width:"6.9rem",
+                                                height:'0.9rem',
+                                                color:"#fff"}
+                                                }>确定</div>
+                                            </Button>
+                                            
+                                        </List.Item>
+                                    </List>
+                                </Modal>
+                            </WingBlank>
+                        </a>
+
                     </div>
                 </div>
             </div >)

@@ -12,7 +12,7 @@ class Details extends Component {
     async componentWillMount() {
         let len = window.location.href.split("/").length
         let id = window.location.href.split("/")[len - 1]
-        console.log(id)
+        // console.log(id)
         // 头部请求
         //https://www.aizhiyi.com/mobile/index.php?act=goods&op=goods_body&goods_id=107781
         let { data } = await api.get("", {
