@@ -48,11 +48,16 @@ class Goods extends Component {
         this.cart = this.cart.bind(this);
         this.add = this.add.bind(this);
         this.goto = this.goto.bind(this);
+        this.tocart = this.tocart.bind(this);
         this.addToCart = this.addToCart.bind(this);
     }
     goto() {
         let { history } = this.props;
         history.push("/home")
+    } 
+    tocart(){
+        let { history } = this.props;
+        history.push("/cart")
     }
 
     showModal = key => (e) => {
@@ -131,6 +136,7 @@ class Goods extends Component {
         })
     }
 
+
     //加入购物车
     addToCart(){
         console.log("点击加入购物车");
@@ -177,7 +183,7 @@ class Goods extends Component {
                             <a href="javascript:;" onClick={this.goto}> <i className={styles.back}></i> </a>
                         </div>
 
-                        <a href="javascript:;" className={styles.shop_cart}></a>
+                        <a href="javascript:;" className={styles.shop_cart} onClick={this.tocart}></a>
                         <div className={styles.header_r}>
                             <a href="javascript:void(0);">
                                 <i className={styles.more}></i><sup></sup>
