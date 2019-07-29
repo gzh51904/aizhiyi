@@ -4,10 +4,6 @@ import '../../assets/css/common/reset.css';
 import '../../assets/scss/register.css'
 import {api} from '../../utils/index.js';
 import ReactDOM from 'react-dom';
-<<<<<<< HEAD
-=======
-// import { register } from '../../serviceWorker';
->>>>>>> 5aad627567c19acbf0e9ec484ed4fb3f5358ffff
 // import { Form,Input,Button } from 'element-react';
 // import 'element-theme-default';
 
@@ -35,141 +31,141 @@ class Register extends Component{
       this.getCode=this.getCode.bind(this);
     }
    
-      telChange(e){
+    telChange(e){
+    this.setState({
+        keyWord:e.target.value,      
+    })
+    }
+    passWordChange(e){
         this.setState({
-            keyWord:e.target.value,      
+        passWord:e.target.value
         })
-      }
-      passWordChange(e){
-          this.setState({
-            passWord:e.target.value
-          })
-      }
-      checkPassChange(e){
-        this.setState({
-            checkPass:e.target.value
-          })
-      }
-      getCode(e){
-        let code =this.state.code;
-          this.setState({
-            code:e.target.value
-          })
-          if(code){
-              //code按钮颜色问题
-             this.refs.code.style.opacity='1'
-          }else{
-            this.refs.code.style.opacity='0.4'
-          }
-      }
-      getMsg(e){
-        let massage =this.state.massage;
-        this.setState({
-          massage:e.target.value
+    }
+    checkPassChange(e){
+    this.setState({
+        checkPass:e.target.value
         })
-      }
-      
-    //   号码失去焦点验证
-      telOnBlur(){
-        // let {keyWordSwitch}=this.state
-        let regExp4Phone = new RegExp("^[1][3-9]\\d{9}");
-        let keyWord = this.state.keyWord;
-        if(keyWord){            
-            if(regExp4Phone.test(keyWord)){      
-                this.setState({
-                    keyWordSwitch:true
-                })
-            }else{
-            this.refs.dialogText.innerHTML='手机号格式错误'
-            this.refs.wrapper.style.display='block'
-            this.setState({
-                keyWordSwitch:false
-            })
-            }
+    }
+    getCode(e){
+    let code =this.state.code;
+        this.setState({
+        code:e.target.value
+        })
+        if(code){
+            //code按钮颜色问题
+            this.refs.code.style.opacity='1'
         }else{
-            this.refs.dialogText.innerHTML='手机号不能为空'
-            this.refs.wrapper.style.display='block'
+        this.refs.code.style.opacity='0.4'
         }
+    }
+    getMsg(e){
+    let massage =this.state.massage;
+    this.setState({
+        massage:e.target.value
+    })
+    }
+    
+//   号码失去焦点验证
+    telOnBlur(){
+    // let {keyWordSwitch}=this.state
+    let regExp4Phone = new RegExp("^[1][3-9]\\d{9}");
+    let keyWord = this.state.keyWord;
+    if(keyWord){            
+        if(regExp4Phone.test(keyWord)){      
+            this.setState({
+                keyWordSwitch:true
+            })
+        }else{
+        this.refs.dialogText.innerHTML='手机号格式错误'
+        this.refs.wrapper.style.display='block'
+        this.setState({
+            keyWordSwitch:false
+        })
+        }
+    }else{
+        this.refs.dialogText.innerHTML='手机号不能为空'
+        this.refs.wrapper.style.display='block'
+    }
     }
 
     checkPassOnBlur(){
-        let passWord  = this.state.passWord;
-        let checkPass = this.state.checkPass;  
-        if(passWord==checkPass){
-            this.setState({
-                passWordSwitch:true
-            })
-        }else{
-            this.refs.dialogText.innerHTML='密码不一致，请重新输入'
-            this.refs.wrapper.style.display='block'
-            this.setState({
-                passWordSwitch:false
-            })
-        }
+    let passWord  = this.state.passWord;
+    let checkPass = this.state.checkPass;  
+    if(passWord==checkPass){
+        this.setState({
+            passWordSwitch:true
+        })
+    }else{
+        this.refs.dialogText.innerHTML='密码不一致，请重新输入'
+        this.refs.wrapper.style.display='block'
+        this.setState({
+            passWordSwitch:false
+        })
+    }
     }
 
     codeOnBlur(){
-        let code = this.state.code;
-        if(code){
-            this.setState({
-                codeSwitch:true
-            })
-        }else{
-            this.refs.dialogText.innerHTML='验证码不能为空'
-            this.refs.wrapper.style.display='block'
-            this.setState({
-                codeSwitch:false
-            })
-        }
+    let code = this.state.code;
+    if(code){
+        this.setState({
+            codeSwitch:true
+        })
+    }else{
+        this.refs.dialogText.innerHTML='验证码不能为空'
+        this.refs.wrapper.style.display='block'
+        this.setState({
+            codeSwitch:false
+        })
+    }
     }
 
     massageOnBlur(){
-        let massage =this.state.massage;
-        
-        if(massage){
-            this.setState({
-                massageSwitch:true
-            })
+    let massage =this.state.massage;
+    
+    if(massage){
+        this.setState({
+            massageSwitch:true
+        })
+    }else{
+        this.refs.dialogText.innerHTML='短信验证码不能为空'
+        this.refs.wrapper.style.display='block'
+        this.setState({
+            massageSwitch:false
+        })
+    }
+    }
+
+    allOnBlur(){
+    if(this.state.keyWordSwitch
+        && this.state.codeSwitch
+        && this.state.massageSwitch
+        && this.state.passWordSwitch)
+        {
+            this.refs.massage.style.opacity='1'
         }else{
-            this.refs.dialogText.innerHTML='短信验证码不能为空'
-            this.refs.wrapper.style.display='block'
-            this.setState({
-                massageSwitch:false
-            })
+        this.refs.massage.style.opacity='0.4'
         }
     }
-    
-    allOnBlur(){
-        if(this.state.keyWordSwitch
-            && this.state.codeSwitch
-            && this.state.massageSwitch
-            && this.state.passWordSwitch)
-            {
-                this.refs.massage.style.opacity='1'
-            }else{
-            this.refs.massage.style.opacity='0.4'
-            }
-    }
-    //确认发送
+//确认发送
     async confirm(){
-        let username = this.state.keyWord;
-        let password = this.state.passWord;
-        await api.get('',{
-            params:{
-            username,
-            password
-            }        
-         })
+    let username = this.state.keyWord;
+    let password = this.state.passWord;
+    await api.get('',{
+        params:{
+        username,
+        password
+        }        
+        })
 
     }
     componentDidUpdate(){
-        this.allOnBlur()
+    this.allOnBlur()
     }
 //   删除遮罩层
-        removeMask(){
-            this.refs.wrapper.style.display='none';
-            this.refs.dialogText.innerHTML=''
-        }
+    removeMask(){
+    this.refs.wrapper.style.display='none';
+    this.refs.dialogText.innerHTML=''
+    }
 
         render() {
             console.log(this.state.keyWordSwitch);
@@ -240,9 +236,8 @@ class Register extends Component{
                         </a>
                     </div>
                 </div>
-            </div>
-                )
-      }
+            </div>)
+            }
     
 }
 export default Register

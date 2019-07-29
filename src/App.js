@@ -34,14 +34,9 @@ class App extends Component {
             <Route path="/goods/:id" component={Goods} />
             <Route path="/404" render={() => <div>oh no 404</div>} />
             <Redirect from="/*" to="/404" />
-<<<<<<< HEAD
-          </Switch>          
-          <SubNav /> 
-=======
           </Switch>
 
           <SubNav />
->>>>>>> 5aad627567c19acbf0e9ec484ed4fb3f5358ffff
         </HashRouter>
       </div>
 

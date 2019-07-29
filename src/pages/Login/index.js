@@ -73,7 +73,6 @@ class Login extends Component{
             this.refs.massage.style.opacity='0.4'
             }
     }
-
     eyeOpen(){
         this.refs.eyeOpen.style.display='none'
         this.refs.eyeClose.style.display='block'
@@ -97,7 +96,6 @@ class Login extends Component{
             password
             }        
          })
-
     }
     render() {
         return (<div className={styles.Login}>
@@ -169,9 +167,9 @@ class Login extends Component{
                         </div>
                         <div className={styles.dialog}>
                             <span ref='dialogText'></span>
-                                <a href="javascript:void(0)" onClick={this.removeMask.bind(this)}>
-                                    <i>确定</i>
-                                </a>
+                            <a href="javascript:void(0)" onClick={this.removeMask.bind(this)}>
+                                <i>确定</i>
+                            </a>
                         </div>
                     </div>
                 </div>)
