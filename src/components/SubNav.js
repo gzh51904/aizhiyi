@@ -3,6 +3,11 @@ import React,{Component} from 'react';
 import '../assets/scss/subNav.scss';
 
 import {NavLink} from 'react-router-dom'
+
+import { Menu, Icon, Badge} from 'antd';
+
+import { connect } from 'react-redux';
+
 class SubNav extends Component{
   constructor(){
     super();
@@ -49,8 +54,18 @@ class SubNav extends Component{
             subNav.map(item=>{
                 return (
                     <NavLink className="nav-item" to={item.path} key={item.name} activeClassName="nav-current">
-                        <i className={item.name.toLowerCase()}></i>
-                        <span>{item.title}</span>
+                        { 
+                          item.name==='Cart'? 
+                          <Badge count={this.props.cart_len}>
+                            <i className={item.name.toLowerCase()}></i>
+                            {item.title}
+                          </Badge>
+                          :
+                          <>
+                          <i className={item.name.toLowerCase()}></i>
+                          <span>{item.title}</span>
+                          </>
+                        }
                     </NavLink>
                 )
             })
@@ -59,5 +74,13 @@ class SubNav extends Component{
     );
   }
 }
+
+
+let mapStateToProps = (state)=>{
+  return {
+    cart_len:state.cart.cart_list.length
+  }
+}
+SubNav = connect(mapStateToProps)(SubNav);
 
 export default SubNav;

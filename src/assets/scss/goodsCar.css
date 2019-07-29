@@ -1,0 +1,98 @@
+.nctouch-bottom-mask-top {
+  position: relative;
+  z-index: 1;
+  display: block;
+  padding: 0 0.5rem 0.3rem 0.5rem;
+  min-height: 1.62rem;
+}
+
+.nctouch-bottom-mask-top .goods-pic {
+  position: absolute;
+  z-index: 1;
+  top: -0.5rem;
+  left: 0.5rem;
+  width: 2.08rem;
+  height: 2.08rem;
+  background: #FFF;
+  border-radius: 12px;
+  border: 1px solid #dcdcdc;
+}
+
+.nctouch-bottom-mask-top .goods-pic img {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+
+.nctouch-bottom-mask-top dl {
+  margin-left: 2.5rem;
+}
+
+.nctouch-bottom-mask-top dl dt {
+  font-size: 0.26rem;
+  line-height: 0.75rem;
+  margin: 0rem 0.6rem -0.1rem 0;
+  color: #333333;
+}
+
+.nctouch-bottom-mask-top dl .goods-price {
+  height: 1rem;
+  font-size: 0.24rem;
+  color: #666;
+  font-weight: normal;
+  margin: 0 0 0 0rem;
+}
+
+.nctouch-bottom-mask-top dl .goods-price em {
+  font-size: 0.3rem;
+  color: #D62327;
+}
+
+.nctouch-bottom-mask-top .store-choose {
+  margin: -0.5rem 0 0 2.5rem;
+  font-size: 0.24rem;
+}
+
+#aa .spec {
+  height: 1.6rem;
+  border-bottom: solid 1px #e5e5e5;
+  padding: 0 0.48rem;
+}
+
+#aa .spec dt {
+  display: block;
+  height: 0.26rem;
+  padding: 0.3rem 0;
+  font-size: 0.26rem;
+  color: #333;
+  line-height: 0.26rem;
+  margin-bottom: 10px;
+}
+
+#aa .spec dd {
+  display: block;
+  font-size: 0rem;
+  margin-left: -0.3rem;
+}
+
+#aa .spec dd a {
+  display: inline-block;
+  height: 0.56rem;
+  padding: 0 0.3rem;
+  margin-left: 0.3rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.26rem;
+  color: #888;
+  line-height: 0.56rem;
+  background: #FFF;
+  background: #fff;
+  color: #666;
+  border-radius: 0.08rem;
+  font-family: PingFangSC-Regular, sans-serif,MicrosoftYaHei;
+}
+
+#aa .spec dd a.current {
+  color: #FFF;
+  background: #d33d3c;
+  border: none;
+}

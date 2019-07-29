@@ -1,5 +1,5 @@
-import React,{Component} from 'react';
-import {api} from '../../utils/index.js';
+import React, { Component } from 'react';
+import { api } from '../../utils/index.js';
 import '../../assets/css/common/reset.css';
 import styles from '../../assets/scss/welfare.module.scss'
 import '../../assets/scss/welfare.css'

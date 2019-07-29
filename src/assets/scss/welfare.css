@@ -3,9 +3,9 @@
 #welfare .am-tabs-tab-bar-wrap {
     width: 7.53333rem !important;
     position: fixed;
-    left: 0 !important;
+    left: 0 ;
     z-index: 999;
-    height: 0.9rem !important;
+    height: 0.9rem ;
 
 }
 

@@ -18,6 +18,8 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 class App extends Component {
   render() {
+    console.log(this.props.cart_len);
+
     return (
       <div className="App">
         <HashRouter>
@@ -35,7 +37,6 @@ class App extends Component {
             <Route path="/404" render={() => <div>oh no 404</div>} />
             <Redirect from="/*" to="/404" />
           </Switch>
-
           <SubNav />
         </HashRouter>
       </div>
@@ -44,12 +45,12 @@ class App extends Component {
   }
 }
 
-/* let mapStateToProps = (state)=>{
+let mapStateToProps = (state) => {
   return {
-    goodslen:state.cart.goodslist.length
+    cart_len: state.cart.cart_list.length
   }
 }
-App = connect(mapStateToProps)(App) */
+App = connect(mapStateToProps)(App);
 
 
 export default App;
