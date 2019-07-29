@@ -4,7 +4,10 @@ import '../../assets/css/common/reset.css';
 import '../../assets/scss/register.css'
 import {api} from '../../utils/index.js';
 import ReactDOM from 'react-dom';
+<<<<<<< HEAD
+=======
 // import { register } from '../../serviceWorker';
+>>>>>>> 5aad627567c19acbf0e9ec484ed4fb3f5358ffff
 // import { Form,Input,Button } from 'element-react';
 // import 'element-theme-default';
 
@@ -171,8 +174,14 @@ class Register extends Component{
         render() {
             console.log(this.state.keyWordSwitch);
             return (<div className={styles.Register}>
-            <div className={styles.header}>
-            </div>
+            <div className={[`${styles.header}`,`clearfix`].join(' ')}>
+                        <div className={styles.header_l}>
+                            <a href="">
+                                <i></i>
+                            </a>
+                            <span>注册</span>
+                        </div>
+                    </div>
             <div className={styles.main}>
                 <form action="">
                     <ul className={styles.formBox}>
