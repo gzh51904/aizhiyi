@@ -19,7 +19,9 @@ class Goods extends Component {
         let { history } = this.props;
         history.push("/home")
     }
+    
     render() {
+
         const tabs = [
             { title: <Badge >商品</Badge> },
             { title: <Badge >详情</Badge> },

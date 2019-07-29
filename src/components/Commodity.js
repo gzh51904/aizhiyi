@@ -13,12 +13,16 @@ class Commodity extends Component {
             goods_info: {},
             arr: [],
             eval_list: [],
-            store: []
+            store: [],
+            id: 109243
 
         }
     }
     async componentWillMount() {
         let id = this.props.match.params.id
+        this.setState({
+            id
+        })
         // 头部请求
         // https://www.aizhiyi.com/mobile/index.php?act=goods&op=goods_detail&key=null&goods_id=107781&num=3
         let { data: { datas } } = await api.get("", {
@@ -28,12 +32,10 @@ class Commodity extends Component {
                 key: null,
                 goods_id: id,
                 num: 3
-
             }
         })
         // console.log(datas)
         let arr = [];
-
         let spec = datas.goods_info.goods_spec;
         for (let i in spec) {
             arr.push(spec[i])
@@ -49,9 +51,53 @@ class Commodity extends Component {
             eval_list,
             store
         })
+        console.log("刷新")
+    }
+    async componentDidUpdate(nextProps, nextState) {
+        let len = window.location.href.split("/").length
+        let id2 = window.location.href.split("/")[len - 1]
+        let id = nextProps.match.params.id;
+        if (id2 != id) {
+            this.setState({
+                id
+            })
+            let id3 = this.props.match.params.id
+            let { data: { datas } } = await api.get("", {
+                params: {
+                    act: "goods",
+                    op: "goods_detail",
+                    key: null,
+                    goods_id: id3,
+                    num: 3
+
+                }
+            })
+            // console.log(datas)
+            let arr = [];
+            let spec = datas.goods_info.goods_spec;
+            for (let i in spec) {
+                arr.push(spec[i])
+            }
+            let banner = datas.goods_image.split(",");
+            let goods_info = datas.goods_info;
+            let eval_list = datas.goods_eval_list;
+            let store = datas.store_info;
+            this.setState({
+                banner,
+                goods_info,
+                arr,
+                eval_list,
+                store
+            })
+            console.log('切换成功')
+        }
     }
 
+
+
+
     render() {
+
         let { banner, goods_info, arr, eval_list, store } = this.state;
         return (
             <div>

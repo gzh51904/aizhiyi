@@ -7,14 +7,19 @@ class Recommend extends Component {
         super();
         this.state = {
             goods: [],
-            news: []
+            news: [],
+            id: 109243
         }
         this.goto = this.goto.bind(this);
         this.huan = this.huan.bind(this);
 
     }
     async componentWillMount() {
-        let id = this.props.match.params.id
+        let goodsid = this.props.match.params.id
+        this.setState({
+            id: goodsid
+        })
+        let { id } = this.state;
         // 头部请求
         // https://www.aizhiyi.com/mobile/index.php?act=goods&op=goods_detail&key=null&goods_id=107781&num=3
         let { data: { datas } } = await api.get("", {
@@ -36,9 +41,37 @@ class Recommend extends Component {
         });
 
     }
+    async componentDidUpdate(nextProps, nextState) {
+        let len = window.location.href.split("/").length
+        let id2 = window.location.href.split("/")[len - 1]
+        let id = nextProps.match.params.id;
+        // console.log(nextState.id, "id", id, "id2", id2)
+        if (id2 != id) {
+            let { data: { datas } } = await api.get("", {
+                params: {
+                    act: "goods",
+                    op: "goods_detail",
+                    key: null,
+                    goods_id: id,
+                    num: 3
+
+                }
+            })
+            // console.log(datas)
+            let goods = datas.guessFavoriteGoods;
+            let news = datas.goodsCommendNew;
+            this.setState({
+                goods,
+                news,
+                id
+            });
+            // console.log("id", id, "id2", id2)
+        }
+    }
+
     // 详情页
     goto(id) {
-        console.log(id, this)
+        console.log(id, this);
 
     }
     // 换一批
