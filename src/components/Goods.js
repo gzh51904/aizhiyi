@@ -29,19 +29,20 @@ class Goods extends Component {
             store_name:"",
             goods_id:"",
             newPrice:"",
-            data:{},
-            info : [{
-                "store_id" : "175",
-                "store_name" : "特产美食馆",
-                "goods_id" : "107782",
-                "goods_name" : "北部湾烤海鸭蛋_ 尝尝得享 70*30枚",
-                "goods_price" : "76.00",
-                "goods_num" : "4",
-                "goods_image" : "2018/08/11/183_05873227531317585.jpg",
-                "goods_spec" : "品牌：尝尝得享, 规格：70*30枚",
-                "goods_image_url" : "https://www.aizhiyi.com/data/upload/shop/store/goods/183/2018/08/11/183_05873227531317585_360.jpg",
-                "newPrice" : 76,
-                }]
+            info:{},
+            data : [{}]
+            // [{
+            //     "store_id" : "175",
+            //     "store_name" : "特产美食馆",
+            //     "goods_id" : "107782",
+            //     "goods_name" : "北部湾烤海鸭蛋_ 尝尝得享 70*30枚",
+            //     "goods_price" : "76.00",
+            //     "goods_num" : "4",
+            //     "goods_image" : "2018/08/11/183_05873227531317585.jpg",
+            //     "goods_spec" : "品牌：尝尝得享, 规格：70*30枚",
+            //     "goods_image_url" : "https://www.aizhiyi.com/data/upload/shop/store/goods/183/2018/08/11/183_05873227531317585_360.jpg",
+            //     "newPrice" : 76,
+            //     }]
 
         }
         this.goto = this.goto.bind(this);
@@ -87,9 +88,10 @@ class Goods extends Component {
             store_id,
             store_name,
             goods_id,
-            newPrice
+            newPrice,
+            info
         }= this.state;
-        let data ={
+        let data =[{
             goods_name:goods_name,
             goods_price:goods_price,
             goods_image:goods_image,
@@ -98,11 +100,11 @@ class Goods extends Component {
             goods_id:goods_id,
             newPrice:newPrice,
             goods_num:goods_num
-        }
+        }]
        this.setState({
-           data
+        data
        })
-        console.log(data)
+        console.log(data,this.state)
           
  }
     async add(goods_id){
@@ -163,7 +165,7 @@ class Goods extends Component {
     }
 
     render() {
-       
+        console.log(this.state)
         // console.log(this.state.add)
         let len = window.location.href.split("/").length;
         let id = window.location.href.split("/")[len - 1];
@@ -220,7 +222,7 @@ class Goods extends Component {
                     </div>
                     <div className={styles.buy_handle}>
                         <a href="javascript:void(0);" className={styles.buy_now}>立即购买</a>
-                        <a href="javascript:void(0);" className={styles.add_cart}>
+                        <div  className={styles.add_cart}>
                             <WingBlank>
                                 <Button onClick={this.showModal('modal2')} style={{ backgroundColor: '#FE9402' }}>
                                 <div 
@@ -260,13 +262,13 @@ class Goods extends Component {
                                                 <dl className="spec">
                                                     <dt >规格：</dt>
                                                     <dd >
-                                                        <a href="javascript:void(0);" className="current fl" >默认</a>
+                                                        <a href="javascript:void(0)" className="current fl" >默认 </a>
                                                     </dd>
                                                 </dl>
                                                 <dl className="spec">
                                                     <dt> 工艺：</dt>
                                                     <dd >
-                                                        <a href="javascript:void(0);" className="current fl" >纯手工制作</a>
+                                                        <a href="javascript:void(0)" className="current fl" >纯手工制作</a>
                                                     </dd>
                                                 </dl>
                                                 <dl>
@@ -305,7 +307,7 @@ class Goods extends Component {
                                     </List>
                                 </Modal>
                             </WingBlank>
-                        </a>
+                        </div>
 
                     </div>
                 </div>
