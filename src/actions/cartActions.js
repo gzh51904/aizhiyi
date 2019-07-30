@@ -1,6 +1,7 @@
 export const  ADD_TO_CART = 'ADD_TO_CART'
 export const  REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 export const  CHANGE_GOODS_QTY = 'CHANGE_GOODS_QTY'
+export const GET_ALL_CART = 'GET_ALL_CART'
 
 
 export function addAction(goods){
@@ -21,9 +22,16 @@ export function changeQtyAction({id,qty}){
         payload:{id,qty}
     }
 }
+export function getAllAction(){
+    return {
+        type:GET_ALL_CART,
+        payload:{}
+    }
+}
 
 export default {
     addAction,
     removeAction,
-    changeQtyAction
+    changeQtyAction,
+    getAllAction
 }

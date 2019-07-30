@@ -105,10 +105,12 @@ class Login extends Component{
             alert("用户名或密码错误！");
           } else if (data.code === 1000) {
             // 保存登录信息
-            let temp = data.datas.data;
-            localStorage.setItem("Authorization", temp);
+            let Authorization = data.datas.data;
+            let user_key = data.datas.user_key;
+            localStorage.setItem("Authorization", Authorization);
+            localStorage.setItem("user_key", user_key);
 
-            let virtualName = temp.slice(0,8);
+            //let virtualName = Authorization.slice(0,8);
             
 
             let {history} = this.props;

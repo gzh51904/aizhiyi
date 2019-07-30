@@ -77,8 +77,15 @@ class SubNav extends Component{
 
 
 let mapStateToProps = (state)=>{
+  let cart_len =0;
+  state.cart.cart_list.map(item=>{
+    cart_len = cart_len + item.goods_num;
+    return item;
+  })
+  console.log(cart_len);
+  
   return {
-    cart_len:state.cart.cart_list.length
+    cart_len
   }
 }
 SubNav = connect(mapStateToProps)(SubNav);
