@@ -92,6 +92,7 @@ class Commodity extends Component {
             console.log('切换成功', this.props)
         }
     }
+    
 
 
 
@@ -215,6 +216,8 @@ class Commodity extends Component {
     }
 }
 Commodity = withRouter(Commodity)
-export default Commodity;
+// export default Commodity;
+let len = window.location.href.split("/").length
+let id2 = window.location.href.split("/")[len - 1]
 
-// export default (props) => <Commodity {...props} key={props.match.params.id}/>
+export default (props) => <Commodity {...props} key={id2} />

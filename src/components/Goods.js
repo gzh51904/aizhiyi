@@ -208,7 +208,14 @@ class Goods extends Component {
         
         
     }
-
+    //组件更新时被调用 
+    componentWillReceiveProps(nextProps) {
+        let len = window.location.href.split("/").length
+        let key = window.location.href.split("/")[len - 1];
+        this.setState({
+            goods_id: key
+        })
+    }
     render() {
         console.log(this.state)
         // console.log(this.state.add)
@@ -248,13 +255,13 @@ class Goods extends Component {
                             tabBarUnderlineStyle={{ borderColor: "#fff", width: "1rem", fontSize: "20px" }}
                         >
                             <div style={{ height: "100%", backgroundColor: '#fff', paddingTop: ".86667rem" }}>
-                                <Commodity />
+                                <Commodity key={`${this.state.goods_id}`}/>
                             </div>
                             <div style={{ height: '100%', backgroundColor: '#fff', paddingTop: ".86667rem" }}>
-                                <Details />
+                                <Details  key={`${this.state.goods_id}`}/>
                             </div>
                             <div className="top" style={{ height: '100%', backgroundColor: '#fff', paddingTop: ".86667rem" }}>
-                                <Comment />
+                                <Comment  key={`${this.state.goods_id}`}/>
                             </div>
                         </Tabs>
                     </div>
