@@ -73,7 +73,6 @@ class Login extends Component{
             this.refs.massage.style.opacity='0.4'
             }
     }
-
     eyeOpen(){
         this.refs.eyeOpen.style.display='none'
         this.refs.eyeClose.style.display='block'
@@ -99,6 +98,7 @@ class Login extends Component{
             password
             }        
          })
+<<<<<<< HEAD
          console.log(data);
          
          if (data.code == 250) {
@@ -120,6 +120,8 @@ class Login extends Component{
           }
          
 
+=======
+>>>>>>> a30c2e077f84cc5b25926b3bf933f47fc61a1e36
     }
     render() {
         return (<div className={styles.Login}>
@@ -194,9 +196,9 @@ class Login extends Component{
                         </div>
                         <div className={styles.dialog}>
                             <span ref='dialogText'></span>
-                                <a href="javascript:void(0)" onClick={this.removeMask.bind(this)}>
-                                    <i>确定</i>
-                                </a>
+                            <a href="javascript:void(0)" onClick={this.removeMask.bind(this)}>
+                                <i>确定</i>
+                            </a>
                         </div>
                     </div>
                 </div>)

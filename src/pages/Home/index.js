@@ -119,9 +119,9 @@ class Home extends Component {
 
         let { num, height, send, top } = this.state;
 
-        // console.log(main.scrollTop, 2370 + (top * height), top)
+        console.log(main.scrollTop, 2350 + (top * height), top)
         // 判断：当滚动条到达某个地方的时候发起请求数据，height*top是请求一条数据的时候会增加的滚动条长度
-        if (main.scrollTop >= 2370 + (height * top) && send) {
+        if (main.scrollTop >= 2350 + (height * top) && send) {
             // 讲send设为false，让他下次不能进来继续发请求
             this.setState({ send: false })
             // 请求数据
@@ -181,7 +181,7 @@ class Home extends Component {
                             {
                                 adv_list.map(item => {
                                     return <div key={item.data}>
-                                        <h3><img src={item.image} alt="" style={{width:"7.5rem", height: '3.01rem' }} /></h3>
+                                        <h3><img src={item.image} alt="" style={{ width: "7.5rem", height: '3.01rem' }} /></h3>
                                     </div>
                                 })
                             }

@@ -105,6 +105,7 @@ class Register extends Component {
         }
     }
 
+
     codeOnBlur() {
         let code = this.state.code;
         if (code) {
