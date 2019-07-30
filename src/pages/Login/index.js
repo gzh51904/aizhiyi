@@ -98,7 +98,6 @@ class Login extends Component{
             password
             }        
          })
-<<<<<<< HEAD
          console.log(data);
          
          if (data.code == 250) {
@@ -120,8 +119,6 @@ class Login extends Component{
           }
          
 
-=======
->>>>>>> a30c2e077f84cc5b25926b3bf933f47fc61a1e36
     }
     render() {
         return (<div className={styles.Login}>
