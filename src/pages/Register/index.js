@@ -105,6 +105,7 @@ class Register extends Component {
         }
     }
 
+
     codeOnBlur() {
         let code = this.state.code;
         if (code) {
@@ -150,12 +151,19 @@ class Register extends Component {
     async confirm() {
         let username = this.state.keyWord;
         let password = this.state.passWord;
-        await api.get('', {
-            params: {
-                username,
-                password
-            }
-        })
+        let {data} = await api.getData('/reg/check',{
+            params:{
+            username,
+            password
+            }        
+         })
+         if (data.code === 1000) {
+            console.log(1111);
+            
+          }else{
+            this.refs.wrapper.style.display='block';
+            this.refs.dialogText.innerHTML='该号码已被注册';
+          }
 
     }
     componentDidUpdate() {

@@ -73,7 +73,6 @@ class Login extends Component{
             this.refs.massage.style.opacity='0.4'
             }
     }
-
     eyeOpen(){
         this.refs.eyeOpen.style.display='none'
         this.refs.eyeClose.style.display='block'
@@ -91,19 +90,23 @@ class Login extends Component{
     async confirm(){
         let username = this.state.tel;
         let password = this.state.pass;
-        await api.get('',{
+        console.log(username,password);
+        
+        let {data} = await api.getData('/login',{
             params:{
             username,
             password
             }        
          })
-
     }
     render() {
         return (<div className={styles.Login}>
                     <div className={[`${styles.header}`,`clearfix`].join(' ')}>
                         <div className={styles.header_l}>
-                            <a href="">
+                            <a href="javascript::void(0)" onClick={()=>{
+                                let {history} = this.props;
+                                history.goBack();
+                            }}>
                                 <i></i>
                             </a>
                             <span>账号登录</span>
@@ -169,9 +172,9 @@ class Login extends Component{
                         </div>
                         <div className={styles.dialog}>
                             <span ref='dialogText'></span>
-                                <a href="javascript:void(0)" onClick={this.removeMask.bind(this)}>
-                                    <i>确定</i>
-                                </a>
+                            <a href="javascript:void(0)" onClick={this.removeMask.bind(this)}>
+                                <i>确定</i>
+                            </a>
                         </div>
                     </div>
                 </div>)
