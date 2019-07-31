@@ -214,7 +214,8 @@ class Goods extends Component {
         let key = window.location.href.split("/")[len - 1];
         this.setState({
             goods_id: key
-        })
+        });
+       
     }
     render() {
         console.log(this.state)

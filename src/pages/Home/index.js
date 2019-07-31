@@ -62,6 +62,7 @@ class Home extends Component {
         }
         this.goto = this.goto.bind(this);
         this.orderScroll = this.orderScroll.bind(this);
+        this.search = this.search.bind(this);
 
 
     }
@@ -112,6 +113,10 @@ class Home extends Component {
         let main = document.getElementById("main");
         return main
     }
+    search() {
+        let { history } = this.props;
+        history.push("/search")
+    }
 
     // 滚动事件
     async orderScroll() {
@@ -160,7 +165,7 @@ class Home extends Component {
             <div className={styles.cont}>
                 <div className={styles.header}>
                     <a className={styles.nav_logo} href="javascript:0;"></a>
-                    <a className={styles.header_inp} href="javascript:0;">
+                    <a className={styles.header_inp} href="javascript:0;" onClick={this.search}>
                         <div className={styles.search_cont}>
                             <i className={styles.icon}></i>
                             <span className={styles.search_input}>文化创意，玩转生活</span>
