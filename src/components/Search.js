@@ -84,8 +84,8 @@ class Search extends Component {
     }
     goto() {
         let { history } = this.props;
-        // history.goBack();
-        console.log(history)
+        history.goBack();
+       
     }
     render() {
 
