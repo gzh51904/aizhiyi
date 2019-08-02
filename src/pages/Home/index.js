@@ -12,42 +12,42 @@ class Home extends Component {
             adv_list: [],
             list: [
                 {
-                    id: 1,
+                    id: 1378,
                     url: require("../../assets/images/home/z182.png"),
                     name: "传统工艺"
                 },
                 {
-                    id: 2,
+                    id: 1383,
                     url: require("../../assets/images/home/z183.png"),
                     name: "民俗文化"
                 },
                 {
-                    id: 3,
+                    id: 1379,
                     url: require("../../assets/images/home/z184.png"),
                     name: "茶艺茶道"
                 },
                 {
-                    id: 4,
+                    id: 1382,
                     url: require("../../assets/images/home/z185.png"),
                     name: "特产美食"
                 },
                 {
-                    id: 5,
+                    id: 1384,
                     url: require("../../assets/images/home/z186.png"),
                     name: "文化创意"
                 },
                 {
-                    id: 6,
+                    id: 1309,
                     url: require("../../assets/images/home/z187.png"),
                     name: "个性定制"
                 },
                 {
-                    id: 7,
+                    id: "specify",
                     url: require("../../assets/images/home/z188.png"),
                     name: "专馆基地"
                 },
                 {
-                    id: 8,
+                    id: 1381,
                     url: require("../../assets/images/home/z189.png"),
                     name: "珠宝首饰"
                 },
@@ -63,6 +63,7 @@ class Home extends Component {
         this.goto = this.goto.bind(this);
         this.orderScroll = this.orderScroll.bind(this);
         this.search = this.search.bind(this);
+        this.goList = this.goList.bind(this);
 
 
     }
@@ -78,7 +79,7 @@ class Home extends Component {
         })
         let adv_list = datas[0]["adv_list"]["item"];
         let free_list = datas[2]["free_list"]["item"];
-        console.log(datas)
+        // console.log(datas)
         // 商品请求
         // https://www.aizhiyi.com/mobile/index.php?act=index&op=guess_favorite&key=&curpage=1&page=14
         let res = await api.get("", {
@@ -109,6 +110,18 @@ class Home extends Component {
             pathname: 'goods/' + id,
         })
     }
+    goList(id) {
+        let { history } = this.props;
+        if (id === "specify") {
+            history.push('/sort/feature')
+        } else {
+            history.push({
+                pathname: 'list/' + id,
+            })
+        }
+
+
+    }
     top() {
         let main = document.getElementById("main");
         return main
@@ -121,12 +134,11 @@ class Home extends Component {
     // 滚动事件
     async orderScroll() {
         let main = document.getElementById("main");
-
         let { num, height, send, top } = this.state;
 
-        console.log(main.scrollTop, 2350 + (top * height), top)
+        // console.log(main.scrollTop, 2350 + (top * height), top)
         // 判断：当滚动条到达某个地方的时候发起请求数据，height*top是请求一条数据的时候会增加的滚动条长度
-        if (main.scrollTop >= 2350 + (height * top) && send) {
+        if (main.scrollTop >= 1900 + (height * top) && send) {
             // 讲send设为false，让他下次不能进来继续发请求
             this.setState({ send: false })
             // 请求数据
@@ -161,6 +173,7 @@ class Home extends Component {
         let com1 = require("../../assets/images/home/common1.png");
         let com2 = require("../../assets/images/home/common2.jpg");
         let com3 = require("../../assets/images/home/common3.jpg");
+        // console.log(list)
         return (
             <div className={styles.cont}>
                 <div className={styles.header}>
@@ -198,7 +211,7 @@ class Home extends Component {
                             {
                                 list.map(item => {
                                     return (
-                                        <li key={item.id}>
+                                        <li key={item.id} onClick={this.goList.bind(this, item.id)}>
                                             <a className={styles.menu_icon} href="javascript:0;">
                                                 <img src={item.url} alt="" className={styles.icon_cloth} />
                                                 <span>{item.name}</span>
@@ -293,7 +306,7 @@ class Home extends Component {
                         {
                             goods_list.map(item => {
                                 return (
-                                    <li key={item.goods_id} onClick={this.goto.bind(this, item.goods_id)}>
+                                    <li key={item.goods_id} onClick={this.goto.bind(this, item.goods_id)} ref="goods_item">
                                         <a href="javascript:0;">
                                             <img src={item.goods_image} alt="" />
                                         </a>

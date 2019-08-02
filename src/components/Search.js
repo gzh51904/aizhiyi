@@ -9,23 +9,23 @@ class Search extends Component {
             data1: [
                 {
                     id: 1,
-                    title: 0 - 100
+                    title: '0 - 100'
                 },
                 {
                     id: 2,
-                    title: 100 - 300
+                    title: '100 - 300'
                 },
                 {
                     id: 3,
-                    title: 300 - 500
+                    title: '300 - 500'
                 },
                 {
                     id: 4,
-                    title: 1000 - 5000
+                    title: '1000 - 5000'
                 },
                 {
                     id: 5,
-                    title: 5000 - 10000
+                    title: '5000 - 10000'
                 },
                 {
                     id: 6,
@@ -84,7 +84,8 @@ class Search extends Component {
     }
     goto() {
         let { history } = this.props;
-        history.push("/home")
+        // history.goBack();
+        console.log(history)
     }
     render() {
 

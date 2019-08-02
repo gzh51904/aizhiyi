@@ -53,7 +53,8 @@ class Goods extends Component {
     }
     goto() {
         let { history } = this.props;
-        history.push("/home")
+        history.goBack();
+        
     } 
     tocart(){
         let { history } = this.props;
@@ -105,7 +106,7 @@ class Goods extends Component {
        })
        console.log(info); */
        
-        console.log(this.state);
+        // console.log(this.state);
         this.addToCart();
           
  }
@@ -186,14 +187,14 @@ class Goods extends Component {
                 }) */
                 
         }else{
-            console.log("qty",currentGoods.goods_num*1+info.goods_num*1);
+            // console.log("qty",currentGoods.goods_num*1+info.goods_num*1);
             
             changeQty({id:currentGoods.goods_id,qty:currentGoods.goods_num*1+info.goods_num*1})
         }
         //cart_list = this.propss.cart_list;
         
         cart_list = this.props.cart_list.length ? this.props.cart_list : this.state.info;
-        console.log(JSON.stringify(cart_list));
+        // console.log(JSON.stringify(cart_list));
         localStorage.setItem("cart_list",JSON.stringify(cart_list));
         
         
@@ -218,7 +219,7 @@ class Goods extends Component {
        
     }
     render() {
-        console.log(this.state)
+        // console.log(this.state)
         // console.log(this.state.add)
         let len = window.location.href.split("/").length;
         let id = window.location.href.split("/")[len - 1];

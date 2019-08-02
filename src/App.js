@@ -14,6 +14,7 @@ import Cart from './pages/Cart';
 import Mine from './pages/Mine';
 import Goods from './components/Goods';
 import Search from './components/Search';
+import List from './components/List';
 
 import Register from './pages/Register';
 import Login from './pages/Login';
@@ -35,6 +36,7 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/mine" component={Mine} />
             <Route path="/search" component={Search} />
+            <Route path="/list/:id" component={List} />
             <Route path="/goods/:id" component={Goods} />
             <Route path="/404" render={() => <div>oh no 404</div>} />
             <Redirect from="/*" to="/404" />
