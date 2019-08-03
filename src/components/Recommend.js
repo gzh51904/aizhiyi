@@ -12,6 +12,7 @@ class Recommend extends Component {
         }
 
         this.huan = this.huan.bind(this);
+        this.top = this.top.bind(this);
     }
     async componentWillMount() {
         let goodsid = this.props.match.params.id
@@ -59,7 +60,7 @@ class Recommend extends Component {
             // console.log(datas)
             let goods = datas.guessFavoriteGoods;
             let news = datas.goodsCommendNew;
-            console.log("goods2:", goods)
+            // console.log("goods2:", goods)
             this.setState({
                 goods,
                 news,
@@ -75,6 +76,11 @@ class Recommend extends Component {
     //     }
     // }
     // 详情页
+    top() {
+        let main = document.getElementsByClassName("goods_main__1FQ9Z")[0];
+
+        main.scrollTop = 0;
+    }
 
     // 换一批
     async huan(id) {
@@ -114,7 +120,7 @@ class Recommend extends Component {
                             goods ? goods.map(item => {
                                 return (
                                     <NavLink key={'/goods/' + item.goods_id} to={'/goods/' + item.goods_id}>
-                                        <li key={item.goods_id}>
+                                        <li key={item.goods_id} onClick={this.top}>
                                             <div>
                                                 <div className={styles.pic}><img src={item.goods_image} alt="" /></div>
                                                 <dl className={styles.dl}>
@@ -142,7 +148,7 @@ class Recommend extends Component {
                             news.map(item => {
                                 return (
                                     <NavLink href="javascript:void(0);" key={'/goods/' + item.goods_id} to={'/goods/' + item.goods_id}>
-                                        <li key={item.goods_id}>
+                                        <li key={item.goods_id} onClick={this.top}>
                                             <div>
                                                 <div className={styles.pic}><img src={item.goods_image} alt="" /></div>
                                                 <dl className={styles.dl}>

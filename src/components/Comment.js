@@ -19,7 +19,7 @@ class Comment extends Component {
     async componentWillMount() {
         let len = window.location.href.split("/").length
         let id = window.location.href.split("/")[len - 1]
-        console.log(id)
+        // console.log(id)
         // 头部请求
         let { num } = this.state;
         //https://www.aizhiyi.com/mobile/index.php?act=goods&op=goods_evaluate&goods_id=109251&type=&curpage=1&page=10
@@ -45,7 +45,7 @@ class Comment extends Component {
         if (main) {
             main.addEventListener("scroll", this.orderScroll, true)
         }
-        console.log(main)
+        // console.log(main)
     }
 
     // 滚动事件

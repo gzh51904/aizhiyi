@@ -42,7 +42,8 @@ class Goods extends Component {
     }
     goto() {
         let { history } = this.props;
-        history.push("/home")
+        history.goBack();
+        
     } 
     tocart(){
         let { history } = this.props;
@@ -70,6 +71,7 @@ class Goods extends Component {
         this.setState({ del });
         console.log(this.state.del);
     }
+<<<<<<< HEAD
     async cart(id){
         let Authorization = localStorage.getItem('Authorization');
         let user_key = localStorage.getItem('user_key'); 
@@ -80,6 +82,37 @@ class Goods extends Component {
             let {history} = this.props;
             history.replace('/Login');
         }
+=======
+    cart(id){
+        /* let { 
+            goods_num,
+            goods_name,
+            goods_price,
+            goods_image,
+            store_id,
+            store_name,
+            goods_id,
+            newPrice,
+            info
+        }= this.state;
+        let info ={
+            goods_name:goods_name,
+            goods_price:goods_price,
+            goods_image:goods_image,
+            store_id:store_id,
+            store_name:store_name,
+            goods_id:goods_id,
+            newPrice:newPrice,
+            goods_num:goods_num
+        }]
+       this.setState({
+        info
+       })
+       console.log(info); */
+       
+        // console.log(this.state);
+        this.addToCart();
+>>>>>>> 21869603e49e789f4b51a60d4e51a71f170496b8
           
  }
     async add(goods_id){
@@ -202,9 +235,13 @@ class Goods extends Component {
             console.log("??????????????????????",cart_list[0]);
             
         }else{
+<<<<<<< HEAD
             console.log("store_id",currentGoods);
             console.log("qty",currentGoods.goods_num*1+infoGoods.goods_num*1);
             //console.log({sid:currentGoods.store_id,gid:currentGoods.goods_id,qty:currentGoods.goods_num*1+infoGoods.goods_num*1});
+=======
+            // console.log("qty",currentGoods.goods_num*1+info.goods_num*1);
+>>>>>>> 21869603e49e789f4b51a60d4e51a71f170496b8
             
             changeQty(
                 {
@@ -214,12 +251,45 @@ class Goods extends Component {
                 }
             )
         }
+<<<<<<< HEAD
         console.log("已经加入完了",this.props.cart_list);
+=======
+        //cart_list = this.propss.cart_list;
+        
+        cart_list = this.props.cart_list.length ? this.props.cart_list : this.state.info;
+        // console.log(JSON.stringify(cart_list));
+        localStorage.setItem("cart_list",JSON.stringify(cart_list));
+        
+        
+/*         api.getData('cartlist',{
+            params:{
+                user_key,
+                cart_list
+            }
+        }).then(data => {
+            console.log(data.data);}) */
+        
+>>>>>>> 21869603e49e789f4b51a60d4e51a71f170496b8
         
         this.cart2server(user_key,this.props.cart_list);
         
+<<<<<<< HEAD
     } 
     render() {
+=======
+    }
+    //组件更新时被调用 
+    componentWillReceiveProps(nextProps) {
+        let len = window.location.href.split("/").length
+        let key = window.location.href.split("/")[len - 1];
+        this.setState({
+            goods_id: key
+        });
+       
+    }
+    render() {
+        // console.log(this.state)
+>>>>>>> 21869603e49e789f4b51a60d4e51a71f170496b8
         // console.log(this.state.add)
         let len = window.location.href.split("/").length;
         let id = window.location.href.split("/")[len - 1];
@@ -257,13 +327,13 @@ class Goods extends Component {
                             tabBarUnderlineStyle={{ borderColor: "#fff", width: "1rem", fontSize: "20px" }}
                         >
                             <div style={{ height: "100%", backgroundColor: '#fff', paddingTop: ".86667rem" }}>
-                                <Commodity />
+                                <Commodity key={`${this.state.goods_id}`}/>
                             </div>
                             <div style={{ height: '100%', backgroundColor: '#fff', paddingTop: ".86667rem" }}>
-                                <Details />
+                                <Details  key={`${this.state.goods_id}`}/>
                             </div>
                             <div className="top" style={{ height: '100%', backgroundColor: '#fff', paddingTop: ".86667rem" }}>
-                                <Comment />
+                                <Comment  key={`${this.state.goods_id}`}/>
                             </div>
                         </Tabs>
                     </div>
@@ -276,7 +346,7 @@ class Goods extends Component {
                     </div>
                     <div className={styles.buy_handle}>
                         <a href="javascript:void(0);" className={styles.buy_now}>立即购买</a>
-                        <div href="javascript:void(0);" className={styles.add_cart}>
+                        <div className={styles.add_cart}>
                             <WingBlank>
                                 <Button onClick={this.showModal('modal2')} style={{ backgroundColor: '#FE9402' }}>
                                 <div 
@@ -316,13 +386,13 @@ class Goods extends Component {
                                                 <dl className="spec">
                                                     <dt >规格：</dt>
                                                     <dd >
-                                                        <a href="javascript:void(0);" className="current fl" >默认</a>
+                                                        <a href="javascript:void(0)" className="current fl" >默认 </a>
                                                     </dd>
                                                 </dl>
                                                 <dl className="spec">
                                                     <dt> 工艺：</dt>
                                                     <dd >
-                                                        <a href="javascript:void(0);" className="current fl" >纯手工制作</a>
+                                                        <a href="javascript:void(0)" className="current fl" >纯手工制作</a>
                                                     </dd>
                                                 </dl>
                                                 <dl>

@@ -51,7 +51,7 @@ class Commodity extends Component {
             eval_list,
             store
         })
-        console.log("刷新")
+        // console.log("刷新", this.props)
     }
     async componentDidUpdate(nextProps, nextState) {
         let len = window.location.href.split("/").length
@@ -89,9 +89,10 @@ class Commodity extends Component {
                 eval_list,
                 store
             })
-            console.log('切换成功')
+            // console.log('切换成功', this.props)
         }
     }
+
 
 
 
@@ -101,7 +102,6 @@ class Commodity extends Component {
         let { banner, goods_info, arr, eval_list, store } = this.state;
         return (
             <div>
-                <div className={styles.open_app}>打开APP</div>
                 <WingBlank>
                     <Carousel autoplay={true} infinite swipeSpeed='2000' style={{ width: '7.5rem', height: '7.5rem' }}>
                         {banner.map(val => (
@@ -216,3 +216,7 @@ class Commodity extends Component {
 }
 Commodity = withRouter(Commodity)
 export default Commodity;
+// let len = window.location.href.split("/").length
+// let id2 = window.location.href.split("/")[len - 1]
+
+// export default (props) => <Commodity {...props} key={id2} />
