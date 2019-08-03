@@ -4,6 +4,11 @@ import '../../assets/css/common/reset.css';
 import {api} from '../../utils/index.js';
 import ReactDOM from 'react-dom';
 
+//
+import {connect} from 'react-redux';
+import {addAction,changeQtyAction, getAllAction} from '../../actions/cartActions';
+//import {loginAction} from '../../actions/commonActions';
+
 class Login extends Component{
     constructor() {
         super();
@@ -92,16 +97,15 @@ class Login extends Component{
         let password = this.state.pass;
         console.log(username,password);
         
-        let {data} = await api.getData('/login',{
+        let {data,data:{datas}} = await api.getData('/login',{
             params:{
             username,
             password
             }        
          })
-<<<<<<< HEAD
          console.log(data);
          
-         if (data.code == 250) {
+         if (data.code === 250) {
             alert("用户名或密码错误！");
           } else if (data.code === 1000) {
             // 保存登录信息
@@ -110,18 +114,23 @@ class Login extends Component{
             localStorage.setItem("Authorization", Authorization);
             localStorage.setItem("user_key", user_key);
 
+            //loginAction({loginStatus : true});
+
             //let virtualName = Authorization.slice(0,8);
-            
-
+            let {datas:{cart_list}} = datas;
+            if(cart_list.length !== 0){
+                let {add2cart} = this.props;
+                add2cart(cart_list);
+                console.log(this.props);
+                
+            }
+      
             let {history} = this.props;
-
             history.replace('/mine');
             
           }
          
 
-=======
->>>>>>> a30c2e077f84cc5b25926b3bf933f47fc61a1e36
     }
     render() {
         return (<div className={styles.Login}>
@@ -204,4 +213,30 @@ class Login extends Component{
                 </div>)
     }
 }
-export default Login
+
+
+
+let mapStateToProps = (state,ownprops)=>{
+    return {
+        loginStatue:state.common.loginStatue,
+        cart_list:state.cart.cart_list
+    }
+}
+
+let mapDispatchToProps = (dispatch,ownprops)=>{
+    return {
+        add2cart(goods){
+            dispatch(addAction(goods))
+        },
+        changeQty({id,qty}){
+            dispatch(changeQtyAction({id,qty}))
+        },
+        getAll(){
+            dispatch(getAllAction({}));
+        }
+    }
+}
+
+Login = connect(mapStateToProps,mapDispatchToProps)(Login);
+
+export default Login;

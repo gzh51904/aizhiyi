@@ -158,7 +158,13 @@ class Register extends Component {
             }        
          })
          if (data.code === 1000) {
-            console.log(1111);
+            let {history} = this.props;
+            this.refs.wrapper.style.display='block';
+            this.refs.dialogText.innerHTML='登录成功,2s后跳转';
+            setTimeout(()=>{
+                history.replace('/Login');
+            },2000)
+            
             
           }else{
             this.refs.wrapper.style.display='block';

@@ -27,12 +27,12 @@ class Cart extends Component {
         console.log("cart:", this)
         //?act=member_cart&op=cart_list
         //暂时模拟购物车
-        let data = localStorage.getItem("cart_list");
-        // let { data } = await api.getData("/cartlist", {
-        //     params: {
-        //         user_key: '1',
-        //     }
-        // });
+        //let data = localStorage.getItem("cart_list");
+        let { data } = await api.getData("/cartlist", {
+            params: {
+                user_key: '1',
+            }
+        });
         /* console.log(data); */
         let { datas, datas: { cart_list } } = data;
         //数据添加全选属性

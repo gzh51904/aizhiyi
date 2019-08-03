@@ -119,7 +119,7 @@ class Home extends Component {
 
         let { num, height, send, top } = this.state;
 
-        console.log(main.scrollTop, 2350 + (top * height), top)
+        //console.log(main.scrollTop, 2350 + (top * height), top)
         // 判断：当滚动条到达某个地方的时候发起请求数据，height*top是请求一条数据的时候会增加的滚动条长度
         if (main.scrollTop >= 2350 + (height * top) && send) {
             // 讲send设为false，让他下次不能进来继续发请求

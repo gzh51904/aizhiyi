@@ -21,7 +21,7 @@ class Goods extends Component {
             modal1: false,
             modal2: false,
             del: 2,
-            goods_num: 3,
+            goods_num: 1,
             goods_price :"",
             goods_name:"",
             goods_image:"",
@@ -30,18 +30,7 @@ class Goods extends Component {
             goods_id:"",
             newPrice:"",
             data:{},
-            info : {
-                /* "store_id" : "175",
-                "store_name" : "特产美食馆",
-                "goods_id" : "107782",
-                "goods_name" : "北部湾烤海鸭蛋_ 尝尝得享 70*30枚",
-                "goods_price" : "76.00",
-                "goods_num" : "4",
-                "goods_image" : "2018/08/11/183_05873227531317585.jpg",
-                "goods_spec" : "品牌：尝尝得享, 规格：70*30枚",
-                "goods_image_url" : "https://www.aizhiyi.com/data/upload/shop/store/goods/183/2018/08/11/183_05873227531317585_360.jpg",
-                "newPrice" : 76, */
-                }
+            info : {}
 
         }
         this.goto = this.goto.bind(this);
@@ -71,44 +60,37 @@ class Goods extends Component {
             [key]: false,
         });
     }
-    onChange = (goods_num) => {
+    onChange = (goods_num,e) => {
+        console.log(this.state.goods_num);
         this.setState({ goods_num });
-      
+        
+        
     }
     onChange1 = (del) => {
         this.setState({ del });
+        console.log(this.state.del);
     }
-    cart(id){
-        /* let { 
-            goods_num,
-            goods_name,
-            goods_price,
-            goods_image,
-            store_id,
-            store_name,
-            goods_id,
-            newPrice
-        }= this.state;
-        let info ={
-            goods_name:goods_name,
-            goods_price:goods_price,
-            goods_image:goods_image,
-            store_id:store_id,
-            store_name:store_name,
-            goods_id:goods_id,
-            newPrice:newPrice,
-            goods_num:goods_num
+    async cart(id){
+        let Authorization = localStorage.getItem('Authorization');
+        let user_key = localStorage.getItem('user_key'); 
+        
+        if(Authorization){          
+            this.addToCart();
+        }else{
+            let {history} = this.props;
+            history.replace('/Login');
         }
-       this.setState({
-        info
-       })
-       console.log(info); */
-       
-        console.log(this.state);
-        this.addToCart();
           
  }
     async add(goods_id){
+        //点击购物车的时请求拼接数据
+        let Authorization = localStorage.getItem('Authorization');
+        let user_key = localStorage.getItem('user_key');
+
+        if(!Authorization){
+            let {history} = this.props;
+            history.push('/login');
+        }
         // https://www.aizhiyi.com/mobile/index.php?act=goods&op=goods_detail&key=null&goods_id=109203&num=3
         let { data :{datas}} = await api.get("", {
             params: {
@@ -138,78 +120,106 @@ class Goods extends Component {
             newPrice:goods_price
         });
         let info ={
-            goods_name:goods_name,
-            goods_price:goods_price,
-            goods_image:goods_image,
             store_id:store_id,
             store_name:store_name,
-            goods_id:goods_id,
-            newPrice:this.state.newPrice,
-            goods_num:this.state.goods_num
+            goods:[{
+                goods_name:goods_name,
+                goods_price:goods_price,
+                goods_image_url:goods_image,
+                store_id:store_id,
+                store_name:store_name,
+                goods_id:goods_id,
+                newPrice:this.state.newPrice,
+                goods_num:this.state.goods_num
+            }]
         }
         this.setState({
             info
-           });
+        });
+        console.log("info-info！！！！！！！！！！！",info);
+           
     }
 
+    //购物车同步服务器数据
+    async cart2server(user_key,cart_list){
+        console.log(111);
+        
+        let datas = {
+            init_name : "熬夜冠军",
+            cart_list
+        }
+        //datas = JSON.stringify(datas)
+        let data = await api.getData("/cartlist/update", {
+            params: {
+                user_key,
+                datas
+            }
+        });
+    }
 
     //加入购物车
     addToCart(){
         console.log("点击加入购物车");
-        console.log(this.props);
         let {info} = this.state;
-        let {cart_list,add2cart,changeQty,getAll} = this.props;
-        let user_key = localStorage.getItem('user_key');
-        let currentGoods = cart_list.filter(item=>item.goods_id === info.goods_id)[0];
-        if(!currentGoods){
-            add2cart(
-                info
-                /* {
-                "store_id" : "175",
-                "store_name" : "特产美食馆",
-                "goods_id" : "107782",
-                "goods_name" : "北部湾烤海鸭蛋_ 尝尝得享 70*30枚",
-                "goods_price" : "76.00",
-                "goods_num" : 1,
-                "goods_image" : "2018/08/11/183_05873227531317585.jpg",
-                "goods_spec" : "品牌：尝尝得享, 规格：70*30枚",
-                "goods_image_url" : "https://www.aizhiyi.com/data/upload/shop/store/goods/183/2018/08/11/183_05873227531317585_360.jpg",
-                "newPrice" : 76,
-                } */
-                )
-                /* api.postData('cartlist',{
-                    params:{
-                        user_key,
-                        info
-                    }
-                }) */
-                
-        }else{
-            console.log("qty",currentGoods.goods_num*1+info.goods_num*1);
-            
-            changeQty({id:currentGoods.goods_id,qty:currentGoods.goods_num*1+info.goods_num*1})
-        }
-        //cart_list = this.propss.cart_list;
-        
-        cart_list = this.props.cart_list.length ? this.props.cart_list : this.state.info;
-        console.log(JSON.stringify(cart_list));
-        localStorage.setItem("cart_list",JSON.stringify(cart_list));
-        
-        
-/*         api.getData('cartlist',{
-            params:{
-                user_key,
-                cart_list
-            }
-        }).then(data => {
-            console.log(data.data);}) */
-        
-        
-        
-    }
 
+        let {cart_list,add2cart,changeQty,getAll} = this.props;
+
+        let user_key = localStorage.getItem('user_key');
+
+        console.log("==========cart_list==============",cart_list);
+
+        let currentStore = cart_list.filter(item=>item.store_id == info.store_id)[0];
+
+        console.log("==========currentStore==============",currentStore);
+
+        let infoGoods = info.goods[0];
+
+        console.log("infoGoodsinfoGoodsinfoGoods",infoGoods);
+        
+        let currentGoods = !currentStore ? "" : currentStore.goods.filter(item=>item.goods_id == infoGoods.goods_id)[0];
+        
+        console.log("currentGoods??????????????????????",currentGoods);
+        
+        if(!currentGoods){
+            /* currentStore.goods.map(item=>{
+                if(item.goods_id === )
+            }) */
+            if(cart_list.length !== 0 && currentStore){
+                 cart_list.map(item=>{
+                    if(item.store_id == info.store_id){
+                        item.goods.push(info.goods[0]);
+                    }
+                    return item;
+                }) 
+            }else{
+                console.log(11);
+                
+                cart_list.push(info)
+            }
+            console.log("whywhywhy",cart_list);
+            
+            add2cart(cart_list)
+            console.log("??????????????????????",cart_list[0]);
+            
+        }else{
+            console.log("store_id",currentGoods);
+            console.log("qty",currentGoods.goods_num*1+infoGoods.goods_num*1);
+            //console.log({sid:currentGoods.store_id,gid:currentGoods.goods_id,qty:currentGoods.goods_num*1+infoGoods.goods_num*1});
+            
+            changeQty(
+                {
+                    sid:currentGoods.store_id,
+                    gid:currentGoods.goods_id,
+                    qty:currentGoods.goods_num*1+infoGoods.goods_num*1
+                }
+            )
+        }
+        console.log("已经加入完了",this.props.cart_list);
+        
+        this.cart2server(user_key,this.props.cart_list);
+        
+    } 
     render() {
-       
         // console.log(this.state.add)
         let len = window.location.href.split("/").length;
         let id = window.location.href.split("/")[len - 1];
@@ -364,6 +374,7 @@ class Goods extends Component {
 
 let mapStateToProps = (state,ownprops)=>{
     return {
+        loginStatue:state.common.loginStatue,
         cart_list:state.cart.cart_list
     }
 }
@@ -373,8 +384,8 @@ let mapDispatchToProps = (dispatch,ownprops)=>{
         add2cart(goods){
             dispatch(addAction(goods))
         },
-        changeQty({id,qty}){
-            dispatch(changeQtyAction({id,qty}))
+        changeQty({sid,gid,qty}){
+            dispatch(changeQtyAction({sid,gid,qty}))
         },
         getAll(){
             dispatch(getAllAction({}));

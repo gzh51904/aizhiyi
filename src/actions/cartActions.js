@@ -16,10 +16,10 @@ export function removeAction(id){
         payload:id
     }
 }
-export function changeQtyAction({id,qty}){
+export function changeQtyAction({sid,gid,qty}){
     return {
         type:CHANGE_GOODS_QTY,
-        payload:{id,qty}
+        payload:{sid,gid,qty}
     }
 }
 export function getAllAction(){
