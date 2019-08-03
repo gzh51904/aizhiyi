@@ -3,6 +3,7 @@ import axios from 'axios';
 // 基本配置：
 //全局默认路径
 axios.defaults.baseURL = 'http://localhost:1906/';
+// axios.defaults.baseURL='http://47.107.156.131:1906/';
 
 let instance = axios.create({
     baseURL: 'https://www.aizhiyi.com/mobile/index.php',

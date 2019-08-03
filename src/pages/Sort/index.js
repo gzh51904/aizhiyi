@@ -54,6 +54,7 @@ class Sort extends Component{
         
         //history.push("/sort/"+ gc_id)
         //console.log(history);
+        console.log(gc_id);
         
     }
     render(){
@@ -81,6 +82,7 @@ class Sort extends Component{
                                 return(
                                         <NavLink href="javascript:void(0);" key={'/sort/'+item.gc_id} to={'/sort/'+item.gc_id} activeClassName={styles.sort_nav_current}>
                                             <li>{item.gc_name}</li>
+                                            
                                         </NavLink>)
                             })
                         }

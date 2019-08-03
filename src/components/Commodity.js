@@ -51,7 +51,7 @@ class Commodity extends Component {
             eval_list,
             store
         })
-        console.log("刷新")
+        console.log("刷新", this.props)
     }
     async componentDidUpdate(nextProps, nextState) {
         let len = window.location.href.split("/").length
@@ -89,9 +89,10 @@ class Commodity extends Component {
                 eval_list,
                 store
             })
-            console.log('切换成功')
+            console.log('切换成功', this.props)
         }
     }
+    
 
 
 
@@ -215,4 +216,8 @@ class Commodity extends Component {
     }
 }
 Commodity = withRouter(Commodity)
-export default Commodity;
+// export default Commodity;
+let len = window.location.href.split("/").length
+let id2 = window.location.href.split("/")[len - 1]
+
+export default (props) => <Commodity {...props} key={id2} />

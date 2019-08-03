@@ -62,6 +62,7 @@ class Home extends Component {
         }
         this.goto = this.goto.bind(this);
         this.orderScroll = this.orderScroll.bind(this);
+        this.search = this.search.bind(this);
 
 
     }
@@ -112,6 +113,10 @@ class Home extends Component {
         let main = document.getElementById("main");
         return main
     }
+    search() {
+        let { history } = this.props;
+        history.push("/search")
+    }
 
     // 滚动事件
     async orderScroll() {
@@ -121,7 +126,7 @@ class Home extends Component {
 
         console.log(main.scrollTop, 2350 + (top * height), top)
         // 判断：当滚动条到达某个地方的时候发起请求数据，height*top是请求一条数据的时候会增加的滚动条长度
-        if (main.scrollTop >= 2350 + (height * top) && send) {
+        if (main.scrollTop >= 1900 + (height * top) && send) {
             // 讲send设为false，让他下次不能进来继续发请求
             this.setState({ send: false })
             // 请求数据
@@ -160,7 +165,7 @@ class Home extends Component {
             <div className={styles.cont}>
                 <div className={styles.header}>
                     <a className={styles.nav_logo} href="javascript:0;"></a>
-                    <a className={styles.header_inp} href="javascript:0;">
+                    <a className={styles.header_inp} href="javascript:0;" onClick={this.search}>
                         <div className={styles.search_cont}>
                             <i className={styles.icon}></i>
                             <span className={styles.search_input}>文化创意，玩转生活</span>

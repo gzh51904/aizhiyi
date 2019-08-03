@@ -53,7 +53,8 @@ class Goods extends Component {
     }
     goto() {
         let { history } = this.props;
-        history.push("/home")
+        // history.push("/home")
+        history.goBack()
     } 
     tocart(){
         let { history } = this.props;
@@ -87,7 +88,8 @@ class Goods extends Component {
             store_id,
             store_name,
             goods_id,
-            newPrice
+            newPrice,
+            info
         }= this.state;
         let info ={
             goods_name:goods_name,
@@ -98,7 +100,7 @@ class Goods extends Component {
             goods_id:goods_id,
             newPrice:newPrice,
             goods_num:goods_num
-        }
+        }]
        this.setState({
         info
        })
@@ -207,9 +209,16 @@ class Goods extends Component {
         
         
     }
-
+    //组件更新时被调用 
+    componentWillReceiveProps(nextProps) {
+        let len = window.location.href.split("/").length
+        let key = window.location.href.split("/")[len - 1];
+        this.setState({
+            goods_id: key
+        })
+    }
     render() {
-       
+        console.log(this.state)
         // console.log(this.state.add)
         let len = window.location.href.split("/").length;
         let id = window.location.href.split("/")[len - 1];
@@ -247,13 +256,13 @@ class Goods extends Component {
                             tabBarUnderlineStyle={{ borderColor: "#fff", width: "1rem", fontSize: "20px" }}
                         >
                             <div style={{ height: "100%", backgroundColor: '#fff', paddingTop: ".86667rem" }}>
-                                <Commodity />
+                                <Commodity key={`${this.state.goods_id}`}/>
                             </div>
                             <div style={{ height: '100%', backgroundColor: '#fff', paddingTop: ".86667rem" }}>
-                                <Details />
+                                <Details  key={`${this.state.goods_id}`}/>
                             </div>
                             <div className="top" style={{ height: '100%', backgroundColor: '#fff', paddingTop: ".86667rem" }}>
-                                <Comment />
+                                <Comment  key={`${this.state.goods_id}`}/>
                             </div>
                         </Tabs>
                     </div>
@@ -266,7 +275,7 @@ class Goods extends Component {
                     </div>
                     <div className={styles.buy_handle}>
                         <a href="javascript:void(0);" className={styles.buy_now}>立即购买</a>
-                        <div href="javascript:void(0);" className={styles.add_cart}>
+                        <div className={styles.add_cart}>
                             <WingBlank>
                                 <Button onClick={this.showModal('modal2')} style={{ backgroundColor: '#FE9402' }}>
                                 <div 
@@ -306,13 +315,13 @@ class Goods extends Component {
                                                 <dl className="spec">
                                                     <dt >规格：</dt>
                                                     <dd >
-                                                        <a href="javascript:void(0);" className="current fl" >默认</a>
+                                                        <a href="javascript:void(0)" className="current fl" >默认 </a>
                                                     </dd>
                                                 </dl>
                                                 <dl className="spec">
                                                     <dt> 工艺：</dt>
                                                     <dd >
-                                                        <a href="javascript:void(0);" className="current fl" >纯手工制作</a>
+                                                        <a href="javascript:void(0)" className="current fl" >纯手工制作</a>
                                                     </dd>
                                                 </dl>
                                                 <dl>

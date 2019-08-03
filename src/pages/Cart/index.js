@@ -38,6 +38,8 @@ class Cart extends Component {
         datas.isAllChecked = false;
         //数据店铺下的全选属性
         //遍历请求的数据添加checkbox属性为false 
+        cart_list = datas[0].datas.cart_list;
+        
         cart_list.map(item => {
             item.isStoreChecked = false;
             return item.goods.map(item => {

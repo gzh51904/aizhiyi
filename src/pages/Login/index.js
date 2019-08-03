@@ -164,7 +164,10 @@ class Login extends Component{
                                 </li>
                             </ul>
                             <div className={styles.forgetPass}>
-                                <a href="">
+                                <a href="javascript::void(0)" onClick={()=>{
+                                    let {history}= this.props;
+                                    history.push('/Register'); 
+                                }}>
                                     手机快速注册
                                 </a>
                                 <a href="">

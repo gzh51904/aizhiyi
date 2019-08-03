@@ -4,6 +4,7 @@ import '../../assets/css/common/reset.css';
 import '../../assets/scss/register.css'
 import { api } from '../../utils/index.js';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 // import { register } from '../../serviceWorker';
 // import { Form,Input,Button } from 'element-react';
 // import 'element-theme-default';
@@ -30,6 +31,7 @@ class Register extends Component {
         this.checkPassChange = this.checkPassChange.bind(this);
         this.removeMask = this.removeMask.bind(this);
         this.getCode = this.getCode.bind(this);
+        this.sendCode=this.sendCode.bind(this);
     }
 
     telChange(e) {
@@ -158,7 +160,12 @@ class Register extends Component {
             }        
          })
          if (data.code === 1000) {
-            console.log(1111);
+            this.refs.wrapper.style.display='block';
+            this.refs.dialogText.innerHTML='注册成功，2s后跳转';
+            setTimeout(()=>{
+                let {history} = this.props;
+                history.push('/login');
+            },2000)
             
           }else{
             this.refs.wrapper.style.display='block';
@@ -174,13 +181,29 @@ class Register extends Component {
         this.refs.wrapper.style.display = 'none';
         this.refs.dialogText.innerHTML = ''
     }
+    async sendCode(){
+        let phone =this.state.keyWord
+        let {error_code}= await axios.post('http://localhost:5000/sms_send',{
+            params:{
+                phone,
+                tpl_id:176805,
+                key:'b63170776a7d315640e69a16b67d877a',
+            }
+        })
+        if(!error_code){
+            
+        }
 
+    }
     render() {
         console.log(this.state.keyWordSwitch);
         return (<div className={styles.Register}>
             <div className={[`${styles.header}`, `clearfix`].join(' ')}>
                 <div className={styles.header_l}>
-                    <a href="">
+                    <a href="javascript::void(0)" onClick={()=>{
+                        let {history} = this.props;
+                        history.goBack();
+                    }}>
                         <i></i>
                     </a>
                     <span>注册</span>
@@ -220,8 +243,9 @@ class Register extends Component {
                                 value={this.state.massage}
                                 onChange={this.getMsg.bind(this)}
                                 onBlur={this.massageOnBlur.bind(this)}
+                                
                             />
-                            <div className={styles.btnGet} ref="code">获取验证码</div>
+                            <div className={styles.btnGet} ref="code" onClick={this.sendCode.bind(this)}>获取验证码</div>
                         </li>
                     </ul>
                     <div className={styles.btn}>
@@ -250,3 +274,4 @@ class Register extends Component {
 
 }
 export default Register
+

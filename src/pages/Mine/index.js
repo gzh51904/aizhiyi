@@ -13,11 +13,21 @@ function Mine(props){
                     history.push('/Login');
                 }}>
                     点击登录
-                </a> : 
+                </a> : <div>
                 <a href="" className={styles.header_a2}>
                     {Authorization.slice(0,6)}
+                    
                 </a>
+                <a href="javascript::void(0)" style={{marginLeft:'5.8rem' ,color:'#fff'}} onClick={()=>{
+                    localStorage.setItem('Authorization','')
+                    let {history} = props;
+                    history.push('/mine');
+                }}>
+                退出登录
+            </a>
+                </div>
             }
+            
         </div>
         <div className={styles.main}>
             <div className={styles.main_t}>
