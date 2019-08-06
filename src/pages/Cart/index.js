@@ -58,9 +58,7 @@ class Cart extends Component {
         let Authorization = localStorage.getItem('Authorization');
 
         if(Authorization){
-            console.log("cart:", this)
-            //?act=member_cart&op=cart_list
-            console.log("cart props",this.props);
+
             let user_key = localStorage.getItem("user_key");
 
             //暂时模拟购物车
@@ -81,7 +79,6 @@ class Cart extends Component {
                     item.isChecked = false;
                 })
             });
-            console.log(cart_list);
             
             this.setState({
                 ...datas,
@@ -90,13 +87,16 @@ class Cart extends Component {
                 cart_list,
                 requireAuth : true,
             });
+            
             if(cart_list.length !== 0 ){
                 const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
-            setTimeout(() => this.setState({
-                height: hei,
-                data: genData(),
-            }), 0);
+                setTimeout(() => this.setState({
+                    height: hei,
+                    data: genData(),
+                }), 0);
             }
+            // console.log("----------------------",this.state);
+            
         }
 
     }
@@ -176,7 +176,7 @@ class Cart extends Component {
         })
         /* } */
         //cart_list[idx].isStoreChecked = !cart_list[idx].isStoreChecked;
-        console.log(checkStoreCache);
+        // console.log(checkStoreCache);
 
         this.setState({
             isAllChecked: checkStoreCache.every(isStoreChecked => isStoreChecked),
@@ -208,7 +208,7 @@ class Cart extends Component {
                 checkAllCache.push(item.isChecked);
                 return item;
             })
-            console.log(checkStoreCache);
+            // console.log(checkStoreCache);
 
             item.isStoreChecked = checkStoreCache.some(isChecked => isChecked);
             checkStoreCache = [];
@@ -263,7 +263,7 @@ class Cart extends Component {
         let { goods } = cart_list[idx];
         goods = goods.map(item => {
             if (item.goods_id === idf) {
-                console.log(idf);
+                // console.log(idf);
                 item.goods_num = goods_num;
                 if (item.isChecked) {
                     count_num = count_num - 1;
@@ -277,7 +277,7 @@ class Cart extends Component {
             count_num,
             cart_list
         });
-        console.log(this.state);
+        // console.log(this.state);
 
 
 
@@ -294,7 +294,7 @@ class Cart extends Component {
         let { goods } = cart_list[idx];
         goods = goods.map(item => {
             if (item.goods_id === idf) {
-                console.log(idf);
+                // console.log(idf);
                 item.goods_num = goods_num;
                 if (item.isChecked) {
                     count_num = count_num + 1;
@@ -312,7 +312,7 @@ class Cart extends Component {
     }
     //同步服务器
     async cart2server(user_key,cart_list){
-        console.log(111);
+        // console.log(111);
         
         let datas = {
             init_name : "熬夜冠军",
@@ -331,16 +331,16 @@ class Cart extends Component {
         
         let {cart_list} = this.state;
 
-        console.log("我准备卸载了哦========",cart_list);
+        // console.log("我准备卸载了哦========",cart_list);
 
         this.cart2server(user_key,cart_list);
     }
     render() {
-        console.log("now",this.state);
+        // console.log("now",this.state);
 
         let { cart_list } = this.state;
 
-        console.log("判断显示",this.state.requireAuth,cart_list.length,);
+        // console.log("判断显示",this.state.requireAuth,cart_list.length,);
         
 
         return (

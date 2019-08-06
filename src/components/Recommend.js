@@ -46,13 +46,13 @@ class Recommend extends Component {
         let id2 = window.location.href.split("/")[len - 1]
         let id = nextProps.match.params.id;
         // console.log(nextState.id, "id", id, "id2", id2)
-        if (id2 != id) {
+        if (id2 !==id) {
             let { data: { datas } } = await api.get("", {
                 params: {
                     act: "goods",
                     op: "goods_detail",
                     key: null,
-                    goods_id: id,
+                    goods_id: id, 
                     num: 3
 
                 }
@@ -77,8 +77,7 @@ class Recommend extends Component {
     // }
     // 详情页
     top() {
-        let main = document.getElementsByClassName("goods_main__1FQ9Z")[0];
-
+        let main = document.getElementsByClassName("goods_main__3UHNE")[0];
         main.scrollTop = 0;
     }
 
@@ -147,7 +146,7 @@ class Recommend extends Component {
                         {
                             news.map(item => {
                                 return (
-                                    <NavLink href="javascript:void(0);" key={'/goods/' + item.goods_id} to={'/goods/' + item.goods_id}>
+                                    <NavLink key={'/goods/' + item.goods_id} to={'/goods/' + item.goods_id}>
                                         <li key={item.goods_id} onClick={this.top}>
                                             <div>
                                                 <div className={styles.pic}><img src={item.goods_image} alt="" /></div>
@@ -165,7 +164,7 @@ class Recommend extends Component {
                         }
 
                     </ul>
-                    <a href="javascript:;" className={styles.guessLike_btn} onClick={this.huan.bind(this, id)}>换一批</a>
+                    <a href="javascript:void(0)" className={styles.guessLike_btn} onClick={this.huan.bind(this, id)}>换一批</a>
                 </div>
             </div>
         )

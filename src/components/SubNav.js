@@ -87,7 +87,7 @@ let mapStateToProps = (state)=>{
         return item;
     })  
   }
-  console.log(totalLen);
+  // console.log(totalLen);
   return {
     cart_len: totalLen
   }

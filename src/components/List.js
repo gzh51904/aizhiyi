@@ -31,7 +31,7 @@ class Search extends Component {
     }
     goto() {
         let { history } = this.props;
-        history.push("/home")
+        history.goBack()
     }
     search() {
         let { history } = this.props;
@@ -63,7 +63,7 @@ class Search extends Component {
             goods_list,
             num: 2
         })
-        console.log("生命周期", goods_list)
+        // console.log("生命周期", goods_list)
         let main = document.getElementById("main")
         main.addEventListener("scroll", this.orderScroll, true)
 
@@ -101,7 +101,7 @@ class Search extends Component {
                 top: top + 1,
                 send: true          //最后把状态改回为true，当滚动条到达一定距离继续发请求
             })
-            console.log("滚动事件", goods_list, "新数据", newGoods)
+            // console.log("滚动事件", goods_list, "新数据", newGoods)
 
         }
     }
@@ -132,7 +132,7 @@ class Search extends Component {
                 current3: false,
                 goods_list
             })
-            console.log("综合", goods_list)
+            // console.log("综合", goods_list)
         } else if (idx === 2) {
 
             //act=goods&op=goods_list&gc_id=1378&inSimilar=yes&page=10&curpage=1&gc_id=1378&key=1&order=2
@@ -161,7 +161,7 @@ class Search extends Component {
                 current3: false,
                 goods_list
             })
-            console.log("销售", goods_list)
+            // console.log("销售", goods_list)
             // console.log(goods_list, this.state.num)
         } else if (idx === 3) {
             if (this.state.show) {
@@ -187,7 +187,7 @@ class Search extends Component {
                 this.setState({
                     goods_list,
                 })
-                console.log("升序", goods_list)
+                // console.log("升序", goods_list)
             } else {
                 // console.log("jiang")
                 let { data: { datas } } = await api.get("", {
@@ -212,7 +212,7 @@ class Search extends Component {
                     goods_list,
 
                 })
-                console.log("降序", goods_list)
+                // console.log("降序", goods_list)
             }
             this.setState({
                 current1: false,
@@ -234,14 +234,14 @@ class Search extends Component {
                 <BackTop target={this.top} visibilityHeight='1200'>
                     <div className="ant-back-top-inner">
                         <div className='top'>
-                            <a href="javascript:;" className='scroll_top'> <i></i></a>
+                            <a href="javascript:void(0)" className='scroll_top'> <i></i></a>
                         </div>
                     </div>
                 </BackTop>
                 <div id="header">
                     <div className="header">
-                        <a className="nav_logo" href="javascript:0;" onClick={this.goto}></a>
-                        <a className="header_inp" href="javascript:0;" onClick={this.search}>
+                        <a className="nav_logo" href="javascript:void(0)" onClick={this.goto}></a>
+                        <a className="header_inp" href="javascript:void(0)" onClick={this.search}>
                             <div className="search_cont">
                                 <i className="icon"></i>
                                 <span className="search_input">文化创意，玩转生活</span>

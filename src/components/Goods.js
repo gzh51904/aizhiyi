@@ -62,14 +62,14 @@ class Goods extends Component {
         });
     }
     onChange = (goods_num,e) => {
-        console.log(this.state.goods_num);
+        
         this.setState({ goods_num });
         
         
     }
     onChange1 = (del) => {
         this.setState({ del });
-        console.log(this.state.del);
+        
     }
     async cart(id){
         let Authorization = localStorage.getItem('Authorization');
@@ -110,7 +110,7 @@ class Goods extends Component {
         let {goods_name,goods_price} = datas.goods_info;
         let {store_id,store_name} = datas.store_info;
         let goods_image = img[0];
-        // console.log(store_id,store_name,777)
+        
         this.setState({
             goods_name,
             goods_price,
@@ -137,13 +137,20 @@ class Goods extends Component {
         this.setState({
             info
         });
-        console.log("info-info！！！！！！！！！！！",info);
+  
            
     }
-
+//组件更新时被调用 
+componentWillReceiveProps(nextProps) {
+    let len = window.location.href.split("/").length
+    let key = window.location.href.split("/")[len - 1];
+    this.setState({
+    goods_id: key
+    });
+    }
     //购物车同步服务器数据
     async cart2server(user_key,cart_list){
-        console.log(111);
+
         
         let datas = {
             init_name : "熬夜冠军",
@@ -160,26 +167,26 @@ class Goods extends Component {
 
     //加入购物车
     addToCart(){
-        console.log("点击加入购物车");
+        // console.log("点击加入购物车");
         let {info} = this.state;
 
         let {cart_list,add2cart,changeQty,getAll} = this.props;
 
         let user_key = localStorage.getItem('user_key');
 
-        console.log("==========cart_list==============",cart_list);
+        // console.log("==========cart_list==============",cart_list);
 
         let currentStore = cart_list.filter(item=>item.store_id == info.store_id)[0];
 
-        console.log("==========currentStore==============",currentStore);
+        // console.log("==========currentStore==============",currentStore);
 
         let infoGoods = info.goods[0];
 
-        console.log("infoGoodsinfoGoodsinfoGoods",infoGoods);
+        // console.log("infoGoodsinfoGoodsinfoGoods",infoGoods);
         
         let currentGoods = !currentStore ? "" : currentStore.goods.filter(item=>item.goods_id == infoGoods.goods_id)[0];
         
-        console.log("currentGoods??????????????????????",currentGoods);
+        // console.log("currentGoods??????????????????????",currentGoods);
         
         if(!currentGoods){
             /* currentStore.goods.map(item=>{
@@ -193,18 +200,18 @@ class Goods extends Component {
                     return item;
                 }) 
             }else{
-                console.log(11);
+                // console.log(11);
                 
                 cart_list.push(info)
             }
-            console.log("whywhywhy",cart_list);
+            // console.log("whywhywhy",cart_list);
             
             add2cart(cart_list)
-            console.log("??????????????????????",cart_list[0]);
+            // console.log("??????????????????????",cart_list[0]);
             
         }else{
-            console.log("store_id",currentGoods);
-            console.log("qty",currentGoods.goods_num*1+infoGoods.goods_num*1);
+            // console.log("store_id",currentGoods);
+            // console.log("qty",currentGoods.goods_num*1+infoGoods.goods_num*1);
             //console.log({sid:currentGoods.store_id,gid:currentGoods.goods_id,qty:currentGoods.goods_num*1+infoGoods.goods_num*1});
             
             changeQty(
@@ -215,7 +222,7 @@ class Goods extends Component {
                 }
             )
         }
-        console.log("已经加入完了",this.props.cart_list);
+        // console.log("已经加入完了",this.props.cart_list);
         
         this.cart2server(user_key,this.props.cart_list);
         
@@ -258,13 +265,13 @@ class Goods extends Component {
                             tabBarUnderlineStyle={{ borderColor: "#fff", width: "1rem", fontSize: "20px" }}
                         >
                             <div style={{ height: "100%", backgroundColor: '#fff', paddingTop: ".86667rem" }}>
-                                <Commodity key={`${this.state.goods_id}`}/>
+                                <Commodity/>
                             </div>
                             <div style={{ height: '100%', backgroundColor: '#fff', paddingTop: ".86667rem" }}>
-                                <Details  key={`${this.state.goods_id}`}/>
+                                <Details />
                             </div>
                             <div className="top" style={{ height: '100%', backgroundColor: '#fff', paddingTop: ".86667rem" }}>
-                                <Comment  key={`${this.state.goods_id}`}/>
+                                <Comment />
                             </div>
                         </Tabs>
                     </div>

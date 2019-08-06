@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './assets/css/common/reset.css';
 
-import { Route, Redirect, Switch, withRouter, HashRouter } from 'react-router-dom';
+import { Route, Redirect, Switch, HashRouter } from 'react-router-dom';
 
 import SubNav from './components/SubNav';
 
@@ -33,8 +33,8 @@ class App extends Component {
         }        
      });
      
-     let {code,datas:{cart_list}}= data;
-     console.log(cart_list);
+     let {datas:{cart_list}}= data;
+    //  console.log(cart_list);
      let {add2cart} = this.props;
      add2cart(cart_list);
     }
@@ -57,6 +57,7 @@ class App extends Component {
             <Route path="/search" component={Search} />
             <Route path="/list/:id" component={List} />
             <Route path="/goods/:id" component={Goods} />
+            <Route path="/search" component={Search} />
             <Route path="/404" render={() => <div>oh no 404</div>} />
             <Redirect from="/*" to="/404" />
           </Switch>
@@ -70,6 +71,7 @@ class App extends Component {
 
 let mapStateToProps = (state) => {
   let totalLen = 0;
+  // console.log(state.cart.cart_list !==0)
   if(state.cart.cart_list.length !==0){
     state.cart.cart_list.map(item=>{   
         item.goods.map(item=>{

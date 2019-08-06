@@ -159,7 +159,7 @@ class Commodity extends Component {
                     </div>
                     <div className={styles.goods_detail_comment}>
                         <div className={styles.title}>
-                            <a id={styles.goodsEvaluation1} href="javascript:void(0);">商品评价
+                            <a id={styles.goodsEvaluation1} href="javascript:void(0)">商品评价
                             <span className={styles.rate_num}>（{goods_info.evaluation_count}）</span>
                                 <span className={styles.rate}>好评
                             <em>100%</em>
@@ -208,7 +208,7 @@ class Commodity extends Component {
                         </div>
                     </div>
                     <Recommend />
-                    <div className={styles.goods_detail_bottom}><a href="javascript:void(0);">点击查看详情</a></div>
+                    <div className={styles.goods_detail_bottom}><a href="javascript:void(0)">点击查看详情</a></div>
                 </div>
             </div>
         )

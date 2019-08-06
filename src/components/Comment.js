@@ -55,7 +55,7 @@ class Comment extends Component {
         let { num, height, send, top } = this.state;
         let len = window.location.href.split("/").length
         let id = window.location.href.split("/")[len - 1]
-        console.log(main.scrollTop, main)
+        // console.log(main.scrollTop, main)
 
         // console.log(main.scrollTop, 2370 + (top * height), top)
         // 判断：当滚动条到达某个地方的时候发起请求数据，height*top是请求一条数据的时候会增加的滚动条长度
@@ -74,7 +74,7 @@ class Comment extends Component {
                     page: 10
                 }
             })
-            console.log(res)
+            // console.log(res)
             // 获取原数组的数据，利用a.concat（b)的方法数组合并，然后跟新新的数据
             // let { goods_list } = this.state;
             // let more = res.data.datas.goods_list;

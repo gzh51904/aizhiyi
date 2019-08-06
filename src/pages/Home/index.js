@@ -177,14 +177,14 @@ class Home extends Component {
         return (
             <div className={styles.cont}>
                 <div className={styles.header}>
-                    <a className={styles.nav_logo} href="javascript:0;"></a>
-                    <a className={styles.header_inp} href="javascript:0;" onClick={this.search}>
+                    <a className={styles.nav_logo} href="javascript:void(0)"></a>
+                    <a className={styles.header_inp} href="javascript:void(0)" onClick={this.search}>
                         <div className={styles.search_cont}>
                             <i className={styles.icon}></i>
                             <span className={styles.search_input}>文化创意，玩转生活</span>
                         </div>
                     </a>
-                    <span className={styles.comehere}>  <a href="javascript:0;"><i></i> </a></span>
+                    <span className={styles.comehere}>  <a href="javascript:void(0)"><i></i> </a></span>
                 </div>
                 <div className={styles.main} id="main">
                     <BackTop target={this.top} visibilityHeight='1200'>
@@ -212,7 +212,7 @@ class Home extends Component {
                                 list.map(item => {
                                     return (
                                         <li key={item.id} onClick={this.goList.bind(this, item.id)}>
-                                            <a className={styles.menu_icon} href="javascript:0;">
+                                            <a className={styles.menu_icon} href="javascript:void(0)">
                                                 <img src={item.url} alt="" className={styles.icon_cloth} />
                                                 <span>{item.name}</span>
                                             </a>
@@ -307,14 +307,14 @@ class Home extends Component {
                             goods_list.map(item => {
                                 return (
                                     <li key={item.goods_id} onClick={this.goto.bind(this, item.goods_id)} ref="goods_item">
-                                        <a href="javascript:0;">
+                                        <a href="javascript:void(0)">
                                             <img src={item.goods_image} alt="" />
                                         </a>
                                         <h2>{item.goods_name}</h2>
                                         <div className={`${styles.bottom} clearfix`}>
                                             <span><dfn>¥</dfn>{item.goods_promotion_price}</span>
                                             <font>销量: {item.goods_salenum}</font>
-                                            <a className={styles.tosimilar} href="javascript:0;">看相似<span></span></a>
+                                            <a className={styles.tosimilar} href="javascript:void(0)">看相似<span></span></a>
                                         </div>
 
                                     </li>

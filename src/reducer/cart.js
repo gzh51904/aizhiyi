@@ -30,7 +30,7 @@ let reducer = (state=initState,action)=>{
 
         // store.dispath({type:'change_goods_qty',payload:{id,qty}})
         case CHANGE_GOODS_QTY:
-            console.log(action.payload);
+            // console.log(action.payload);
             
             let cart_list = state.cart_list.map(item=>{
                 if(item.sid == action.payload.store_id){
