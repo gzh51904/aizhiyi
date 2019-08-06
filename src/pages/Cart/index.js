@@ -10,6 +10,8 @@ import {connect} from 'react-redux';
 
 import { PullToRefresh } from 'antd-mobile';
 
+import {addAction,changeQtyAction, getAllAction} from '../../actions/cartActions';
+
 function genData() {
   const dataArr = [];
   for (let i = 0; i < 20; i++) {
@@ -18,7 +20,7 @@ function genData() {
   return dataArr;
 }
 
-
+let timeout;
 
 class Cart extends Component {
     constructor(props) {
@@ -31,7 +33,7 @@ class Cart extends Component {
             init_name: "",
             cart_list: [],
             requireAuth:false,
-            //
+            ////////////////////
             refreshing: false,
             down: true,
             height: document.documentElement.clientHeight,
@@ -44,6 +46,8 @@ class Cart extends Component {
         this.handleCheckAll = this.handleCheckAll.bind(this);
         this.countNumAdd = this.countNumAdd.bind(this);
         this.countNumCut = this.countNumCut.bind(this);
+        this.pay = this.pay.bind(this);
+        //this.debounce = this.debounce.bind(this);
     }
     /* componentDidMount() {
         const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
@@ -56,47 +60,64 @@ class Cart extends Component {
     async componentDidMount() {
         
         let Authorization = localStorage.getItem('Authorization');
-
+        
         if(Authorization){
-            console.log("cart:", this)
+            //console.log("cart:", this)
             //?act=member_cart&op=cart_list
-            console.log("cart props",this.props);
-            let user_key = localStorage.getItem("user_key");
+            //console.log("cart props",this.props);
 
-            //暂时模拟购物车
-            let { data } = await api.getData("/cartlist", {
-                params: {
-                    user_key,
-                }
-            });
-            /* console.log(data); */
-            let { datas, datas: { cart_list } } = data;
-            //数据添加全选属性
-            datas.isAllChecked = false;
-            //数据店铺下的全选属性
-            //遍历请求的数据添加checkbox属性为false 
-            cart_list.map(item => {
-                item.isStoreChecked = false;
-                return item.goods.map(item => {
-                    item.isChecked = false;
-                })
-            });
-            console.log(cart_list);
-            
-            this.setState({
-                ...datas,
-                count_price: 0,
-                count_num: 0,
-                cart_list,
-                requireAuth : true,
-            });
-            if(cart_list.length !== 0 ){
-                const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
-            setTimeout(() => this.setState({
-                height: hei,
-                data: genData(),
-            }), 0);
+            if(this.props.cart_list.length === 0){
+                let user_key = localStorage.getItem("user_key");
+
+                //暂时模拟购物车
+                let { data } = await api.getData("/cartlist", {
+                    params: {
+                        user_key,
+                    }
+                });
+                //console.log("data--data",data); 
+                let { datas, datas: { cart_list } } = data;
+                //数据添加全选属性
+                datas.isAllChecked = false;
+                //数据店铺下的全选属性
+                //遍历请求的数据添加checkbox属性为false 
+                cart_list.map(item => {
+                    item.isStoreChecked = false;
+                    return item.goods.map(item => {
+                        item.isChecked = false;
+                    })
+                });
+                //console.log("cart_list--cart_list",cart_list);
+                    this.setState({
+                        ...datas,
+                        count_price: 0,
+                        count_num: 0,
+                        cart_list,
+                        requireAuth : true,
+                    });
+                //console.log("cart-state",this.state);
+            }else{
+                let {cart_list} = this.props;
+                this.setState({
+                    "init_name" : "熬夜冠军",
+                    count_price: 0,
+                    count_num: 0,
+                    cart_list,
+                    requireAuth : true,
+                });
+                // if(cart_list.length !== 0 ){
+                    const hei = this.state.height - (ReactDOM.findDOMNode(this.ptr) ? ReactDOM.findDOMNode(this.ptr).offsetTop : 0 );
+                    setTimeout(() => this.setState({
+                        height: hei,
+                        data: genData(),
+                    }), 0);
+
+                // }
+                
             }
+            
+            
+            
         }
 
     }
@@ -176,7 +197,7 @@ class Cart extends Component {
         })
         /* } */
         //cart_list[idx].isStoreChecked = !cart_list[idx].isStoreChecked;
-        console.log(checkStoreCache);
+        //console.log(checkStoreCache);
 
         this.setState({
             isAllChecked: checkStoreCache.every(isStoreChecked => isStoreChecked),
@@ -208,7 +229,7 @@ class Cart extends Component {
                 checkAllCache.push(item.isChecked);
                 return item;
             })
-            console.log(checkStoreCache);
+            //console.log(checkStoreCache);
 
             item.isStoreChecked = checkStoreCache.some(isChecked => isChecked);
             checkStoreCache = [];
@@ -255,6 +276,9 @@ class Cart extends Component {
     decrease(num, idf, sid, idx) {
         let goods_num = Number(this.refs[idf].innerHTML);
         let { count_num } = this.state;
+        let {count_price} = this.state;
+        let {add2cart} = this.props;
+        let user_key = localStorage.getItem('user_key');
         if (goods_num === 1) {
             return
         }
@@ -266,6 +290,7 @@ class Cart extends Component {
                 console.log(idf);
                 item.goods_num = goods_num;
                 if (item.isChecked) {
+                    count_price = count_price - item.newPrice;
                     count_num = count_num - 1;
                 }
             }
@@ -275,17 +300,35 @@ class Cart extends Component {
         cart_list[idx].goods = goods;
         this.setState({
             count_num,
-            cart_list
+            cart_list,
+            count_price
         });
+        
+        add2cart(cart_list);
         console.log(this.state);
-
+        //防抖
+            
+        clearTimeout(timeout);
+                
+                
+        timeout = setTimeout(() => {
+            console.log(user_key);
+            
+            this.cart2server(user_key,cart_list);
+            
+        }, 3000);
+        
+    
 
 
     }
     //单个物品购物车增加数量
     increase(num, idf, sid, idx) {
         let { count_num } = this.state;
+        let {count_price} = this.state;
         let goods_num = Number(this.refs[idf].innerHTML);
+        let {add2cart} = this.props;
+        let user_key = localStorage.getItem('user_key');
         if (goods_num === 20) {
             return
         }
@@ -297,7 +340,9 @@ class Cart extends Component {
                 console.log(idf);
                 item.goods_num = goods_num;
                 if (item.isChecked) {
+                    count_price = count_price + item.newPrice*1;
                     count_num = count_num + 1;
+                   
                 }
             }
             return item;
@@ -306,14 +351,83 @@ class Cart extends Component {
         cart_list[idx].goods = goods;
         this.setState({
             count_num,
+            cart_list,
+            count_price
+        });
+        add2cart(cart_list);
+        
+        /* this.debounce(this.cart2server,3000)(3,cart_list); */
+
+        //防抖
+            
+            clearTimeout(timeout);
+                
+                
+            timeout = setTimeout(() => {
+            
+                this.cart2server(user_key,cart_list);
+                
+                }, 3000);
+            
+        }
+
+    
+    /* //防抖
+    debounce(func, wait) {
+        let timeout;
+        return function () {
+            let context = this;
+            let args = arguments;
+            if (timeout) {
+                clearTimeout(timeout);
+            };
+            
+            timeout = setTimeout(() => {
+            
+                func.apply(context, args)
+                
+            }, wait);
+        }
+    } */
+    //支付
+    pay(){
+        let {cart_list} = this.state;
+
+        let user_key = localStorage.getItem("user_key");
+
+        let {add2cart} = this.props;
+
+        cart_list = cart_list.filter(item => {
+            
+            item.goods = item.goods.filter(item => {
+
+                return item.isChecked != true;
+
+            });
+
+            item.isStoreChecked = false;
+
+            return item.goods.length != 0 ;
+        });
+        
+        //console.log(user_key,cart_list);
+
+        this.setState({
+            ...this.state,
+            count_num : 0,
             cart_list
         })
 
+        add2cart(cart_list);
+
+        this.cart2server(user_key,cart_list);
+
+        
+        
     }
     //同步服务器
     async cart2server(user_key,cart_list){
-        console.log(111);
-        
+
         let datas = {
             init_name : "熬夜冠军",
             cart_list
@@ -325,22 +439,26 @@ class Cart extends Component {
                 datas
             }
         });
+        console.log(data);
+        
     }
+
     componentWillUnmount(){
         let user_key = localStorage.getItem('user_key');
         
         let {cart_list} = this.state;
 
-        console.log("我准备卸载了哦========",cart_list);
+        //console.log("我准备卸载了哦========",cart_list);
 
         this.cart2server(user_key,cart_list);
     }
     render() {
-        console.log("now",this.state);
+        //console.log("now",this.state);
 
         let { cart_list } = this.state;
-
-        console.log("判断显示",this.state.requireAuth,cart_list.length,);
+        console.log("重新渲染---",cart_list);
+        
+        //console.log("判断显示",this.state.requireAuth,cart_list.length,);
         
 
         return (
@@ -349,23 +467,23 @@ class Cart extends Component {
                     {
                         this.state.requireAuth ? (
                         <div className={styles.header_wrap}>
-                            <div className={styles.header_l}>
+                            {/* <div className={styles.header_l}>
                                 <a href="javascript:;">
                                     <i className={styles.back}></i>
                                 </a>
-                            </div>
+                            </div> */}
                             <div className={styles.header_title}>
                                 <h1>购物车 <i id="cart_mum"></i></h1>
                             </div>
-                            <div className={styles.header_edit}>
+                            {/* <div className={styles.header_edit}>
                                 <span className={styles.edit_cart} id="edit_btn">编辑</span>
-                            </div>
-                            <div className={styles.header_r}>
+                            </div> */}
+                            {/* <div className={styles.header_r}>
                                 <a id="header-nav" href="javascript:void(0);">
                                     <i className={styles.more}></i>
                                     <sup></sup>
                                 </a>
-                            </div>
+                            </div> */}
                         </div>) : (<div className={styles.header_wrap}>
                             <div className={styles.header_title}>
                                 <h1>购物车 <i id="cart_mum"></i></h1>
@@ -481,7 +599,7 @@ class Cart extends Component {
                             合计：
                             <span>¥{this.state.count_price.toFixed(2)}</span>
                         </div>
-                        <button className={`${styles.check_out} ${this.state.count_num ? styles.active_pay : null}`}>结算({this.state.count_num})</button>
+                        <button onClick={this.pay} className={`${styles.check_out} ${this.state.count_num ? styles.active_pay : null}`}>结算({this.state.count_num})</button>
                     </div> : ""
                     }
                     
@@ -498,6 +616,20 @@ let mapStateToProps = (state,ownprops)=>{
     }
 }
 
-Cart = connect(mapStateToProps)(Cart);
+let mapDispatchToProps = (dispatch,ownprops)=>{
+    return {
+        add2cart(goods){
+            dispatch(addAction(goods))
+        },
+        changeQty({sid,gid,qty}){
+            dispatch(changeQtyAction({sid,gid,qty}))
+        },
+        getAll(){
+            dispatch(getAllAction({}));
+        }
+    }
+}
+
+Cart = connect(mapStateToProps,mapDispatchToProps)(Cart);
 
 export default Cart;
