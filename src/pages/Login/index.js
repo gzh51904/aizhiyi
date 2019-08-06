@@ -4,16 +4,12 @@ import '../../assets/css/common/reset.css';
 import { api } from '../../utils/index.js';
 import ReactDOM from 'react-dom';
 
-<<<<<<< HEAD
 //
 import {connect} from 'react-redux';
 import {addAction,changeQtyAction, getAllAction} from '../../actions/cartActions';
 //import {loginAction} from '../../actions/commonActions';
 
 class Login extends Component{
-=======
-class Login extends Component {
->>>>>>> 21869603e49e789f4b51a60d4e51a71f170496b8
     constructor() {
         super();
         this.state = {
@@ -98,7 +94,6 @@ class Login extends Component {
     async confirm() {
         let username = this.state.tel;
         let password = this.state.pass;
-<<<<<<< HEAD
         console.log(username,password);
         
         let {data,data:{datas}} = await api.getData('/login',{
@@ -135,16 +130,6 @@ class Login extends Component {
           }
          
 
-=======
-        console.log(username, password);
-
-        let { data } = await api.getData('/login', {
-            params: {
-                username,
-                password
-            }
-        })
->>>>>>> 21869603e49e789f4b51a60d4e51a71f170496b8
     }
     render() {
         return (<div className={styles.Login}>
