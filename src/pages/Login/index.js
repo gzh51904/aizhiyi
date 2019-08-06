@@ -4,14 +4,6 @@ import '../../assets/css/common/reset.css';
 import {api} from '../../utils/index.js';
 import ReactDOM from 'react-dom';
 
-<<<<<<< HEAD
-//
-import {connect} from 'react-redux';
-import {addAction,changeQtyAction, getAllAction} from '../../actions/cartActions';
-//import {loginAction} from '../../actions/commonActions';
-
-=======
->>>>>>> c9ce8efb0b1a0fa208561730e4bca81244b2daff
 class Login extends Component{
     constructor() {
         super();
@@ -98,11 +90,7 @@ class Login extends Component{
     async confirm(){
         let username = this.state.tel;
         let password = this.state.pass;
-<<<<<<< HEAD
-        console.log(username,password);
-=======
         // console.log(username,password);
->>>>>>> c9ce8efb0b1a0fa208561730e4bca81244b2daff
         
         let {data} = await api.getData('/login',{
             params:{
