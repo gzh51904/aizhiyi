@@ -178,3 +178,8 @@ html,body{
 .am-pull-to-refresh-content-wrapper{
     height: 100%;
 }
+
+
+/*  */
+
+* { touch-action: pan-y; } 

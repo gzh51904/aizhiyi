@@ -76,3 +76,15 @@ font-size: .186667rem;
 .am-list-content #aa .am-list .am-list-body{
   width: 7rem;
 } 
+.main .am-list-item{
+  padding-left: 0;
+}
+.main .am-list-item .am-list-line{
+  padding-right: 0;
+}
+.main .am-list-item {
+  background-color: #fff !important;
+}
+.main .am-pull-to-refresh-content-wrapper{
+  overflow: auto;
+}

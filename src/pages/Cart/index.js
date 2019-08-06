@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 
 import {connect} from 'react-redux';
 
-import { PullToRefresh } from 'antd-mobile';
+import { PullToRefresh,SwipeAction, List } from 'antd-mobile';
 
 import {addAction,changeQtyAction, getAllAction} from '../../actions/cartActions';
 
@@ -48,6 +48,7 @@ class Cart extends Component {
         this.countNumCut = this.countNumCut.bind(this);
         this.pay = this.pay.bind(this);
         //this.debounce = this.debounce.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
     }
     /* componentDidMount() {
         const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
@@ -389,6 +390,51 @@ class Cart extends Component {
             }, wait);
         }
     } */
+
+    //删除
+    deleteItem(gid){
+        let {cart_list} = this.state;
+
+        let user_key = localStorage.getItem("user_key");
+
+        let {add2cart} = this.props;
+
+        let {count_num} = this.state;
+
+        cart_list = cart_list.filter(item=>{
+
+           item.goods = item.goods.filter(item=>{
+                if(item.isChecked){
+                    count_num = count_num - item.goods_num;
+                }
+                return item.goods_id != gid;
+
+           })
+           /* item.isStoreChecked = false; */
+
+            return item.goods.length != 0 ;
+        })
+        cart_list.map(item=>{
+
+            item.isStoreChecked = item.goods.some(item=>{
+
+                return item.isChecked;
+
+           })
+           
+           return item
+
+        })
+        this.setState({
+            ...this.state,
+            count_num,
+            cart_list
+        });
+        add2cart(cart_list);
+
+        this.cart2server(user_key,cart_list);
+
+    }
     //支付
     pay(){
         let {cart_list} = this.state;
@@ -439,7 +485,7 @@ class Cart extends Component {
                 datas
             }
         });
-        console.log(data);
+        //console.log(data);
         
     }
 
@@ -456,7 +502,7 @@ class Cart extends Component {
         //console.log("now",this.state);
 
         let { cart_list } = this.state;
-        console.log("重新渲染---",cart_list);
+        //console.log("重新渲染---",cart_list);
         
         //console.log("判断显示",this.state.requireAuth,cart_list.length,);
         
@@ -540,13 +586,28 @@ class Cart extends Component {
                                             {
                                                 item.goods.map(item => {
                                                     return (
+                                                        <List key={item.goods_id}>
+                                                        <SwipeAction
+                                                        style={{ backgroundColor: 'white' }}
+                                                        autoClose
+                                                        right={[
+                                                            {
+                                                            text: '删除',
+                                                            onPress: () => this.deleteItem(item.goods_id),
+                                                            style: { backgroundColor: '#F4333C', color: 'white' },
+                                                            },
+                                                        ]}
+                                                        /* onOpen={() => console.log('global open')}
+                                                        onClose={() => console.log('global close')} */
+                                                        >
+                                                        <List.Item>
                                                         <div className={styles.goods_info} key={item.goods_id}>
                                                             <div className={styles.chose}>
                                                                 <input type="checkbox" checked={item.isChecked} onChange={this.handleCheck.bind(this, item.goods_id)} />
                                                             </div>
                                                             <div className={styles.goods_img} >
                                                                 <a href="#">
-                                                                    <img src={item.goods_image_url} alt="" />
+                                                                    <img style={{width:"100%",height:"100%"}} src={item.goods_image_url} alt="" />
                                                                 </a>
                                                             </div>
                                                             <div className={styles.goods_text}>
@@ -566,6 +627,9 @@ class Cart extends Component {
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        </List.Item>
+                                                        </SwipeAction>
+                                                        </List>
                                                     )
                                                 })
                                             }
