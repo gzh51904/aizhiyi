@@ -10,6 +10,7 @@ class SortMain extends Component{
         this.state = {
             class_list:[]
         }
+        this.goList=this.goList.bind(this)
     }
     async componentDidMount(){
         
@@ -50,6 +51,14 @@ class SortMain extends Component{
             } 
         }
     }
+    goList(id) {
+        let { history } = this.props;
+            history.push({
+                pathname: '/list/' + id,
+            })
+            // console.log(id,this)
+        }
+    
 
 
     render(){
@@ -69,14 +78,14 @@ class SortMain extends Component{
                                (id === "feature" ? 
                                     (<> 
                                         <div className={styles.nav_main_top}>
-                                            <a href="">
+                                            <a href="javascript:void(0)">
                                                 <img src={[require('../assets/images/sort/nav1.jpg')]} alt=""/>
                                             </a>
                                         </div>
                                         {this.state.new_store ? 
                                             <dl className={`${styles.nav_main_bottom} ${styles.brands} claerfix`}>
                                                 <dt>
-                                                    <a href="">
+                                                    <a href="javascript:void(0)">
                                                         <img src={[require('../assets/images/sort/bgwhile.png')]} alt=""/>
                                                         <span>热门专馆</span>
                                                     </a>
@@ -85,7 +94,7 @@ class SortMain extends Component{
                                                     this.state.new_store.map(item=>{                                       
                                                         return (
                                                                 <dd key={item.store_id}>
-                                                                    <a href="">
+                                                                    <a href="javascript:void(0)">
                                                                         <img src={item.store_avatar} alt=""/>                                  
                                                                         <p>{item.store_name}</p>
                                                                     </a>
@@ -100,7 +109,7 @@ class SortMain extends Component{
                                         {this.state.store_list ?
                                             <dl className={`${styles.nav_main_bottom} ${styles.brands} claerfix`}>
                                                 <dt>
-                                                    <a href="">
+                                                    <a href="javascript:void(0)">
                                                         <img src={[require('../assets/images/sort/bgwhile.png')]} alt=""/>
                                                         <span>全部专馆</span>
                                                     </a>
@@ -110,7 +119,7 @@ class SortMain extends Component{
                                                         return (item.map(item=>{
                                                                     return (
                                                                         <dd key={item.store_id}>
-                                                                            <a href="">
+                                                                            <a href="javascript:void(0)">
                                                                                 <img src={item.store_avatar} alt=""/>                                  
                                                                                 <p>{item.store_name}</p>
                                                                             </a>
@@ -126,37 +135,37 @@ class SortMain extends Component{
                                    : 
                                    (<>                    
                                    <div className={styles.nav_main_top}>
-                                       <a href="">
+                                       <a href="javascript:void(0)">
                                        <img src={[require('../assets/images/sort/nav1.jpg')]} alt=""/>
                                        </a>
                                     </div>
                                     <dl className={`${styles.nav_main_bottom} claerfix`}>
                                         <dt>
-                                            <a href="">
+                                            <a href="javascript:void(0)">
                                                 <img src={[require('../assets/images/sort/bgwhile.png')]} alt=""/>
                                                 <span>热门专馆</span>
                                             </a>
                                         </dt>
-                                        <dd>
-                                            <a href="">
+                                        <dd onClick={()=>{let {history}=this.props;history.push("/welfare")}}>
+                                            <a href="javascript:void(0)">
                                                 <img src={[require('../assets/images/sort/z170.png')]} alt=""/>                     
                                                 <p>热门专馆</p>
                                             </a>
                                         </dd>
-                                        <dd>
-                                            <a href="">
+                                        <dd onClick={()=>{let {history}=this.props;history.push("/welfare")}}>
+                                            <a href="javascript:void(0)">
                                                 <img src={[require('../assets/images/sort/abt.png')]} alt=""/>
                                                 <p>拼团</p>
                                             </a>
                                         </dd>
-                                        <dd>
-                                            <a href="">
+                                        <dd onClick={()=>{let {history}=this.props;history.push("/welfare")}}>
+                                            <a href="javascript:void(0)">
                                                 <img src={[require('../assets/images/sort/xsg.png')]} alt=""/>
                                                 <p>限时购</p>
                                             </a>
                                         </dd>
-                                        <dd>
-                                            <a href="">
+                                        <dd onClick={()=>{let {history}=this.props;history.push("/welfare")}}>
+                                            <a href="javascript:void(0)">
                                                 <img src={[require('../assets/images/sort/newgoods.png')]} alt=""/>
                                                 <p>新品上市</p>
                                             </a>
@@ -175,7 +184,7 @@ class SortMain extends Component{
                                          return (
                                             <dl className={`${styles.nav_main_bottom} claerfix`} key={item.gc_id}>
                                                 <dt>
-                                                    <a href="">
+                                                    <a href="javascript:void(0)">
                                                         <img src={[require('../assets/images/sort/bgwhile.png')]} alt=""/>
                                                         <span>{item.gc_name}</span>
                                                     </a>
@@ -185,8 +194,8 @@ class SortMain extends Component{
                                                         //let temp = item.wap_goodsclass_image_info.wap_advs1.image_path;
                                                         
                                                         return (
-                                                            <dd key={item.gc_id}>
-                                                                <a href="">
+                                                            <dd key={item.gc_id} onClick={this.goList.bind(this,item.gc_id)}>
+                                                                <a href="javascript:void(0)">
                                                                     { 
                                                                         item.wap_goodsclass_image_info.wap_advs1 ?
                                                                         <img src={item.wap_goodsclass_image_info.wap_advs1.image_path} alt=""/> :

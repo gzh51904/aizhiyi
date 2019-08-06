@@ -90,7 +90,7 @@ class Login extends Component{
     async confirm(){
         let username = this.state.tel;
         let password = this.state.pass;
-        console.log(username,password);
+        // console.log(username,password);
         
         let {data} = await api.getData('/login',{
             params:{
@@ -98,7 +98,7 @@ class Login extends Component{
             password
             }        
          })
-         console.log(data);
+        //  console.log(data);
          
          if (data.code == 250) {
             alert("用户名或密码错误！");

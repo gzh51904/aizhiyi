@@ -54,7 +54,7 @@ class Sort extends Component{
         
         //history.push("/sort/"+ gc_id)
         //console.log(history);
-        console.log(gc_id);
+        // console.log(gc_id);
         
     }
     render(){

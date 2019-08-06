@@ -84,7 +84,8 @@ class Search extends Component {
     }
     goto() {
         let { history } = this.props;
-        history.push("/home")
+        history.goBack();
+       
     }
     render() {
 
@@ -93,7 +94,7 @@ class Search extends Component {
                 <div id="header">
                     <div className="header-wrap">
                         <div className="header-l">
-                            <a href="javascript:;" onClick={this.goto}>
+                            <a href="javascript:void(0)" onClick={this.goto}>
                                 <i className="back"></i>
                             </a>
                         </div>
@@ -111,10 +112,10 @@ class Search extends Component {
                     <div className="search-price">
                         <h3>价格区间(单位/元)</h3>
                         <ul className="clearfix">
-                            <li className="active"><a href="javascript:;" lowprice="0" highprice="">全部</a></li>
+                            <li className="active"><a href="javascript:void(0)" lowprice="0" highprice="">全部</a></li>
                             {
                                 this.state.data1.map(item => {
-                                    return <li key={item.id}><a href="javascript:;" lowprice="0" highprice="">{item.title}</a></li>
+                                    return <li key={item.id}><a href="javascript:void(0)" lowprice="0" highprice="">{item.title}</a></li>
                                 })
                             }
                         </ul>
@@ -130,7 +131,7 @@ class Search extends Component {
                             <dd id="hot_list_container"><ul>
                                 {
                                     this.state.data2.map(item => {
-                                        return <li key={item.id}><a href="javascript:;">{item.title}</a></li>
+                                        return <li key={item.id}><a href="javascript:void(0)">{item.title}</a></li>
 
                                     })
                                 }

@@ -2,6 +2,7 @@
  * 购物车Reducer
  */
 import {ADD_TO_CART,REMOVE_FROM_CART,CHANGE_GOODS_QTY,GET_ALL_CART} from '../actions/cartActions';
+import { log } from 'util';
 
 // 初始化state
 let initState = {
@@ -17,7 +18,7 @@ let reducer = (state=initState,action)=>{
         case ADD_TO_CART:
             return {
                 ...state,
-                cart_list:[action.payload,...state.cart_list]
+                cart_list:action.payload
             }
         
         // store.dispath({type:'remove_from_cart',payload:id})
@@ -29,12 +30,20 @@ let reducer = (state=initState,action)=>{
 
         // store.dispath({type:'change_goods_qty',payload:{id,qty}})
         case CHANGE_GOODS_QTY:
+            // console.log(action.payload);
+            
             let cart_list = state.cart_list.map(item=>{
-                if(item.goods_id===action.payload.id){
-                    item.goods_num = action.payload.qty
+                if(item.sid == action.payload.store_id){
+                    item.goods.map(item=>{
+                        
+                        if(item.goods_id == action.payload.gid){
+                            item.goods_num = action.payload.qty
+                        } 
+                        return item;
+                    })
                 }
                 return item;
-            })
+            }) 
             return {
                 ...state,
                 cart_list

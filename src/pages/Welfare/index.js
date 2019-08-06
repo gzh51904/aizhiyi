@@ -24,7 +24,7 @@ const tabs = [
         }
     }
     callback(key) {
-        console.log(key);
+        // console.log(key);
       }
     // group_buy&op=group_buy_hug&key=
     async componentWillMount(){  
@@ -51,7 +51,7 @@ const tabs = [
                 key:'',
             }
         })
-        console.log("============================",goodsList);
+        // console.log("============================",goodsList);
         
         this.setState({
             goodsList,
@@ -65,7 +65,7 @@ const tabs = [
         // console.log(hot_goods,
         //     new_goods,
         //     goods_list);
-        console.log("============================",this.state);
+        // console.log("============================",this.state);
     } 
     goto(id){
         let {history} = this.props;
@@ -133,7 +133,7 @@ const tabs = [
                                 <ul className={styles.goodsList}>
                                     {
                                         this.state.group_list.map(item=>{
-                                            return <li className={styles.goods} key={item.goods_commonid2}>
+                                            return <li className={styles.goods} key={item.goods_commonid2} onClick={this.goto.bind(this,item.goods_id2)}>
                                             <a href="javascript:void(0)">
                                                 <span className={styles.imgBorder}>
                                                     <img src={item.goods_image} alt=""/>
@@ -160,7 +160,7 @@ const tabs = [
                             </div>
                             <ul className={styles.goodsList}>
                                 {/* hotgoods */}
-                                <li className={styles.goods}>
+                                <li className={styles.goods} >
                                     <a href="javascript:void(0)">
                                         <span className={styles.imgBorder}>
                                             <img src={this.state.hot_goods.image_url_240} alt=""/>
@@ -198,7 +198,7 @@ const tabs = [
                                 </li>
                                 {
                                     this.state.goods_list.map(item=>{
-                                        return <li className={styles.goods} key={item.goods_commonid}>
+                                        return <li className={styles.goods} key={item.goods_commonid}  >
                                                     <a href="">
                                                         <span className={styles.imgBorder}>
                                                             <img src={item.image_url_240} alt=""/>

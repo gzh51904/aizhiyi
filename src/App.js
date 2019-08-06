@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import './assets/css/common/reset.css';
 
-import { Route, Redirect, Switch, withRouter, HashRouter } from 'react-router-dom';
+import { Route, Redirect, Switch, HashRouter } from 'react-router-dom';
 
 import SubNav from './components/SubNav';
-
-import { connect } from 'react-redux';
 
 import Home from './pages/Home';
 import Welfare from './pages/Welfare';
@@ -14,12 +12,35 @@ import Cart from './pages/Cart';
 import Mine from './pages/Mine';
 import Goods from './components/Goods';
 import Search from './components/Search';
+import List from './components/List';
+
 import Register from './pages/Register';
 import Login from './pages/Login';
-class App extends Component {
-  render() {
-    console.log(this.props.cart_len);
 
+//
+import {api} from './utils/index.js';
+//
+import {connect} from 'react-redux';
+import {addAction,changeQtyAction, getAllAction} from './actions/cartActions';
+
+class App extends Component {
+  async componentWillMount(){
+    let user_key = localStorage.getItem('user_key');
+    if(user_key){
+      let {data} = await api.getData('/cartlist',{
+        params:{
+          user_key
+        }        
+     });
+     
+     let {datas:{cart_list}}= data;
+    //  console.log(cart_list);
+     let {add2cart} = this.props;
+     add2cart(cart_list);
+    }
+  }
+  render() {
+    //console.log(this.props.cart_len);
     return (
       <div className="App">
         <HashRouter>
@@ -33,6 +54,8 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
             <Route path="/mine" component={Mine} />
+            <Route path="/search" component={Search} />
+            <Route path="/list/:id" component={List} />
             <Route path="/goods/:id" component={Goods} />
             <Route path="/search" component={Search} />
             <Route path="/404" render={() => <div>oh no 404</div>} />
@@ -47,11 +70,37 @@ class App extends Component {
 }
 
 let mapStateToProps = (state) => {
+  let totalLen = 0;
+  // console.log(state.cart.cart_list !==0)
+  if(state.cart.cart_list.length !==0){
+    state.cart.cart_list.map(item=>{   
+        item.goods.map(item=>{
+          totalLen = totalLen + item.goods_num*1;
+          return item;
+        })
+      return item;
+    })  
+  }
+  //console.log(totalLen);
   return {
-    cart_len: state.cart.cart_list.length
+    cart_len: totalLen
   }
 }
-App = connect(mapStateToProps)(App);
+let mapDispatchToProps = (dispatch,ownprops)=>{
+  return {
+      add2cart(goods){
+          dispatch(addAction(goods))
+      },
+      changeQty({id,qty}){
+          dispatch(changeQtyAction({id,qty}))
+      },
+      getAll(){
+          dispatch(getAllAction({}));
+      }
+  }
+}
+
+App = connect(mapStateToProps,mapDispatchToProps)(App);
 
 
 export default App;

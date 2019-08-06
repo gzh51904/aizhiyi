@@ -51,7 +51,7 @@ class Commodity extends Component {
             eval_list,
             store
         })
-        console.log("刷新", this.props)
+        // console.log("刷新", this.props)
     }
     async componentDidUpdate(nextProps, nextState) {
         let len = window.location.href.split("/").length
@@ -89,10 +89,10 @@ class Commodity extends Component {
                 eval_list,
                 store
             })
-            console.log('切换成功', this.props)
+            // console.log('切换成功', this.props)
         }
     }
-    
+
 
 
 
@@ -102,7 +102,6 @@ class Commodity extends Component {
         let { banner, goods_info, arr, eval_list, store } = this.state;
         return (
             <div>
-                <div className={styles.open_app}>打开APP</div>
                 <WingBlank>
                     <Carousel autoplay={true} infinite swipeSpeed='2000' style={{ width: '7.5rem', height: '7.5rem' }}>
                         {banner.map(val => (
@@ -160,7 +159,7 @@ class Commodity extends Component {
                     </div>
                     <div className={styles.goods_detail_comment}>
                         <div className={styles.title}>
-                            <a id={styles.goodsEvaluation1} href="javascript:void(0);">商品评价
+                            <a id={styles.goodsEvaluation1} href="javascript:void(0)">商品评价
                             <span className={styles.rate_num}>（{goods_info.evaluation_count}）</span>
                                 <span className={styles.rate}>好评
                             <em>100%</em>
@@ -209,15 +208,15 @@ class Commodity extends Component {
                         </div>
                     </div>
                     <Recommend />
-                    <div className={styles.goods_detail_bottom}><a href="javascript:void(0);">点击查看详情</a></div>
+                    <div className={styles.goods_detail_bottom}><a href="javascript:void(0)">点击查看详情</a></div>
                 </div>
             </div>
         )
     }
 }
 Commodity = withRouter(Commodity)
-// export default Commodity;
-let len = window.location.href.split("/").length
-let id2 = window.location.href.split("/")[len - 1]
+export default Commodity;
+// let len = window.location.href.split("/").length
+// let id2 = window.location.href.split("/")[len - 1]
 
-export default (props) => <Commodity {...props} key={id2} />
+// export default (props) => <Commodity {...props} key={id2} />

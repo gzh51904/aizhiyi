@@ -175,3 +175,6 @@ html,body{
     visibility:hidden;
 }
 /************** common *****************/
+.am-pull-to-refresh-content-wrapper{
+    height: 100%;
+}

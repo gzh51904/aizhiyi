@@ -160,12 +160,13 @@ class Register extends Component {
             }        
          })
          if (data.code === 1000) {
+            let {history} = this.props;
             this.refs.wrapper.style.display='block';
-            this.refs.dialogText.innerHTML='注册成功，2s后跳转';
+            this.refs.dialogText.innerHTML='登录成功,2s后跳转';
             setTimeout(()=>{
-                let {history} = this.props;
-                history.push('/login');
+                history.replace('/Login');
             },2000)
+            
             
           }else{
             this.refs.wrapper.style.display='block';
@@ -196,7 +197,7 @@ class Register extends Component {
 
     }
     render() {
-        console.log(this.state.keyWordSwitch);
+        // console.log(this.state.keyWordSwitch);
         return (<div className={styles.Register}>
             <div className={[`${styles.header}`, `clearfix`].join(' ')}>
                 <div className={styles.header_l}>

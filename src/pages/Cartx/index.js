@@ -24,15 +24,15 @@ class Cart extends Component {
         this.countNumCut = this.countNumCut.bind(this);
     }
     async componentWillMount() {
-        console.log("cart:", this)
+        // console.log("cart:", this)
         //?act=member_cart&op=cart_list
         //暂时模拟购物车
-        let data = localStorage.getItem("cart_list");
-        // let { data } = await api.getData("/cartlist", {
-        //     params: {
-        //         user_key: '1',
-        //     }
-        // });
+        //let data = localStorage.getItem("cart_list");
+        let { data } = await api.getData("/cartlist", {
+            params: {
+                user_key: '1',
+            }
+        });
         /* console.log(data); */
         let { datas, datas: { cart_list } } = data;
         //数据添加全选属性
@@ -131,7 +131,7 @@ class Cart extends Component {
         })
         /* } */
         //cart_list[idx].isStoreChecked = !cart_list[idx].isStoreChecked;
-        console.log(checkStoreCache);
+        // console.log(checkStoreCache);
 
         this.setState({
             isAllChecked: checkStoreCache.every(isStoreChecked => isStoreChecked),
@@ -163,7 +163,7 @@ class Cart extends Component {
                 checkAllCache.push(item.isChecked);
                 return item;
             })
-            console.log(checkStoreCache);
+            // console.log(checkStoreCache);
 
             item.isStoreChecked = checkStoreCache.some(isChecked => isChecked);
             checkStoreCache = [];
@@ -218,7 +218,7 @@ class Cart extends Component {
         let { goods } = cart_list[idx];
         goods = goods.map(item => {
             if (item.goods_id === idf) {
-                console.log(idf);
+                // console.log(idf);
                 item.goods_num = goods_num;
                 if (item.isChecked) {
                     count_num = count_num - 1;
@@ -232,7 +232,7 @@ class Cart extends Component {
             count_num,
             cart_list
         });
-        console.log(this.state);
+        // console.log(this.state);
 
 
 
@@ -249,7 +249,7 @@ class Cart extends Component {
         let { goods } = cart_list[idx];
         goods = goods.map(item => {
             if (item.goods_id === idf) {
-                console.log(idf);
+                // console.log(idf);
                 item.goods_num = goods_num;
                 if (item.isChecked) {
                     count_num = count_num + 1;
@@ -266,7 +266,7 @@ class Cart extends Component {
 
     }
     render() {
-        console.log(this.state);
+        // console.log(this.state);
 
         let { cart_list } = this.state;
 

@@ -2,12 +2,27 @@ import React, { Component } from 'react';
 
 import styles from '../../assets/scss/Cart.module.scss'
 
-import { api } from '../../utils'
+import { api } from '../../utils';
+
+import ReactDOM from 'react-dom';
+
+import {connect} from 'react-redux';
+
+import { PullToRefresh } from 'antd-mobile';
+
+function genData() {
+  const dataArr = [];
+  for (let i = 0; i < 20; i++) {
+    dataArr.push(i);
+  }
+  return dataArr;
+}
+
 
 
 class Cart extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             "ini": "0.00",
             "sum": "",
@@ -15,6 +30,13 @@ class Cart extends Component {
             count_price: 0,
             init_name: "",
             cart_list: [],
+            requireAuth:false,
+            //
+            refreshing: false,
+            down: true,
+            height: document.documentElement.clientHeight,
+            data: [],
+            noLogImg: require("../../assets/images/cart/noLogin.png")
         }
 
         this.handleCheck = this.handleCheck.bind(this);
@@ -23,37 +45,59 @@ class Cart extends Component {
         this.countNumAdd = this.countNumAdd.bind(this);
         this.countNumCut = this.countNumCut.bind(this);
     }
-    async componentWillMount() {
-        console.log("cart:", this)
-        //?act=member_cart&op=cart_list
-        //暂时模拟购物车
-        let { data } = await api.getData("/cartlist", {
-            params: {
-                user_key: '1',
-            }
-        });
-        /* console.log(data); */
-        let { datas, datas: { cart_list } } = data;
-        //数据添加全选属性
-        datas.isAllChecked = false;
-        //数据店铺下的全选属性
-        //遍历请求的数据添加checkbox属性为false 
-        cart_list = datas[0].datas.cart_list;
+    /* componentDidMount() {
+        const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
+        setTimeout(() => this.setState({
+          height: hei,
+          data: genData(),
+        }), 0);
+      } */
+    
+    async componentDidMount() {
         
-        cart_list.map(item => {
-            item.isStoreChecked = false;
-            return item.goods.map(item => {
-                item.isChecked = false;
-            })
-        });
-        this.setState({
-            ...datas,
-            count_price: 0,
-            count_num: 0,
-            cart_list
-        });
+        let Authorization = localStorage.getItem('Authorization');
 
+        if(Authorization){
 
+            let user_key = localStorage.getItem("user_key");
+
+            //暂时模拟购物车
+            let { data } = await api.getData("/cartlist", {
+                params: {
+                    user_key,
+                }
+            });
+            /* console.log(data); */
+            let { datas, datas: { cart_list } } = data;
+            //数据添加全选属性
+            datas.isAllChecked = false;
+            //数据店铺下的全选属性
+            //遍历请求的数据添加checkbox属性为false 
+            cart_list.map(item => {
+                item.isStoreChecked = false;
+                return item.goods.map(item => {
+                    item.isChecked = false;
+                })
+            });
+            
+            this.setState({
+                ...datas,
+                count_price: 0,
+                count_num: 0,
+                cart_list,
+                requireAuth : true,
+            });
+            
+            if(cart_list.length !== 0 ){
+                const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
+                setTimeout(() => this.setState({
+                    height: hei,
+                    data: genData(),
+                }), 0);
+            }
+            // console.log("----------------------",this.state);
+            
+        }
 
     }
     //checkbox全选操作
@@ -132,7 +176,7 @@ class Cart extends Component {
         })
         /* } */
         //cart_list[idx].isStoreChecked = !cart_list[idx].isStoreChecked;
-        console.log(checkStoreCache);
+        // console.log(checkStoreCache);
 
         this.setState({
             isAllChecked: checkStoreCache.every(isStoreChecked => isStoreChecked),
@@ -164,7 +208,7 @@ class Cart extends Component {
                 checkAllCache.push(item.isChecked);
                 return item;
             })
-            console.log(checkStoreCache);
+            // console.log(checkStoreCache);
 
             item.isStoreChecked = checkStoreCache.some(isChecked => isChecked);
             checkStoreCache = [];
@@ -219,7 +263,7 @@ class Cart extends Component {
         let { goods } = cart_list[idx];
         goods = goods.map(item => {
             if (item.goods_id === idf) {
-                console.log(idf);
+                // console.log(idf);
                 item.goods_num = goods_num;
                 if (item.isChecked) {
                     count_num = count_num - 1;
@@ -233,7 +277,7 @@ class Cart extends Component {
             count_num,
             cart_list
         });
-        console.log(this.state);
+        // console.log(this.state);
 
 
 
@@ -250,7 +294,7 @@ class Cart extends Component {
         let { goods } = cart_list[idx];
         goods = goods.map(item => {
             if (item.goods_id === idf) {
-                console.log(idf);
+                // console.log(idf);
                 item.goods_num = goods_num;
                 if (item.isChecked) {
                     count_num = count_num + 1;
@@ -266,88 +310,169 @@ class Cart extends Component {
         })
 
     }
+    //同步服务器
+    async cart2server(user_key,cart_list){
+        // console.log(111);
+        
+        let datas = {
+            init_name : "熬夜冠军",
+            cart_list
+        }
+        //datas = JSON.stringify(datas)
+        let data = await api.getData("/cartlist/update", {
+            params: {
+                user_key,
+                datas
+            }
+        });
+    }
+    componentWillUnmount(){
+        let user_key = localStorage.getItem('user_key');
+        
+        let {cart_list} = this.state;
+
+        // console.log("我准备卸载了哦========",cart_list);
+
+        this.cart2server(user_key,cart_list);
+    }
     render() {
-        console.log(this.state);
+        // console.log("now",this.state);
 
         let { cart_list } = this.state;
+
+        // console.log("判断显示",this.state.requireAuth,cart_list.length,);
+        
 
         return (
             <div className={`cont ${styles.cont}`}>
                 <div className={`header ${styles.header}`}>
-                    <div className={styles.header_wrap}>
-                        <div className={styles.header_l}>
-                            <a href="javascript:;">
-                                <i className={styles.back}></i>
-                            </a>
-                        </div>
-                        <div className={styles.header_title}>
-                            <h1>购物车 <i id="cart_mum"></i></h1>
-                        </div>
-                        <div className={styles.header_edit}>
-                            <span className={styles.edit_cart} id="edit_btn">编辑</span>
-                        </div>
-                        <div className={styles.header_r}>
-                            <a id="header-nav" href="javascript:void(0);">
-                                <i className={styles.more}></i>
-                                <sup></sup>
-                            </a>
-                        </div>
-                    </div>
+                    {
+                        this.state.requireAuth ? (
+                        <div className={styles.header_wrap}>
+                            <div className={styles.header_l}>
+                                <a href="javascript:;">
+                                    <i className={styles.back}></i>
+                                </a>
+                            </div>
+                            <div className={styles.header_title}>
+                                <h1>购物车 <i id="cart_mum"></i></h1>
+                            </div>
+                            <div className={styles.header_edit}>
+                                <span className={styles.edit_cart} id="edit_btn">编辑</span>
+                            </div>
+                            <div className={styles.header_r}>
+                                <a id="header-nav" href="javascript:void(0);">
+                                    <i className={styles.more}></i>
+                                    <sup></sup>
+                                </a>
+                            </div>
+                        </div>) : (<div className={styles.header_wrap}>
+                            <div className={styles.header_title}>
+                                <h1>购物车 <i id="cart_mum"></i></h1>
+                            </div>
+                        </div>)
+                    }                  
                 </div>
                 <div className={`main ${styles.main}`}>
-                    <div className={styles.cart_list}>
-                        {
-                            cart_list.map((item, index) => {
-                                return (
-                                    <div className={styles.goods_layer} key={item.store_id}>
-                                        <div className={styles.goods_store}>
-                                            <div className={styles.chose}>
-                                                <input type="checkbox" checked={item.isStoreChecked} onChange={this.handleCheckStore.bind(this, index)} />
+                {
+                    this.state.requireAuth ? 
+                    (cart_list.length === 0 ? 
+                        (<div>
+                            <div className={styles.noLog}>
+                                <img src={this.state.noLogImg} alt=""/>
+                                <p>愿望满满，但车还是空的！</p>
+                                <a href="javascript::void(0)" className="styles.btn" onClick={()=>{
+                                    let {history} = this.props;
+                                    history.replace('/home')
+                                }}>去抢购</a>
+                            </div>
+                        </div>) 
+                        : (<PullToRefresh
+                        damping={60}
+                        ref={el => this.ptr = el}
+                        style={{
+                        height: this.state.height,
+                        overflow: 'auto',
+                        }}
+                        indicator={this.state.down ? {} : { deactivate: '上拉可以刷新' }}
+                        direction={this.state.down ? 'down' : 'up'}
+                        refreshing={this.state.refreshing}
+                        onRefresh={() => {
+                        this.setState({ refreshing: true });
+                        setTimeout(() => {
+                            this.setState({ refreshing: false });
+                        }, 1000);
+                        }}>
+                            <div className={styles.cart_list}>
+                            {
+                                cart_list.map((item, index) => {
+                                    return (
+                                        <div className={styles.goods_layer} key={item.store_id}>
+                                            <div className={styles.goods_store}>
+                                                <div className={styles.chose}>
+                                                    <input type="checkbox" checked={item.isStoreChecked} onChange={this.handleCheckStore.bind(this, index)} />
+                                                </div>
+                                                <span className={styles.goods_store_name}>{item.store_name}</span>
+                                                <div className={styles.goods_store_tips}>
+                                                    <i></i>
+                                                    {/* <span>满{item.free_freight_price}元免运费 !</span> */}
+                                                    <span>满88元免运费 !</span>
+                                                </div>
                                             </div>
-                                            <span className={styles.goods_store_name}>{item.store_name}</span>
-                                            <div className={styles.goods_store_tips}>
-                                                <i></i>
-                                                <span>满{item.free_freight_price}元免运费 !</span>
-                                            </div>
-                                        </div>
-                                        {
-                                            item.goods.map(item => {
-                                                return (
-                                                    <div className={styles.goods_info} key={item.goods_id}>
-                                                        <div className={styles.chose}>
-                                                            <input type="checkbox" checked={item.isChecked} onChange={this.handleCheck.bind(this, item.goods_id)} />
-                                                        </div>
-                                                        <div className={styles.goods_img} >
-                                                            <a href="#">
-                                                                <img src={item.goods_image_url} alt="" />
-                                                            </a>
-                                                        </div>
-                                                        <div className={styles.goods_text}>
-                                                            <dl>
-                                                                <dt className={styles.goods_name}>
-                                                                    <a href="#">{item.goods_name}</a>
-                                                                </dt>
-                                                                <dd className={styles.goods_type}>{item.goods_spec}</dd>
-                                                            </dl>
-                                                            <div className={styles.price_num}>
-                                                                <div className={styles.goods_price}>¥<span>{item.goods_price}</span></div>
-                                                                <div className={styles.goods_control}>
-                                                                    <button onClick={this.decrease.bind(this, item.goods_num, item.goods_id, item.store_id, index)} className={styles.control}>-</button>
-                                                                    <p ref={item.goods_id} className={styles.show_num}>{item.goods_num}</p>
-                                                                    <button onClick={this.increase.bind(this, item.goods_num, item.goods_id, item.store_id, index)} className={styles.control}>+</button>
+                                            {
+                                                item.goods.map(item => {
+                                                    return (
+                                                        <div className={styles.goods_info} key={item.goods_id}>
+                                                            <div className={styles.chose}>
+                                                                <input type="checkbox" checked={item.isChecked} onChange={this.handleCheck.bind(this, item.goods_id)} />
+                                                            </div>
+                                                            <div className={styles.goods_img} >
+                                                                <a href="#">
+                                                                    <img src={item.goods_image_url} alt="" />
+                                                                </a>
+                                                            </div>
+                                                            <div className={styles.goods_text}>
+                                                                <dl>
+                                                                    <dt className={styles.goods_name}>
+                                                                        <a href="#">{item.goods_name}</a>
+                                                                    </dt>
+                                                                    <dd className={styles.goods_type}>{item.goods_spec}</dd>
+                                                                </dl>
+                                                                <div className={styles.price_num}>
+                                                                    <div className={styles.goods_price}>¥<span>{item.goods_price}</span></div>
+                                                                    <div className={styles.goods_control}>
+                                                                        <button onClick={this.decrease.bind(this, item.goods_num, item.goods_id, item.store_id, index)} className={styles.control}>-</button>
+                                                                        <p ref={item.goods_id} className={styles.show_num}>{item.goods_num}</p>
+                                                                        <button onClick={this.increase.bind(this, item.goods_num, item.goods_id, item.store_id, index)} className={styles.control}>+</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                    <div className={styles.goods_cart_bottom}>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                        
+                                    )
+                                })
+                            }
+                        </div>
+                        </PullToRefresh>)   
+                    )
+                    :(<div>
+                        <div className={styles.noLog}>
+                            <img src={this.state.noLogImg} alt=""/>
+                            <p>愿望满满，登录后好货才能送到手中！</p>
+                            <a href="javascript::void(0)" className="styles.btn" onClick={()=>{
+                                let {history} = this.props;
+                                history.replace('/login')
+                            }}>去登录</a>
+                        </div>
+                    </div>)                   
+                }
+                
+                    {
+                        (this.state.requireAuth && cart_list.length !== 0 ) ? <div className={styles.goods_cart_bottom}>
                         <div className={styles.chose}>
                             <input type="checkbox" checked={this.state.isAllChecked || false} onChange={this.handleCheckAll} />
                             <span>全选</span>
@@ -357,11 +482,22 @@ class Cart extends Component {
                             <span>¥{this.state.count_price.toFixed(2)}</span>
                         </div>
                         <button className={`${styles.check_out} ${this.state.count_num ? styles.active_pay : null}`}>结算({this.state.count_num})</button>
-                    </div>
+                    </div> : ""
+                    }
+                    
                 </div>
             </div>
         )
     }
 }
+
+
+let mapStateToProps = (state,ownprops)=>{
+    return {
+        cart_list:state.cart.cart_list
+    }
+}
+
+Cart = connect(mapStateToProps)(Cart);
 
 export default Cart;
